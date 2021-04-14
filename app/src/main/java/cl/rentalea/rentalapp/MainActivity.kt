@@ -1,11 +1,21 @@
 package cl.rentalea.rentalapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.annotation.LayoutRes
+import cl.rentalea.rentalapp.base.DataBindingActivity
+import cl.rentalea.rentalapp.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DataBindingActivity<ActivityMainBinding>() {
+
+    @LayoutRes
+    override fun getLayoutResId() = R.layout.activity_main
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding.apply {
+            lifecycleOwner = this@MainActivity
+        }
     }
+
+
 }
