@@ -1,7 +1,8 @@
-package cl.rentalea.rentalapp
+package cl.rentalea.rentalapp.ui
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import cl.rentalea.rentalapp.R
 import cl.rentalea.rentalapp.base.DataBindingActivity
 import cl.rentalea.rentalapp.databinding.ActivityMainBinding
 
