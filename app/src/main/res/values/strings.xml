@@ -2,4 +2,10 @@
     <string name="app_name">RentalApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_image">login image</string>
+    <string name="rut">Rut</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="hint_pass">Ingrese su contraseña</string>
+    <string name="hint_rut">Ingrese su rut sin puntos y con guión</string>
 </resources>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,7 +11,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.MainActivity">
+        android:background="@color/dark_grey"
+        android:theme="@style/LoginTheme"
+        tools:context=".ui.LoginActivity">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"
@@ -25,8 +26,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
 
             app:defaultNavHost="true"
-            app:navGraph="@navigation/main_graph" />
-
+            app:navGraph="@navigation/login_graph" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

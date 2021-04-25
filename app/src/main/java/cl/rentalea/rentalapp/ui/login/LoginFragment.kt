@@ -1,27 +1,28 @@
 package cl.rentalea.rentalapp.ui.login
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cl.rentalea.rentalapp.R
+import cl.rentalea.rentalapp.base.DataBindingFragment
+import cl.rentalea.rentalapp.databinding.FragmentLoginBinding
 
-class LoginFragment : Fragment() {
+class LoginFragment : DataBindingFragment<FragmentLoginBinding>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
-    }
+    override fun getLayoutRestId(): Int = R.layout.fragment_login
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            lifecycleOwner = this@LoginFragment
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.window?.statusBarColor = Color.TRANSPARENT
     }
 }
