@@ -3,6 +3,7 @@
     <color name="dark_grey">#181818</color>
     <color name="btn_red">#B70629</color>
     <color name="dark_status">#0A0A0A</color>
+    <color name="card_grey">#707070</color>
     <color name="white">#ffff</color>
     <color name="black">#000000</color>
 </resources>

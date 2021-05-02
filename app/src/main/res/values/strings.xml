@@ -8,4 +8,9 @@
     <string name="ingresar">Ingresar</string>
     <string name="hint_pass">Ingrese su contraseña</string>
     <string name="hint_rut">Ingrese su rut sin puntos y con guión</string>
+    <string name="back_button">back_ button</string>
+    <string name="ingreso_de_reports">Ingreso de reports</string>
+    <string name="report_icon">report_icon</string>
+    <string name="envio_de_reports">Envío de reports</string>
+    <string name="fecha">Fecha</string>
 </resources>
