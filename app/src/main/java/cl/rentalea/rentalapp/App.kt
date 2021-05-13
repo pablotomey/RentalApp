@@ -9,6 +9,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
+@Suppress("Unused")
 class App: Application() {
 
     override fun onCreate() {

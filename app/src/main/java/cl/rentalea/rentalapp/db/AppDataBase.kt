@@ -5,12 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import cl.rentalea.rentalapp.db.AppDataBase.Companion.DB_VERSION
+import cl.rentalea.rentalapp.db.dao.ReportDao
 import cl.rentalea.rentalapp.db.dao.UserDao
+import cl.rentalea.rentalapp.model.entity.Report
 import cl.rentalea.rentalapp.model.entity.User
 
-@Database(entities = [User::class], version = DB_VERSION, exportSchema = false )
+@Database(entities = [User::class, Report::class], version = DB_VERSION, exportSchema = false )
 abstract class AppDataBase : RoomDatabase() {
     abstract fun userDao(): UserDao
+    abstract fun reportDao(): ReportDao
 
     companion object {
         const val DB_VERSION = 1

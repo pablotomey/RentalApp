@@ -17,9 +17,22 @@
     <fragment
         android:id="@+id/firstReportFragment"
         android:name="cl.rentalea.rentalapp.ui.main.create_report.FirstReportFragment"
-        android:label="FirstReportFragment" >
+        android:label="FirstReportFragment"
+        tools:layout="@layout/fragment_first_report">
         <action
             android:id="@+id/action_firstReportFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_firstReportFragment_to_secondReportFragment"
+            app:destination="@id/secondReportFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/secondReportFragment"
+        android:name="cl.rentalea.rentalapp.ui.main.create_report.SecondReportFragment"
+        android:label="SecondReportFragment"
+        tools:layout="@layout/fragment_second_report">
+        <action
+            android:id="@+id/action_secondReportFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
 </navigation>

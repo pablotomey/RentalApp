@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="reportVM"
+            name="vm"
             type="cl.rentalea.rentalapp.viewmodel.ReportViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.create_report.FirstReportFragment">
+        tools:context=".ui.main.create_report.SecondReportFragment">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -24,37 +24,36 @@
                 android:orientation="vertical">
 
                 <include
-                    android:id="@+id/init_data_report"
-                    layout="@layout/fragment_init_report"
+                    android:id="@+id/viajes_data_report"
+                    layout="@layout/fragment_viajes_report"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"/>
 
                 <include
-                    android:id="@+id/vehiculo_data_report"
-                    layout="@layout/fragment_vehiculos_report"
+                    android:id="@+id/combustible_data_report"
+                    layout="@layout/fragment_combustible_report"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"/>
 
                 <include
-                    android:id="@+id/empresa_data_report"
-                    layout="@layout/fragment_empresa_report"
-                    app:layout_constraintTop_toBottomOf="@+id/vehiculo_data_report"
+                    android:id="@+id/jornada_data_report"
+                    layout="@layout/fragment_jornada_report"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@+id/vehiculo_data_report" />
 
                 <include
-                    android:id="@+id/horometro_data_report"
-                    layout="@layout/fragment_horometro_report"
-                    app:reportViewModel="@{reportVM}"
+                    android:id="@+id/firma_data_report"
+                    layout="@layout/fragment_firma_report"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_siguiente"
+                    android:id="@+id/btn_guardar"
                     style="@style/button_red"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -62,10 +61,9 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="@string/siguiente" />
+                    android:text="@string/guardar" />
 
             </LinearLayout>
-
 
         </androidx.core.widget.NestedScrollView>
 

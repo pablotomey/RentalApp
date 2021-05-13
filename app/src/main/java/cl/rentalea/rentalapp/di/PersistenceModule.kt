@@ -6,4 +6,6 @@ import org.koin.dsl.module
 
 val persistenceModule = module {
     single { AppDataBase.getInstance(androidApplication()) }
+    single { get<AppDataBase>().userDao() }
+    single { get<AppDataBase>().reportDao() }
 }

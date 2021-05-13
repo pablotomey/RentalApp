@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="reportViewModel"
+            type="cl.rentalea.rentalapp.viewmodel.ReportViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/horometro_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="@string/horometro_y_kilometraje"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- horómetro inicial input-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/horometro_inicial_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:hint="@string/horometro_inicial"
+            app:boxStrokeColor="@color/stroke_green"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:layout_constraintEnd_toStartOf="@id/horometro_final_input"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horometro_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/horometro_inicial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- horómetro final input-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/horometro_final_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:hint="@string/horometro_final"
+            android:enabled="false"
+            app:boxStrokeColor="@color/stroke_green"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/horometro_inicial_input"
+            app:layout_constraintTop_toBottomOf="@+id/horometro_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/horometro_final"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- diferencia horómetro input-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/diferencia_horometro_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:hint="@string/diferencia_horometro"
+            android:enabled="false"
+            app:boxStrokeColor="@color/stroke_green"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horometro_inicial_input">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/diferencia_horometro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- kilometraje inicial input-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/kilometraje_inicial_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:hint="@string/kilometraje_inicial"
+            app:boxStrokeColor="@color/stroke_green"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:layout_constraintEnd_toStartOf="@id/kilometraje_final_input"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/diferencia_horometro_input">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/kilometraje_inicial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- kilometraje final input-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/kilometraje_final_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:hint="@string/kilometraje_final"
+            app:boxStrokeColor="@color/stroke_green"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/kilometraje_inicial_input"
+            app:layout_constraintTop_toBottomOf="@+id/diferencia_horometro_input">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/kilometraje_final"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

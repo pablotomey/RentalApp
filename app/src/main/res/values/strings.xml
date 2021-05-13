@@ -13,4 +13,36 @@
     <string name="report_icon">report_icon</string>
     <string name="envio_de_reports">Envío de reports</string>
     <string name="fecha">Fecha</string>
+    <string name="numero_report">N° report</string>
+    <string name="equipo_o_maquina">Equipo o maquina</string>
+    <string name="tipo_de_equipo">Tipo de equipo</string>
+    <string name="patente">Patente</string>
+    <string name="obra">Obra</string>
+    <string name="empresa_mandante">Empresa mandante</string>
+    <string name="horometro_inicial">Horómetro inicial</string>
+    <string name="horometro_final">Horómetro final</string>
+    <string name="diferencia_horometro">Diferencia horómetro</string>
+    <string name="kilometraje_inicial">Kilometraje inicial</string>
+    <string name="kilometraje_final">Kilometraje final</string>
+    <string name="operador">Operador:</string>
+    <string name="información_del_vehiculo">Información del vehículo:</string>
+    <string name="informacion_de_obra_y_empresa">Información de obra y empresa:</string>
+    <string name="horometro_y_kilometraje">Horómetro y kilometraje:</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="informacion_de_viajes">Información de viajes:</string>
+    <string name="viajes_aridos">Viajes a áridos</string>
+    <string name="metros_cubicos_por_viaje">Metros cúbicos por viaje</string>
+    <string name="metros_cubicos_totales">Metros cúbicos totales</string>
+    <string name="informacion_de_combustible">Información de combustible:</string>
+    <string name="jornada_y_observaciones">Jornada y observaciones:</string>
+    <string name="jornada_de_trabajo">Jornada de trabajo</string>
+    <string name="observaciones">Observaciones</string>
+    <string name="firma_supervisor_de_faena">Firma supervisor de faena:</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="firma_chofer_u_operador">Firma chofer u operador:</string>
+    <string name="guardar">Guardar</string>
+    <string name="cantidad_de_litros_de_combustible">Cantidad de litros de combustible</string>
+    <string name="horometro_carga_comustible">Horómetro carga comustible</string>
+
 </resources>
