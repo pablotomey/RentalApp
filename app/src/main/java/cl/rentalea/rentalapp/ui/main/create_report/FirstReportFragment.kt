@@ -12,12 +12,15 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.DatePicker
 import android.widget.EditText
+import androidx.activity.addCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.core.text.isDigitsOnly
 import cl.rentalea.rentalapp.R
 import cl.rentalea.rentalapp.base.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentFirstReportBinding
 import cl.rentalea.rentalapp.utils.DatePickerFragment
 import cl.rentalea.rentalapp.utils.alert
+import cl.rentalea.rentalapp.utils.backToMain
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.equipos_list_item.*
 import kotlinx.android.synthetic.main.fragment_first_report.*
@@ -194,14 +197,26 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
         hInicial.addTextChangedListener(textWatcher)
     }
 
-
+    private fun backDialog() {
+        val dialog = requireContext().backToMain("Al salir del report perderá los cambios guardados, ¿desea continuar?")
+        dialog.show()
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+            nav!!.navigate(R.id.action_firstReportFragment_to_mainFragment)
+            arguments?.clear()
+            dialog.dismiss()
+        }
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         requireActivity().toolbar_title.text = ("Ingreso de report 1/2")
         requireActivity().btn_back.visibility = View.VISIBLE
         requireActivity().btn_back.setOnClickListener {
-            nav!!.navigate(R.id.action_firstReportFragment_to_mainFragment)
+            backDialog()
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            backDialog()
         }
     }
 

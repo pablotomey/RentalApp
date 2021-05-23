@@ -1,12 +1,16 @@
 package cl.rentalea.rentalapp.ui.main.create_report
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
+import androidx.appcompat.app.AlertDialog
 import cl.rentalea.rentalapp.R
 import cl.rentalea.rentalapp.base.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentSecondReportBinding
 import cl.rentalea.rentalapp.model.entity.Report
 import cl.rentalea.rentalapp.utils.alert
+import cl.rentalea.rentalapp.utils.backToMain
 import kotlinx.android.synthetic.main.toolbar_main.*
 import org.koin.android.viewmodel.ext.android.getViewModel
 
@@ -98,8 +102,34 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
                             firmaOperador.text.toString()
                         )
                     )
+
+                    showSaveReportDialog()
                 }
             }
+        }
+    }
+
+    private fun showSaveReportDialog() {
+        val alertDialog = AlertDialog.Builder(requireContext())
+        alertDialog.setTitle("Report Guardado")
+        alertDialog.setIcon(R.drawable.ic_check)
+        alertDialog.setMessage("Se ha guardado exitosamente el report.")
+        alertDialog.setPositiveButton("Aceptar") { dialog, which ->
+            nav?.navigate(R.id.action_secondReportFragment_to_mainFragment)
+            arguments?.clear()
+            dialog.dismiss()
+        }
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
+
+    private fun backDialog() {
+        val dialog = requireContext().backToMain("Al salir del report perderá los cambios guardados, ¿desea continuar?")
+        dialog.show()
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+            nav?.navigate(R.id.action_secondReportFragment_to_mainFragment)
+            arguments?.clear()
+            dialog.dismiss()
         }
     }
 
@@ -108,7 +138,11 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
         requireActivity().toolbar_title.text = ("Ingreso de report 2/2")
         requireActivity().btn_back.visibility = View.VISIBLE
         requireActivity().btn_back.setOnClickListener {
-            nav!!.navigate(R.id.action_secondReportFragment_to_mainFragment)
+            backDialog()
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            backDialog()
         }
     }
 

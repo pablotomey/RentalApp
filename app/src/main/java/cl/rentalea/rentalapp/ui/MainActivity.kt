@@ -17,6 +17,4 @@ class MainActivity : DataBindingActivity<ActivityMainBinding>() {
             lifecycleOwner = this@MainActivity
         }
     }
-
-
 }

@@ -21,7 +21,9 @@
         tools:layout="@layout/fragment_first_report">
         <action
             android:id="@+id/action_firstReportFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_firstReportFragment_to_secondReportFragment"
             app:destination="@id/secondReportFragment" />
@@ -33,6 +35,8 @@
         tools:layout="@layout/fragment_second_report">
         <action
             android:id="@+id/action_secondReportFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>
