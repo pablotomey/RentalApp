@@ -23,26 +23,55 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- jornada input-->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/jornada_input"
+            android:id="@+id/inicio_jornada_input"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:hint="@string/jornada_de_trabajo"
+            android:hint="@string/inicio_de_jornada"
             app:boxStrokeColor="@color/stroke_green"
             app:boxStrokeWidth="2dp"
             app:boxStrokeWidthFocused="3dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:endIconDrawable="@drawable/ic_time"
+            app:endIconMode="custom"
+            app:layout_constraintEnd_toStartOf="@id/fin_jornada_input"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/jornada_label">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/jornada"
+                android:id="@+id/inicio_jornada"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:clickable="true"
+                android:focusable="false"
+                android:inputType="time" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- horómetro combustible input-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fin_jornada_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:hint="@string/fin_de_jornada"
+            app:boxStrokeColor="@color/stroke_green"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:endIconDrawable="@drawable/ic_time"
+            app:endIconMode="custom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/inicio_jornada_input"
+            app:layout_constraintTop_toBottomOf="@+id/jornada_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fin_jornada"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="false"
+                android:inputType="time" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- observaciones input-->
@@ -56,9 +85,7 @@
             app:boxStrokeColor="@color/stroke_green"
             app:boxStrokeWidth="2dp"
             app:boxStrokeWidthFocused="3dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/jornada_input">
+            app:layout_constraintTop_toBottomOf="@+id/inicio_jornada_input">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/observaciones"

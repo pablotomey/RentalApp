@@ -30,4 +30,10 @@
         <item name="cardElevation">4dp</item>
         <item name="cardBackgroundColor">@color/card_grey</item>
     </style>
+
+    <style name="report_card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">5dp</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="cardBackgroundColor">@color/white</item>
+    </style>
 </resources>

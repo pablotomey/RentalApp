@@ -3,7 +3,7 @@ package cl.rentalea.rentalapp.ui.main
 import android.os.Bundle
 import android.view.View
 import cl.rentalea.rentalapp.R
-import cl.rentalea.rentalapp.base.DataBindingFragment
+import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentMainBinding
 import kotlinx.android.synthetic.main.toolbar_main.*
 
@@ -19,6 +19,10 @@ class MainFragment : DataBindingFragment<FragmentMainBinding>() {
 
         binding.modules.reportModule.setOnClickListener {
             nav!!.navigate(R.id.action_mainFragment_to_firstReportFragment)
+        }
+
+        binding.modules.sendReportModule.setOnClickListener {
+            nav!!.navigate(R.id.action_mainFragment_to_reportListFragment)
         }
     }
 

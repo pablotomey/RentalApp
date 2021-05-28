@@ -1,5 +1,6 @@
 package cl.rentalea.rentalapp.datasource
 
+import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.db.AppDataBase
 import cl.rentalea.rentalapp.model.entity.Report
 import cl.rentalea.rentalapp.model.entity.User
@@ -12,5 +13,9 @@ class DataSource(private val roomDataBase: AppDataBase) {
 
     suspend fun insertReport(report: Report) {
         roomDataBase.reportDao().addReport(report)
+    }
+
+    suspend fun getReports(): Respuesta<MutableList<Report>> {
+        return Respuesta.Success(roomDataBase.reportDao().getAllReports())
     }
 }

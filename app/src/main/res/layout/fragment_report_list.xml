@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.send_report.ReportListFragment">
+
+    <data>
+        <variable
+            name="vm"
+            type="cl.rentalea.rentalapp.viewmodel.ReportViewModel" />
+        <variable
+            name="reportAdapter"
+            type="cl.rentalea.rentalapp.ui.adapter.ReportListAdapter" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/reportListRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            loading="@{vm.isLoading()}"
+            alert="@{vm.hasError}"
+            adaptador="@{reportAdapter}"
+            visible="@{vm.isReportVisible()}"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        <androidx.appcompat.widget.AppCompatCheckedTextView
+            android:id="@+id/txt_clear_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            visible="@{vm.isIconVisible()}"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/card_grey"
+            android:drawableTop="@drawable/ic_clear"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:text="@string/no_se_han_creado_reportes"/>
+
+    </FrameLayout>
+</layout>

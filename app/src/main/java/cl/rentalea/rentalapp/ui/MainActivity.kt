@@ -3,7 +3,7 @@ package cl.rentalea.rentalapp.ui
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import cl.rentalea.rentalapp.R
-import cl.rentalea.rentalapp.base.DataBindingActivity
+import cl.rentalea.rentalapp.binding.DataBindingActivity
 import cl.rentalea.rentalapp.databinding.ActivityMainBinding
 
 class MainActivity : DataBindingActivity<ActivityMainBinding>() {

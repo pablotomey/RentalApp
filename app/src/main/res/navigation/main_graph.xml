@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mainFragment_to_firstReportFragment"
             app:destination="@id/firstReportFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_reportListFragment"
+            app:destination="@id/reportListFragment" />
     </fragment>
     <fragment
         android:id="@+id/firstReportFragment"
@@ -39,4 +42,9 @@
             app:popUpTo="@id/mainFragment"
             app:popUpToInclusive="true"/>
     </fragment>
+    <fragment
+        android:id="@+id/reportListFragment"
+        android:name="cl.rentalea.rentalapp.ui.main.send_report.ReportListFragment"
+        android:label="fragment_report_list"
+        tools:layout="@layout/fragment_report_list" />
 </navigation>

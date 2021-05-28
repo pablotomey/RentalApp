@@ -27,7 +27,8 @@ data class Report(
         val metros_cubicos_totales: String? = null,
         val litros_combustible: String,
         val horometro_combustible: String,
-        val jornada: String? = null,
+        val inicioJornada: String? = null,
+        val finJornada: String? = null,
         val observaciones: String? = null,
         val firma_supervisor: String? = null,
         val firma_operador: String? = null

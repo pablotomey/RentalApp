@@ -54,9 +54,9 @@
                 android:id="@+id/date_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="date"
                 android:clickable="true"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:inputType="date" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- n° report input-->

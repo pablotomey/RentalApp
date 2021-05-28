@@ -1,14 +1,15 @@
 package cl.rentalea.rentalapp.ui.main.create_report
 
-import android.app.Dialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import cl.rentalea.rentalapp.R
-import cl.rentalea.rentalapp.base.DataBindingFragment
+import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentSecondReportBinding
 import cl.rentalea.rentalapp.model.entity.Report
+import cl.rentalea.rentalapp.utils.TimePickerFragment
 import cl.rentalea.rentalapp.utils.alert
 import cl.rentalea.rentalapp.utils.backToMain
 import kotlinx.android.synthetic.main.toolbar_main.*
@@ -63,10 +64,19 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
         val metrosCubicosTotales = binding.viajesDataReport.metrosCubicosTotales
         val cantidadCombustible = binding.combustibleDataReport.cantidadCombustible
         val horometroCombustible = binding.combustibleDataReport.horometroCombustible
-        val jornada = binding.jornadaDataReport.jornada
+        val inicioJornada = binding.jornadaDataReport.inicioJornada
+        val finJornada = binding.jornadaDataReport.finJornada
         val observaciones = binding.jornadaDataReport.observaciones
         val firmaOperador = binding.firmaDataReport.firmaChofer
         val firmaSupervisorSi = binding.firmaDataReport.firmaSi
+
+        binding.jornadaDataReport.inicioJornada.setOnClickListener {
+            showTimePickerDialog(0)
+        }
+
+        binding.jornadaDataReport.finJornada.setOnClickListener {
+            showTimePickerDialog(1)
+        }
 
         binding.btnGuardar.setOnClickListener {
             when {
@@ -96,7 +106,8 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
                             metrosCubicosTotales.text.toString(),
                             cantidadCombustible.text.toString(),
                             horometroCombustible.text.toString(),
-                            jornada.text.toString(),
+                            inicioJornada.text.toString(),
+                            finJornada.text.toString(),
                             observaciones.text.toString(),
                             firmaSupervisor,
                             firmaOperador.text.toString()
@@ -107,6 +118,17 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
                 }
             }
         }
+    }
+
+    private fun showTimePickerDialog(op: Int) {
+        val timePickerFragment = TimePickerFragment.newInstance(TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+            val hour = if (hourOfDay < 10) "0$hourOfDay" else "$hourOfDay"
+            val min = if (minute < 10) "0$minute" else "$minute"
+            val time = "$hour:$min"
+            if (op == 0) binding.jornadaDataReport.inicioJornada.setText(time)
+            else binding.jornadaDataReport.finJornada.setText(time)
+        })
+        timePickerFragment.show(this.childFragmentManager, "timePicker")
     }
 
     private fun showSaveReportDialog() {
