@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import cl.rentalea.rentalapp.R
 import cl.rentalea.rentalapp.base.BaseViewHolder
-import cl.rentalea.rentalapp.model.entity.Report
+import cl.rentalea.rentalapp.db.entity.Report
 import cl.rentalea.rentalapp.utils.Constants.REPORT
 import kotlinx.android.synthetic.main.report_item_row.view.*
 
@@ -39,7 +39,6 @@ class ReportListAdapter(val context: Context, private val reportList: MutableLis
 
             itemView.report_row.setOnClickListener {
                 reportClickListener.onReportClick(item, position)
-                REPORT = reportList[position]
             }
         }
     }

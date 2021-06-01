@@ -1,7 +1,6 @@
 package cl.rentalea.rentalapp
 
 import android.app.Application
-import cl.rentalea.rentalapp.di.networkModule
 import cl.rentalea.rentalapp.di.persistenceModule
 import cl.rentalea.rentalapp.di.repositoryModule
 import cl.rentalea.rentalapp.di.viewModelModule
@@ -17,7 +16,6 @@ class App: Application() {
 
         startKoin {
             androidContext(this@App)
-            modules(networkModule)
             modules(persistenceModule)
             modules(repositoryModule)
             modules(viewModelModule)

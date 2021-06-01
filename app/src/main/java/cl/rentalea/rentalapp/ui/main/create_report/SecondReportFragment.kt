@@ -8,7 +8,9 @@ import androidx.appcompat.app.AlertDialog
 import cl.rentalea.rentalapp.R
 import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentSecondReportBinding
-import cl.rentalea.rentalapp.model.entity.Report
+import cl.rentalea.rentalapp.db.entity.Report
+import cl.rentalea.rentalapp.utils.Constants
+import cl.rentalea.rentalapp.utils.Constants.OPERATOR
 import cl.rentalea.rentalapp.utils.TimePickerFragment
 import cl.rentalea.rentalapp.utils.alert
 import cl.rentalea.rentalapp.utils.backToMain
@@ -58,6 +60,8 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
             vm = getViewModel()
             lifecycleOwner = this@SecondReportFragment
         }
+
+        binding.op = OPERATOR
 
         val viajesAridos = binding.viajesDataReport.viajesAridos
         val metrosCubicosViaje = binding.viajesDataReport.metrosCubicosViaje

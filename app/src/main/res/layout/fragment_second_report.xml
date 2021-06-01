@@ -7,6 +7,10 @@
         <variable
             name="vm"
             type="cl.rentalea.rentalapp.viewmodel.ReportViewModel" />
+
+        <variable
+            name="op"
+            type="cl.rentalea.rentalapp.db.entity.User" />
     </data>
 
     <FrameLayout
@@ -50,7 +54,8 @@
                     layout="@layout/fragment_firma_report"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="10dp"
+                    app:operator="@{op}"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_guardar"

@@ -28,8 +28,9 @@ class MainFragment : DataBindingFragment<FragmentMainBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        requireActivity().toolbar_title.text = ("Rental Reportes")
-        requireActivity().btn_back.visibility = View.INVISIBLE
+        requireActivity().btn_back.visibility = View.GONE
+        requireActivity().toolbar_title.visibility = View.GONE
+        requireActivity().logo_toolbar.visibility = View.VISIBLE
     }
 
 

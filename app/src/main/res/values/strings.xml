@@ -47,5 +47,24 @@
     <string name="no_se_han_creado_reportes">No se han creado reportes.</string>
     <string name="inicio_de_jornada">Inicio de jornada</string>
     <string name="fin_de_jornada">Fin de jornada</string>
+    <string name="editar">Editar</string>
+    <string name="enviar">Enviar</string>
+    <string name="firma_de_supervisor_de_faena">Firma de supervisor de faena:</string>
+    <string name="horometro_carga_de_combustible">Horómetro carga de combustible:</string>
+    <string name="cantidad_lts_combustible">Cantidad lts. combustible:</string>
+    <string name="metros_cubicos_totales_send">Metros cúbicos totales:</string>
+    <string name="metros_cubicos_por_viaje_send">Metros cúbicos por viaje:</string>
+    <string name="viajes_a_aridos">Viajes a áridos:</string>
+    <string name="kilometraje_final_send">Kilometraje final:</string>
+    <string name="kilometraje_inicial_send">Kilometraje inicial:</string>
+    <string name="dif_hor">Dif. hor:</string>
+    <string name="hor_final">Hor. final:</string>
+    <string name="hor_inicial">Hor. inicial:</string>
+    <string name="empresa">Empresa:</string>
+    <string name="obra_send">Obra:</string>
+    <string name="patente_send">Patente:</string>
+    <string name="tipo_de_equipo_send">Tipo de Equipo:</string>
+    <string name="equipo">Equipo:</string>
+    <string name="reporte_n">Reporte N°:</string>
 
 </resources>

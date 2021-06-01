@@ -5,29 +5,28 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import cl.rentalea.rentalapp.base.Respuesta
-import cl.rentalea.rentalapp.db.entity.User
-import cl.rentalea.rentalapp.domain.LoginUseCase
+import cl.rentalea.rentalapp.db.entity.Report
+import cl.rentalea.rentalapp.domain.SendReportUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
-class LoginViewModel(private val loginRepository: LoginUseCase): ViewModel() {
+class SendReportViewModel(private val sendReportRepository: SendReportUseCase): ViewModel() {
 
     val isLoading = MutableLiveData(false)
     val hasError = MutableLiveData<String>()
 
-    fun obtenerUsuario(rut: String, password: String) = liveData(Dispatchers.IO) {
+    fun sendReport(report: Report) = liveData(Dispatchers.IO) {
         emit(Respuesta.Loading())
         try {
-            emit(loginRepository.getUser(rut, password))
+            emit(sendReportRepository.sendReport(report))
         } catch (e: Exception) {
-            emit(Respuesta.Failure(e.message.toString()))
+            Respuesta.Failure(e.message!!)
         }
     }
 
-    fun guardarUsuario(user: User) {
+    fun deleteReport(report: Report) {
         viewModelScope.launch {
-            loginRepository.insertUser(user)
+            sendReportRepository.deleteReport(report)
         }
     }
 }

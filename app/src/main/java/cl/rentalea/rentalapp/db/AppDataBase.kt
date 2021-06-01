@@ -7,8 +7,8 @@ import androidx.room.RoomDatabase
 import cl.rentalea.rentalapp.db.AppDataBase.Companion.DB_VERSION
 import cl.rentalea.rentalapp.db.dao.ReportDao
 import cl.rentalea.rentalapp.db.dao.UserDao
-import cl.rentalea.rentalapp.model.entity.Report
-import cl.rentalea.rentalapp.model.entity.User
+import cl.rentalea.rentalapp.db.entity.Report
+import cl.rentalea.rentalapp.db.entity.User
 
 @Database(entities = [User::class, Report::class], version = DB_VERSION, exportSchema = false )
 abstract class AppDataBase : RoomDatabase() {

@@ -62,23 +62,21 @@ dependencies {
     implementation "org.koin:koin-android-scope:2.0.1"
     implementation "org.koin:koin-android-viewmodel:2.0.1"
 
-    // Network
-    implementation "com.github.skydoves:sandwich:1.0.4"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
-    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
-
     // Room
     implementation "androidx.room:room-runtime:2.2.6"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.firebase:firebase-firestore:22.0.0'
-    implementation 'com.google.firebase:firebase-auth:20.0.1'
     kapt "androidx.room:room-compiler:2.2.6"
     implementation "androidx.room:room-ktx:2.2.6"
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-firestore:22.0.0'
+    implementation 'com.google.firebase:firebase-auth:20.0.1'
 
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
     // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
 
     testImplementation 'junit:junit:4.+'

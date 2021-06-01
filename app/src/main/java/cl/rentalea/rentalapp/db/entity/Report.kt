@@ -1,4 +1,4 @@
-package cl.rentalea.rentalapp.model.entity
+package cl.rentalea.rentalapp.db.entity
 
 import android.os.Parcelable
 import androidx.room.Entity

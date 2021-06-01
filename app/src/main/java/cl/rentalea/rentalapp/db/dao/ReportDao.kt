@@ -1,10 +1,7 @@
 package cl.rentalea.rentalapp.db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import cl.rentalea.rentalapp.model.entity.Report
+import androidx.room.*
+import cl.rentalea.rentalapp.db.entity.Report
 
 @Dao
 interface ReportDao {
@@ -14,4 +11,7 @@ interface ReportDao {
 
     @Query("SELECT * FROM Report")
     suspend fun getAllReports(): MutableList<Report>
+
+    @Delete
+    suspend fun deleteReport(report: Report)
 }

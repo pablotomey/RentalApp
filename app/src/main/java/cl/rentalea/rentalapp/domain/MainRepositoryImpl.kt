@@ -1,9 +1,9 @@
-package cl.rentalea.rentalapp.repository
+package cl.rentalea.rentalapp.domain
 
 import cl.rentalea.rentalapp.base.Respuesta
-import cl.rentalea.rentalapp.datasource.DataSource
-import cl.rentalea.rentalapp.model.entity.Report
-import cl.rentalea.rentalapp.model.entity.User
+import cl.rentalea.rentalapp.db.datasource.DataSource
+import cl.rentalea.rentalapp.db.entity.Report
+import cl.rentalea.rentalapp.db.entity.User
 
 class MainRepositoryImpl(private val dataSource: DataSource): MainRepository {
     override suspend fun insertUser(user: User) {

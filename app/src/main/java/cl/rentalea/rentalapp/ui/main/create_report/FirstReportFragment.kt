@@ -1,7 +1,6 @@
 package cl.rentalea.rentalapp.ui.main.create_report
 
 import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,8 +13,8 @@ import androidx.core.text.isDigitsOnly
 import cl.rentalea.rentalapp.R
 import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentFirstReportBinding
+import cl.rentalea.rentalapp.utils.Constants.OPERATOR
 import cl.rentalea.rentalapp.utils.DatePickerFragment
-import cl.rentalea.rentalapp.utils.TimePickerFragment
 import cl.rentalea.rentalapp.utils.alert
 import cl.rentalea.rentalapp.utils.backToMain
 import com.google.android.material.textfield.TextInputLayout
@@ -50,6 +49,8 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
         binding.apply {
             lifecycleOwner = this@FirstReportFragment
         }
+
+        binding.op = OPERATOR
 
         val operador = binding.initDataReport.operatorName
         val date = binding.initDataReport.dateInput
@@ -204,6 +205,8 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        requireActivity().toolbar_title.visibility = View.VISIBLE
+        requireActivity().logo_toolbar.visibility = View.GONE
         requireActivity().toolbar_title.text = ("Ingreso de report 1/2")
         requireActivity().btn_back.visibility = View.VISIBLE
         requireActivity().btn_back.setOnClickListener {

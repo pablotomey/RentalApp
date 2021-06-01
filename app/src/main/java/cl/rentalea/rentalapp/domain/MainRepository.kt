@@ -1,8 +1,8 @@
-package cl.rentalea.rentalapp.repository
+package cl.rentalea.rentalapp.domain
 
 import cl.rentalea.rentalapp.base.Respuesta
-import cl.rentalea.rentalapp.model.entity.Report
-import cl.rentalea.rentalapp.model.entity.User
+import cl.rentalea.rentalapp.db.entity.Report
+import cl.rentalea.rentalapp.db.entity.User
 
 interface MainRepository {
 

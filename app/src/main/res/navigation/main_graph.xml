@@ -46,5 +46,23 @@
         android:id="@+id/reportListFragment"
         android:name="cl.rentalea.rentalapp.ui.main.send_report.ReportListFragment"
         android:label="fragment_report_list"
-        tools:layout="@layout/fragment_report_list" />
+        tools:layout="@layout/fragment_report_list" >
+        <action
+            android:id="@+id/action_reportListFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_reportListFragment_to_sendReportFragment"
+            app:destination="@id/sendReportFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sendReportFragment"
+        android:name="cl.rentalea.rentalapp.ui.main.send_report.SendReportFragment"
+        android:label="fragment_send_report"
+        tools:layout="@layout/fragment_send_report" >
+        <action
+            android:id="@+id/action_sendReportFragment_to_reportListFragment"
+            app:destination="@id/reportListFragment" />
+    </fragment>
 </navigation>

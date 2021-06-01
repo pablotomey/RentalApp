@@ -5,7 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable
+            name="operator"
+            type="cl.rentalea.rentalapp.db.entity.User" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:textSize="16sp"
+            android:text="@{operator.nombre}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/operator_label"
             app:layout_constraintTop_toTopOf="parent" />

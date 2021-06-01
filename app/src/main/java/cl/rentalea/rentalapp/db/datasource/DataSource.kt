@@ -1,9 +1,9 @@
-package cl.rentalea.rentalapp.datasource
+package cl.rentalea.rentalapp.db.datasource
 
 import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.db.AppDataBase
-import cl.rentalea.rentalapp.model.entity.Report
-import cl.rentalea.rentalapp.model.entity.User
+import cl.rentalea.rentalapp.db.entity.Report
+import cl.rentalea.rentalapp.db.entity.User
 
 class DataSource(private val roomDataBase: AppDataBase) {
 
@@ -17,5 +17,9 @@ class DataSource(private val roomDataBase: AppDataBase) {
 
     suspend fun getReports(): Respuesta<MutableList<Report>> {
         return Respuesta.Success(roomDataBase.reportDao().getAllReports())
+    }
+
+    suspend fun deleteReport(report: Report) {
+        roomDataBase.reportDao().deleteReport(report)
     }
 }

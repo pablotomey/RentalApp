@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import cl.rentalea.rentalapp.base.Respuesta
-import cl.rentalea.rentalapp.model.entity.Report
-import cl.rentalea.rentalapp.repository.MainRepository
+import cl.rentalea.rentalapp.db.entity.Report
+import cl.rentalea.rentalapp.domain.MainRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
