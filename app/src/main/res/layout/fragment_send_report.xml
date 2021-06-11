@@ -16,7 +16,7 @@
 
         <variable
             name="sendReportViewModel"
-            type="cl.rentalea.rentalapp.viewmodel.SendReportViewModel" />
+            type="cl.rentalea.rentalapp.viewmodel.ReportViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

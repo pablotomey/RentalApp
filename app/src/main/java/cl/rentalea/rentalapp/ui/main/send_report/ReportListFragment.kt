@@ -23,30 +23,30 @@ class ReportListFragment : DataBindingFragment<FragmentReportListBinding>(), Rep
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            vm = getViewModel()
+            reportViewModel = getViewModel()
             lifecycleOwner = this@ReportListFragment
         }
 
         DLOADING = DialogLoading(requireContext(), "Cargando reportes")
 
-        binding.vm?.getReports()?.observe(this, Observer { reportsResponse ->
+        binding.reportViewModel?.getReports()?.observe(this, Observer { reportsResponse ->
             when (reportsResponse) {
-                is Respuesta.Loading -> binding.vm?.isLoading?.value = true
+                is Respuesta.Loading -> binding.reportViewModel?.isLoading?.value = true
                 is Respuesta.Success -> {
-                    binding.vm?.isLoading?.value = false
+                    binding.reportViewModel?.isLoading?.value = false
                     if (reportsResponse.data.isNullOrEmpty()) {
-                        binding.vm?.isReportVisible?.value = false
-                        binding.vm?.isIconVisible?.value = true
-                        binding.vm?.hasError?.value = "No tiene reportes registrados."
+                        binding.reportViewModel?.isReportVisible?.value = false
+                        binding.reportViewModel?.isIconVisible?.value = true
+                        binding.reportViewModel?.hasError?.value = "No tiene reportes registrados."
                     }
                     else {
                         binding.reportAdapter = ReportListAdapter(requireContext(), reportsResponse.data, this)
-                        binding.vm?.isReportVisible?.value = true
-                        binding.vm?.isIconVisible?.value = false
+                        binding.reportViewModel?.isReportVisible?.value = true
+                        binding.reportViewModel?.isIconVisible?.value = false
                     }
 
                 }
-                is Respuesta.Failure -> binding.vm?.hasError?.value = "No se cargaron los reportes."
+                is Respuesta.Failure -> binding.reportViewModel?.hasError?.value = "No se cargaron los reportes."
             }
         })
     }

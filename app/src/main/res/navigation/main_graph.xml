@@ -64,5 +64,16 @@
         <action
             android:id="@+id/action_sendReportFragment_to_reportListFragment"
             app:destination="@id/reportListFragment" />
+        <action
+            android:id="@+id/action_sendReportFragment_to_updateReportFragment"
+            app:destination="@id/updateReportFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateReportFragment"
+        android:name="cl.rentalea.rentalapp.ui.main.update_report.UpdateReportFragment"
+        android:label="UpdateReportFragment" >
+        <action
+            android:id="@+id/action_updateReportFragment_to_sendReportFragment"
+            app:destination="@id/sendReportFragment" />
     </fragment>
 </navigation>

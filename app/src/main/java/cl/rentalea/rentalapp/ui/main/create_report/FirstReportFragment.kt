@@ -5,12 +5,13 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.EditText
+import android.widget.*
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.text.isDigitsOnly
+import androidx.lifecycle.observe
 import cl.rentalea.rentalapp.R
+import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentFirstReportBinding
 import cl.rentalea.rentalapp.utils.Constants.OPERATOR
@@ -22,6 +23,8 @@ import kotlinx.android.synthetic.main.equipos_list_item.*
 import kotlinx.android.synthetic.main.fragment_first_report.*
 import kotlinx.android.synthetic.main.fragment_vehiculos_report.*
 import kotlinx.android.synthetic.main.toolbar_main.*
+import org.koin.android.viewmodel.ext.android.getViewModel
+import timber.log.Timber
 import java.util.*
 
 class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
@@ -47,6 +50,7 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            reportViewModel = getViewModel()
             lifecycleOwner = this@FirstReportFragment
         }
 
@@ -57,7 +61,7 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
         val numeroReport = binding.initDataReport.reportNumber
         val equipo = binding.vehiculoDataReport.equipoOption
         val tipoEquipo = binding.vehiculoDataReport.tipoEquipoOption
-        val patente = binding.vehiculoDataReport.patente
+        val patente = binding.vehiculoDataReport.patenteOption
         val obra = binding.empresaDataReport.obraReport
         val empresa = binding.empresaDataReport.empresaReport
         val horometroInicial = binding.horometroDataReport.horometroInicial
@@ -72,8 +76,9 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
             showDatePickerDialog()
         }
 
-        setEquiposAdapter()
         setTipoEquiposAdapter()
+        tipoEquipoSelectedListener(tipoEquipo, equipo, patente)
+        equipoSelectedListener(equipo, patente)
 
         diferenciaHorometroWatcher(horometroFinal, horometroInicial, diferenciaHorometro)
         enabledHorometroWatcher(horometroFinal,horometroInicial,horometroFinalInput ,diferenciaHorometro)
@@ -123,16 +128,61 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
         datePickerFragment.show(this.childFragmentManager, "datePicker")
     }
 
-    private fun setEquiposAdapter() {
-        val items = listOf("Maquina", "Equipo menor", "Vehiculo")
+    private fun setTipoEquiposAdapter() {
+        val items = listOf("MAQUINA", "VEHICULO LIVIANO", "VEHICULO PESADO", "OTROS")
         val adapter = ArrayAdapter(requireContext(), R.layout.equipos_list_item ,items)
+        (binding.vehiculoDataReport.tipoEquipoOption).setAdapter(adapter)
+    }
+
+    private fun setEquiposAdapter(tipoEquiposList: MutableList<String>) {
+        val adapter = ArrayAdapter(requireContext(), R.layout.equipos_list_item ,tipoEquiposList)
         (binding.vehiculoDataReport.equipoOption).setAdapter(adapter)
     }
 
-    private fun setTipoEquiposAdapter() {
-        val items = listOf("Camioneta", "Porter", "Furgón")
-        val adapter = ArrayAdapter(requireContext(), R.layout.equipos_list_item ,items)
-        (binding.vehiculoDataReport.tipoEquipoOption).setAdapter(adapter)
+    private fun setPatentesAdapter(equiposList: MutableList<String>) {
+        val adapter = ArrayAdapter(requireContext(), R.layout.equipos_list_item ,equiposList)
+        (binding.vehiculoDataReport.patenteOption).setAdapter(adapter)
+    }
+
+    private fun tipoEquipoSelectedListener(tipoEquipo: AutoCompleteTextView, equipo: AutoCompleteTextView, patente: AutoCompleteTextView) {
+        tipoEquipo.setOnItemClickListener { parent, view, position, id ->
+            equiposListObserver(tipoEquipo.text.toString())
+            equipo.isEnabled = true
+            equipo.setText("")
+            patente.setText("")
+        }
+    }
+
+    private fun equipoSelectedListener(equipo: AutoCompleteTextView, patente: AutoCompleteTextView) {
+        equipo.setOnItemClickListener { parent, view, position, id ->
+            patentesListObserver(equipo.text.toString())
+            patente.isEnabled = true
+            patente.setText("")
+        }
+    }
+
+    private fun equiposListObserver(tipoEquipo: String) {
+        binding.reportViewModel?.obtenerEquipos(tipoEquipo)?.observe(viewLifecycleOwner, androidx.lifecycle.Observer { response ->
+            when (response) {
+                is Respuesta.Loading -> {}
+                is Respuesta.Success -> {
+                    setEquiposAdapter(response.data)
+                }
+                is Respuesta.Failure -> {}
+            }
+        })
+    }
+
+    private fun patentesListObserver(equipo: String) {
+        binding.reportViewModel?.obtenerPatentes(equipo)?.observe(viewLifecycleOwner, androidx.lifecycle.Observer { response ->
+            when (response) {
+                is Respuesta.Loading -> {}
+                is Respuesta.Success -> {
+                    setPatentesAdapter(response.data)
+                }
+                is Respuesta.Failure -> {}
+            }
+        })
     }
 
     private fun diferenciaHorometroWatcher(hFinal: EditText, hInicial: EditText, dif: EditText) {

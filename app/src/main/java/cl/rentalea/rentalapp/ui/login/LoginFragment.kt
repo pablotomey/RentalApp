@@ -4,6 +4,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import androidx.lifecycle.Observer
 import cl.rentalea.rentalapp.R
 import cl.rentalea.rentalapp.base.Respuesta
@@ -13,7 +15,9 @@ import cl.rentalea.rentalapp.ui.MainActivity
 import cl.rentalea.rentalapp.utils.Constants.DLOADING
 import cl.rentalea.rentalapp.utils.Constants.OPERATOR
 import cl.rentalea.rentalapp.utils.DialogLoading
+import cl.rentalea.rentalapp.utils.validarRut
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.login_input_layout.view.*
 import org.koin.android.viewmodel.ext.android.getViewModel
 import timber.log.Timber
 
@@ -28,13 +32,14 @@ class LoginFragment : DataBindingFragment<FragmentLoginBinding>() {
             lifecycleOwner = this@LoginFragment
         }
 
-        btn_ingresar.setOnClickListener {
+        binding.loginInputs.btnIngresar.setOnClickListener {
 
             when {
-                rut_input.text.isNullOrEmpty() -> showInfoDialog("Debe ingresar su rut.")
-                pass_input.text.isNullOrEmpty() -> showInfoDialog("Debe Ingresar su contraseña.")
+                binding.loginInputs.rutInput.text.isNullOrEmpty() -> showInfoDialog("Debe ingresar su rut.")
+                !validarRut(binding.loginInputs.rutInput.text.toString()) -> showInfoDialog("Debe ingresar un rut valido.")
+                binding.loginInputs.passInput.text.isNullOrEmpty() -> showInfoDialog("Debe Ingresar su contraseña.")
                 else -> {
-                    getUserObserve(rut_input.text.toString(), pass_input.text.toString())
+                    getUserObserve(binding.loginInputs.rutInput.text.toString(), binding.loginInputs.passInput.text.toString())
                 }
             }
         }
@@ -48,13 +53,57 @@ class LoginFragment : DataBindingFragment<FragmentLoginBinding>() {
                     showProgressBar(false)
                     binding.loginVm?.guardarUsuario(response.data)
                     OPERATOR = response.data
-                    goToMainActivity()
-                    Timber.e("USER = ${response.data}")
+                    getVehiculosListObserve()
+                    Timber.e("${response.data}")
                 }
                 is Respuesta.Failure -> {
                     showProgressBar(false)
                     if (response.exception == "null") showInfoDialog("El Usuario no esta registrado, revise sus datos e intente nuevamente.")
                     else showInfoDialog(response.exception)
+                    Timber.e("ERROR -> ${response.exception}")
+                }
+            }
+        })
+    }
+
+    private fun getVehiculosListObserve() {
+        binding.loginVm?.obtenerListaVehiculos()?.observe(viewLifecycleOwner, Observer { response ->
+            when (response) {
+                is Respuesta.Loading -> showProgressBar(true)
+                is Respuesta.Success -> {
+                    showProgressBar(false)
+                    binding.loginVm?.eliminarVehiculos()
+                    for (vehiculo in response.data) {
+                        binding.loginVm?.guardarVehiculo(vehiculo)
+                    }
+                    getEquiposListObserve()
+                    Timber.e("${response.data}")
+                }
+                is Respuesta.Failure -> {
+                    showProgressBar(false)
+                    showInfoDialog(response.exception)
+                    Timber.e("ERROR -> ${response.exception}")
+                }
+            }
+        })
+    }
+
+    private fun getEquiposListObserve() {
+        binding.loginVm?.obtenerListaEquipos()?.observe(viewLifecycleOwner, Observer { response ->
+            when (response) {
+                is Respuesta.Loading -> showProgressBar(true)
+                is Respuesta.Success -> {
+                    showProgressBar(false)
+                    binding.loginVm?.eliminarEquipos()
+                    for (equipo in response.data) {
+                        binding.loginVm?.guardarEquipo(equipo)
+                    }
+                    goToMainActivity()
+                    Timber.e("${response.data}")
+                }
+                is Respuesta.Failure -> {
+                    showProgressBar(false)
+                    showInfoDialog(response.exception)
                     Timber.e("ERROR -> ${response.exception}")
                 }
             }

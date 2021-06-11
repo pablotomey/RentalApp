@@ -57,7 +57,7 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            vm = getViewModel()
+            reportViewModel = getViewModel()
             lifecycleOwner = this@SecondReportFragment
         }
 
@@ -89,7 +89,7 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
                 else -> {
                     val firmaSupervisor = if (firmaSupervisorSi.isChecked) "Si" else "No"
 
-                    binding.vm?.addReport(
+                    binding.reportViewModel?.addReport(
                         Report(
                             0,
                             operador,

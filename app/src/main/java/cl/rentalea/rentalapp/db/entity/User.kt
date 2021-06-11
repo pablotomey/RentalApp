@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 @Entity
 @Parcelize
 data class User(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = false) val id: Int = 1,
     @ColumnInfo(name = "operator_name") val nombre: String,
     @ColumnInfo(name = "dni") val rut: String,
     @ColumnInfo(name = "position") val cargo: String

@@ -12,8 +12,10 @@
       <w>cubicos</w>
       <w>cúbicos</w>
       <w>diferencia</w>
+      <w>eliminar</w>
       <w>empresa</w>
       <w>equipo</w>
+      <w>equipos</w>
       <w>firma</w>
       <w>guardar</w>
       <w>horometro</w>
@@ -27,12 +29,14 @@
       <w>intente</w>
       <w>jornada</w>
       <w>kilometraje</w>
+      <w>lista</w>
       <w>litros</w>
       <w>maquina</w>
       <w>nombre</w>
       <w>nuevamente</w>
       <w>obra</w>
       <w>observaciones</w>
+      <w>obtener</w>
       <w>operadores</w>
       <w>patente</w>
       <w>problemas</w>
@@ -44,6 +48,7 @@
       <w>totales</w>
       <w>trabajo</w>
       <w>usuario</w>
+      <w>validar</w>
       <w>vehiculo</w>
       <w>vehiculos</w>
       <w>viajes</w>

@@ -1,13 +1,34 @@
-package cl.rentalea.rentalapp.data.network
+package cl.rentalea.rentalapp.data.network.reportRepository
 
 import cl.rentalea.rentalapp.base.Respuesta
+import cl.rentalea.rentalapp.db.datasource.DataSource
 import cl.rentalea.rentalapp.db.entity.Report
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
-class SendReportRepoImpl: SendReportRepo {
+class ReportRepositoryImpl(private val dataSource: DataSource): ReportRepository {
 
     private val firestore = FirebaseFirestore.getInstance()
+
+    override suspend fun insertReport(report: Report) {
+        dataSource.insertReport(report)
+    }
+
+    override suspend fun getReports(): Respuesta<MutableList<Report>> {
+        return dataSource.getReports()
+    }
+
+    override suspend fun deleteReport(report: Report) {
+        dataSource.deleteReport(report)
+    }
+
+    override suspend fun getEquiposList(tipoEquipo: String): Respuesta<MutableList<String>> {
+        return dataSource.getEquiposList(tipoEquipo)
+    }
+
+    override suspend fun getPatentesList(equipo: String): Respuesta<MutableList<String>> {
+        return dataSource.getPatentesList(equipo)
+    }
 
     override suspend fun saveReportInFirestore(report: Report): Respuesta<Boolean> {
         val reportMap = hashMapOf(
@@ -37,7 +58,7 @@ class SendReportRepoImpl: SendReportRepo {
         )
 
         return try {
-            firestore.collection("reports").document().set(reportMap).await()
+            firestore.collection("reports").document(report.report_number).set(reportMap).await()
             Respuesta.Success(true)
         } catch (e: Exception) {
             Respuesta.Success(false)

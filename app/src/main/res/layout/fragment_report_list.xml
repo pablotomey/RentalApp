@@ -7,7 +7,7 @@
 
     <data>
         <variable
-            name="vm"
+            name="reportViewModel"
             type="cl.rentalea.rentalapp.viewmodel.ReportViewModel" />
         <variable
             name="reportAdapter"
@@ -22,10 +22,10 @@
             android:id="@+id/reportListRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            loading="@{vm.isLoading()}"
-            alert="@{vm.hasError}"
+            loading="@{reportViewModel.isLoading()}"
+            alert="@{reportViewModel.hasError}"
             adaptador="@{reportAdapter}"
-            visible="@{vm.isReportVisible()}"
+            visible="@{reportViewModel.isReportVisible()}"
             android:visibility="visible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
@@ -33,7 +33,7 @@
             android:id="@+id/txt_clear_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            visible="@{vm.isIconVisible()}"
+            visible="@{reportViewModel.isIconVisible()}"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/card_grey"

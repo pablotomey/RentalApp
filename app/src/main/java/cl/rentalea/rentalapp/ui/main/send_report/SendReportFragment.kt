@@ -1,11 +1,7 @@
 package cl.rentalea.rentalapp.ui.main.send_report
 
-import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
@@ -14,13 +10,14 @@ import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentSendReportBinding
 import cl.rentalea.rentalapp.db.entity.Report
+import cl.rentalea.rentalapp.utils.Constants
 import cl.rentalea.rentalapp.utils.Constants.OPERATOR
 import cl.rentalea.rentalapp.utils.Constants.REPORT
+import cl.rentalea.rentalapp.utils.DialogLoading
 import cl.rentalea.rentalapp.utils.alert
 import kotlinx.android.synthetic.main.toolbar_main.*
 import org.koin.android.viewmodel.ext.android.getViewModel
 import timber.log.Timber
-import java.util.zip.ZipEntry
 
 class SendReportFragment : DataBindingFragment<FragmentSendReportBinding>() {
 
@@ -32,9 +29,14 @@ class SendReportFragment : DataBindingFragment<FragmentSendReportBinding>() {
             sendReportViewModel = getViewModel()
             lifecycleOwner = this@SendReportFragment
         }
+        Constants.DLOADING = DialogLoading(requireContext(), "Enviando reporte")
         Timber.e("$REPORT")
         binding.report = REPORT!!
         binding.operator = OPERATOR!!
+
+        binding.sendBtnLayout.editBtn.setOnClickListener {
+            nav?.navigate(R.id.action_sendReportFragment_to_updateReportFragment)
+        }
 
         binding.sendBtnLayout.sendBtn.setOnClickListener {
             sendReportObserve(REPORT!!)

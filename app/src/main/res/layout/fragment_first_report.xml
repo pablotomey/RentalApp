@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="reportVM"
+            name="reportViewModel"
             type="cl.rentalea.rentalapp.viewmodel.ReportViewModel" />
 
         <variable
@@ -38,6 +38,7 @@
                 <include
                     android:id="@+id/vehiculo_data_report"
                     layout="@layout/fragment_vehiculos_report"
+                    app:vm="@{reportViewModel}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"/>
@@ -53,7 +54,6 @@
                 <include
                     android:id="@+id/horometro_data_report"
                     layout="@layout/fragment_horometro_report"
-                    app:reportViewModel="@{reportVM}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp" />
@@ -70,7 +70,6 @@
                     android:text="@string/siguiente" />
 
             </LinearLayout>
-
 
         </androidx.core.widget.NestedScrollView>
 
