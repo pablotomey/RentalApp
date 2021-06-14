@@ -5,21 +5,31 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import cl.rentalea.rentalapp.db.AppDataBase.Companion.DB_VERSION
-import cl.rentalea.rentalapp.db.dao.EquipoDao
-import cl.rentalea.rentalapp.db.dao.ReportDao
-import cl.rentalea.rentalapp.db.dao.UserDao
-import cl.rentalea.rentalapp.db.dao.VehiculoDao
-import cl.rentalea.rentalapp.db.entity.Equipo
-import cl.rentalea.rentalapp.db.entity.Report
-import cl.rentalea.rentalapp.db.entity.User
-import cl.rentalea.rentalapp.db.entity.Vehiculo
+import cl.rentalea.rentalapp.db.dao.*
+import cl.rentalea.rentalapp.db.entity.*
 
-@Database(entities = [User::class, Report::class, Equipo::class, Vehiculo::class], version = DB_VERSION, exportSchema = false )
+@Database(
+    entities = [
+        User::class,
+        Report::class,
+        Equipo::class,
+        Vehiculo::class,
+        Obra::class,
+        Empresa::class,
+        Material::class,
+        Aditamento::class,
+        Accesorio::class
+    ], version = DB_VERSION, exportSchema = false )
 abstract class AppDataBase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun reportDao(): ReportDao
     abstract fun equipoDao(): EquipoDao
     abstract fun vehiculoDao(): VehiculoDao
+    abstract fun obraDao(): ObraDao
+    abstract fun empresaDao(): EmpresaDao
+    abstract fun materialDao(): MaterialDao
+    abstract fun aditamentoDao(): AditamientoDao
+    abstract fun accesorioDao(): AccesorioDao
 
     companion object {
         const val DB_VERSION = 1

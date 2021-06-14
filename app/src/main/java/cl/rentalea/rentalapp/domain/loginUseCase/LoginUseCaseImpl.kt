@@ -2,9 +2,7 @@ package cl.rentalea.rentalapp.domain.loginUseCase
 
 import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.data.network.loginRepository.LoginRepository
-import cl.rentalea.rentalapp.db.entity.Equipo
-import cl.rentalea.rentalapp.db.entity.User
-import cl.rentalea.rentalapp.db.entity.Vehiculo
+import cl.rentalea.rentalapp.db.entity.*
 
 class LoginUseCaseImpl(private val loginRepository: LoginRepository): LoginUseCase {
 
@@ -24,6 +22,26 @@ class LoginUseCaseImpl(private val loginRepository: LoginRepository): LoginUseCa
         return loginRepository.getEquiposFromFirestore()
     }
 
+    override suspend fun getObrasFromFirestore(): Respuesta<MutableList<Obra>> {
+        return loginRepository.getObrasFromFirestore()
+    }
+
+    override suspend fun getEmpresasFromFirestore(): Respuesta<MutableList<Empresa>> {
+        return loginRepository.getEmpresasFromFirestore()
+    }
+
+    override suspend fun getMaterialesFromFirestore(): Respuesta<MutableList<Material>> {
+        return loginRepository.getMaterialesFromFirestore()
+    }
+
+    override suspend fun getAccesoriosFromFirestore(): Respuesta<MutableList<Accesorio>> {
+        return loginRepository.getAccesoriosFromFirestore()
+    }
+
+    override suspend fun getAditamentosFromFirestore(): Respuesta<MutableList<Aditamento>> {
+        return loginRepository.getAditamentosFromFirestore()
+    }
+
     override suspend fun insertVehiculos(vehiculo: Vehiculo) {
         loginRepository.insertVehiculos(vehiculo)
     }
@@ -34,6 +52,26 @@ class LoginUseCaseImpl(private val loginRepository: LoginRepository): LoginUseCa
 
     override suspend fun insertEquipos(equipo: Equipo) {
         loginRepository.insertEquipos(equipo)
+    }
+
+    override suspend fun insertObra(obra: Obra) {
+        loginRepository.insertObra(obra)
+    }
+
+    override suspend fun insertEmpresa(empresa: Empresa) {
+        loginRepository.insertEmpresa(empresa)
+    }
+
+    override suspend fun insertMaterial(material: Material) {
+        loginRepository.insertMaterial(material)
+    }
+
+    override suspend fun insertAccesorio(accesorio: Accesorio) {
+        loginRepository.insertAccesorio(accesorio)
+    }
+
+    override suspend fun insertAditamento(aditamento: Aditamento) {
+        loginRepository.insertAditamento(aditamento)
     }
 
     override suspend fun cleanEquipos() {

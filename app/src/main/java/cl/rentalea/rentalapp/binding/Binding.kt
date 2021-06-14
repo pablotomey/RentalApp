@@ -29,6 +29,13 @@ fun bindLoading(view: View, status: MutableLiveData<Boolean>) {
     }
 }
 
+@BindingAdapter("complete")
+fun bindComplete(view: View, status: MutableLiveData<Int>) {
+    if (status.value != null && status.value == 1) {
+        view.context.startActivity(Intent(view.context, MainActivity::class.java))
+    }
+}
+
 @BindingAdapter("visible")
 fun bindVisible(view: View, status: MutableLiveData<Boolean>) {
     view.visibility = if (status.value!!) View.VISIBLE else View.GONE

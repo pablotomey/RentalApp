@@ -8,8 +8,6 @@ import kotlinx.android.parcel.Parcelize
 @Entity
 @Parcelize
 data class Vehiculo(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val equipo: String,
-    val tipo_equipo: String,
-    val patente: String
+    @PrimaryKey val patente: String,
+    val equipo: String
 ): Parcelable

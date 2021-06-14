@@ -129,7 +129,7 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
     }
 
     private fun setTipoEquiposAdapter() {
-        val items = listOf("MAQUINA", "VEHICULO LIVIANO", "VEHICULO PESADO", "OTROS")
+        val items = listOf("MAQUINA", "MAQUINA CON ADITAMENTOS", "VEHICULO LIVIANO", "VEHICULO PESADO", "OTROS")
         val adapter = ArrayAdapter(requireContext(), R.layout.equipos_list_item ,items)
         (binding.vehiculoDataReport.tipoEquipoOption).setAdapter(adapter)
     }

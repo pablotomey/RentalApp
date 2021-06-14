@@ -5,9 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import cl.rentalea.rentalapp.base.Respuesta
-import cl.rentalea.rentalapp.db.entity.Equipo
-import cl.rentalea.rentalapp.db.entity.User
-import cl.rentalea.rentalapp.db.entity.Vehiculo
+import cl.rentalea.rentalapp.db.entity.*
 import cl.rentalea.rentalapp.domain.loginUseCase.LoginUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,6 +48,36 @@ class LoginViewModel(private val loginRepository: LoginUseCase): ViewModel() {
         }
     }
 
+    fun guardarObra(obra: Obra) {
+        viewModelScope.launch {
+            loginRepository.insertObra(obra)
+        }
+    }
+
+    fun guardarEmpresa(empresa: Empresa) {
+        viewModelScope.launch {
+            loginRepository.insertEmpresa(empresa)
+        }
+    }
+
+    fun guardarMaterial(material: Material) {
+        viewModelScope.launch {
+            loginRepository.insertMaterial(material)
+        }
+    }
+
+    fun guardarAditamento(aditamento: Aditamento) {
+        viewModelScope.launch {
+            loginRepository.insertAditamento(aditamento)
+        }
+    }
+
+    fun guardarAccesorio(accesorio: Accesorio) {
+        viewModelScope.launch {
+            loginRepository.insertAccesorio(accesorio)
+        }
+    }
+
     fun eliminarEquipos() {
         viewModelScope.launch {
             loginRepository.cleanEquipos()
@@ -69,6 +97,51 @@ class LoginViewModel(private val loginRepository: LoginUseCase): ViewModel() {
         emit(Respuesta.Loading())
         try {
             emit(loginRepository.getEquiposFromFirestore())
+        } catch (e: Exception) {
+            emit(Respuesta.Failure(e.message!!))
+        }
+    }
+
+    fun obtenerListaObras() = liveData(Dispatchers.IO) {
+        emit(Respuesta.Loading())
+        try {
+            emit(loginRepository.getObrasFromFirestore())
+        } catch (e: Exception) {
+            emit(Respuesta.Failure(e.message!!))
+        }
+    }
+
+    fun obtenerListaEmpresas() = liveData(Dispatchers.IO) {
+        emit(Respuesta.Loading())
+        try {
+            emit(loginRepository.getEmpresasFromFirestore())
+        } catch (e: Exception) {
+            emit(Respuesta.Failure(e.message!!))
+        }
+    }
+
+    fun obtenerListaMateriales() = liveData(Dispatchers.IO) {
+        emit(Respuesta.Loading())
+        try {
+            emit(loginRepository.getMaterialesFromFirestore())
+        } catch (e: Exception) {
+            emit(Respuesta.Failure(e.message!!))
+        }
+    }
+
+    fun obtenerListaAditamentos() = liveData(Dispatchers.IO) {
+        emit(Respuesta.Loading())
+        try {
+            emit(loginRepository.getAditamentosFromFirestore())
+        } catch (e: Exception) {
+            emit(Respuesta.Failure(e.message!!))
+        }
+    }
+
+    fun obtenerListaAccesorios() = liveData(Dispatchers.IO) {
+        emit(Respuesta.Loading())
+        try {
+            emit(loginRepository.getAccesoriosFromFirestore())
         } catch (e: Exception) {
             emit(Respuesta.Failure(e.message!!))
         }

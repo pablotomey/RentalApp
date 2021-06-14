@@ -7,8 +7,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Entity
 @Parcelize
-data class Equipo(
+data class Accesorio(
     @PrimaryKey val id: Int,
-    val equipo: String,
-    val tipo_equipo: String
+    val accesorio: String
 ): Parcelable

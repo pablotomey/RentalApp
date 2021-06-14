@@ -2,9 +2,7 @@ package cl.rentalea.rentalapp.data.network.loginRepository
 
 import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.db.datasource.DataSource
-import cl.rentalea.rentalapp.db.entity.Equipo
-import cl.rentalea.rentalapp.db.entity.User
-import cl.rentalea.rentalapp.db.entity.Vehiculo
+import cl.rentalea.rentalapp.db.entity.*
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
@@ -26,6 +24,26 @@ class LoginRepositoryImpl(private val dataSource: DataSource): LoginRepository {
 
     override suspend fun insertEquipos(equipo: Equipo) {
         dataSource.insertEquipos(equipo)
+    }
+
+    override suspend fun insertObra(obra: Obra) {
+        dataSource.insertObra(obra)
+    }
+
+    override suspend fun insertEmpresa(empresa: Empresa) {
+        dataSource.insertEmpresa(empresa)
+    }
+
+    override suspend fun insertMaterial(material: Material) {
+        dataSource.insertMaterial(material)
+    }
+
+    override suspend fun insertAccesorio(accesorio: Accesorio) {
+        dataSource.insertAccesorio(accesorio)
+    }
+
+    override suspend fun insertAditamento(aditamento: Aditamento) {
+        dataSource.insertAditamento(aditamento)
     }
 
     override suspend fun cleanEquipos() {
@@ -56,11 +74,8 @@ class LoginRepositoryImpl(private val dataSource: DataSource): LoginRepository {
         for (vehiculo in resultData) {
             vehiculosList.add(
                 Vehiculo(
-                    0,
-                    vehiculo.getString("equipo")!!,
-                    vehiculo.getString("tipo_equipo")!!,
-                    vehiculo.getString("patente")!!
-
+                    vehiculo.id,
+                    vehiculo.getString("equipo")!!
                 )
             )
         }
@@ -74,12 +89,87 @@ class LoginRepositoryImpl(private val dataSource: DataSource): LoginRepository {
         for (equipo in resultData) {
             equiposList.add(
                 Equipo(
-                    0,
+                    equipo.id.toInt(),
                     equipo.getString("equipo")!!,
                     equipo.getString("tipo_equipo")!!
                 )
             )
         }
         return Respuesta.Success(equiposList)
+    }
+
+    override suspend fun getObrasFromFirestore(): Respuesta<MutableList<Obra>> {
+        val obraList: MutableList<Obra> = mutableListOf()
+        val resultData = firestore.collection("obras").get().await()
+
+        for (obra in resultData) {
+            obraList.add(
+                Obra(
+                    obra.id.toInt(),
+                    obra.getString("obra")!!
+                )
+            )
+        }
+        return Respuesta.Success(obraList)
+    }
+
+    override suspend fun getEmpresasFromFirestore(): Respuesta<MutableList<Empresa>> {
+        val empresaList: MutableList<Empresa> = mutableListOf()
+        val resultData = firestore.collection("empresas").get().await()
+
+        for (empresa in resultData) {
+            empresaList.add(
+                Empresa(
+                    empresa.id.toInt(),
+                    empresa.getString("empresa")!!
+                )
+            )
+        }
+        return Respuesta.Success(empresaList)
+    }
+
+    override suspend fun getMaterialesFromFirestore(): Respuesta<MutableList<Material>> {
+        val materialList: MutableList<Material> = mutableListOf()
+        val resultData = firestore.collection("materiales").get().await()
+
+        for (material in resultData) {
+            materialList.add(
+                Material(
+                    material.id.toInt(),
+                    material.getString("tipo_material")!!
+                )
+            )
+        }
+        return Respuesta.Success(materialList)
+    }
+
+    override suspend fun getAccesoriosFromFirestore(): Respuesta<MutableList<Accesorio>> {
+        val accesorioList: MutableList<Accesorio> = mutableListOf()
+        val resultData = firestore.collection("accesorios").get().await()
+
+        for (accesorio in resultData) {
+            accesorioList.add(
+                Accesorio(
+                    accesorio.id.toInt(),
+                    accesorio.getString("accesorio")!!
+                )
+            )
+        }
+        return Respuesta.Success(accesorioList)
+    }
+
+    override suspend fun getAditamentosFromFirestore(): Respuesta<MutableList<Aditamento>> {
+        val aditamentolList: MutableList<Aditamento> = mutableListOf()
+        val resultData = firestore.collection("aditamentos").get().await()
+
+        for (aditamento in resultData) {
+            aditamentolList.add(
+                Aditamento(
+                    aditamento.id.toInt(),
+                    aditamento.getString("aditamento")!!
+                )
+            )
+        }
+        return Respuesta.Success(aditamentolList)
     }
 }

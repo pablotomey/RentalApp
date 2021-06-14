@@ -4,8 +4,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import androidx.lifecycle.Observer
 import cl.rentalea.rentalapp.R
 import cl.rentalea.rentalapp.base.Respuesta
@@ -98,6 +96,111 @@ class LoginFragment : DataBindingFragment<FragmentLoginBinding>() {
                     for (equipo in response.data) {
                         binding.loginVm?.guardarEquipo(equipo)
                     }
+                    getObrasListObserve()
+                    Timber.e("${response.data}")
+                }
+                is Respuesta.Failure -> {
+                    showProgressBar(false)
+                    showInfoDialog(response.exception)
+                    Timber.e("ERROR -> ${response.exception}")
+                }
+            }
+        })
+    }
+
+    private fun getObrasListObserve() {
+        binding.loginVm?.obtenerListaObras()?.observe(viewLifecycleOwner, Observer { response ->
+            when (response) {
+                is Respuesta.Loading -> showProgressBar(true)
+                is Respuesta.Success -> {
+                    showProgressBar(false)
+                    for (obra in response.data) {
+                        binding.loginVm?.guardarObra(obra)
+                    }
+                    getEmpresasListObserve()
+                    Timber.e("${response.data}")
+                }
+                is Respuesta.Failure -> {
+                    showProgressBar(false)
+                    showInfoDialog(response.exception)
+                    Timber.e("ERROR -> ${response.exception}")
+                }
+            }
+        })
+    }
+
+    private fun getEmpresasListObserve() {
+        binding.loginVm?.obtenerListaEmpresas()?.observe(viewLifecycleOwner, Observer { response ->
+            when (response) {
+                is Respuesta.Loading -> showProgressBar(true)
+                is Respuesta.Success -> {
+                    showProgressBar(false)
+                    for (empresa in response.data) {
+                        binding.loginVm?.guardarEmpresa(empresa)
+                    }
+                    getMaterialesListObserve()
+                    Timber.e("${response.data}")
+                }
+                is Respuesta.Failure -> {
+                    showProgressBar(false)
+                    showInfoDialog(response.exception)
+                    Timber.e("ERROR -> ${response.exception}")
+                }
+            }
+        })
+    }
+
+    private fun getMaterialesListObserve() {
+        binding.loginVm?.obtenerListaMateriales()?.observe(viewLifecycleOwner, Observer { response ->
+            when (response) {
+                is Respuesta.Loading -> showProgressBar(true)
+                is Respuesta.Success -> {
+                    showProgressBar(false)
+                    for (material in response.data) {
+                        binding.loginVm?.guardarMaterial(material)
+                    }
+                    getAditamentosListObserve()
+                    Timber.e("${response.data}")
+                }
+                is Respuesta.Failure -> {
+                    showProgressBar(false)
+                    showInfoDialog(response.exception)
+                    Timber.e("ERROR -> ${response.exception}")
+                }
+            }
+        })
+    }
+
+    private fun getAditamentosListObserve() {
+        binding.loginVm?.obtenerListaAditamentos()?.observe(viewLifecycleOwner, Observer { response ->
+            when (response) {
+                is Respuesta.Loading -> showProgressBar(true)
+                is Respuesta.Success -> {
+                    showProgressBar(false)
+                    for (aditamento in response.data) {
+                        binding.loginVm?.guardarAditamento(aditamento)
+                    }
+                    getAccesoriosListObserve()
+                    Timber.e("${response.data}")
+                }
+                is Respuesta.Failure -> {
+                    showProgressBar(false)
+                    showInfoDialog(response.exception)
+                    Timber.e("ERROR -> ${response.exception}")
+                }
+            }
+        })
+    }
+
+    private fun getAccesoriosListObserve() {
+        binding.loginVm?.obtenerListaAccesorios()?.observe(viewLifecycleOwner, Observer { response ->
+            when (response) {
+                is Respuesta.Loading -> showProgressBar(true)
+                is Respuesta.Success -> {
+                    showProgressBar(false)
+                    for (accesorio in response.data) {
+                        binding.loginVm?.guardarAccesorio(accesorio)
+                    }
                     goToMainActivity()
                     Timber.e("${response.data}")
                 }
@@ -109,6 +212,7 @@ class LoginFragment : DataBindingFragment<FragmentLoginBinding>() {
             }
         })
     }
+
 
     private fun goToMainActivity() {
         val intent = Intent(requireContext(), MainActivity::class.java)
