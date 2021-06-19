@@ -1,4 +1,4 @@
-package cl.rentalea.rentalapp.data.network.reportRepository
+package cl.rentalea.rentalapp.repository.reportRepository
 
 import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.db.entity.Report
@@ -16,4 +16,15 @@ interface ReportRepository {
     suspend fun getEquiposList(tipoEquipo: String): Respuesta<MutableList<String>>
 
     suspend fun getPatentesList(equipo: String): Respuesta<MutableList<String>>
+
+    suspend fun getObrasList(): MutableList<String>
+
+    suspend fun getEmpresasList(): MutableList<String>
+
+    suspend fun getMaterialesList(): MutableList<String>
+
+    suspend fun getAditamentosList(): MutableList<String>
+
+    suspend fun getAccesoriosList(): MutableList<String>
+
 }

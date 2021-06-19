@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.equipos_list_item.*
 import kotlinx.android.synthetic.main.fragment_first_report.*
 import kotlinx.android.synthetic.main.fragment_vehiculos_report.*
 import kotlinx.android.synthetic.main.toolbar_main.*
+import org.koin.android.ext.android.bind
 import org.koin.android.viewmodel.ext.android.getViewModel
 import timber.log.Timber
 import java.util.*
@@ -61,9 +62,13 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
         val numeroReport = binding.initDataReport.reportNumber
         val equipo = binding.vehiculoDataReport.equipoOption
         val tipoEquipo = binding.vehiculoDataReport.tipoEquipoOption
+        val aditamento = binding.vehiculoDataReport.aditamentoOption
         val patente = binding.vehiculoDataReport.patenteOption
+        val accesorio = binding.vehiculoDataReport.accesorioOption
         val obra = binding.empresaDataReport.obraReport
+        val obraEspecifica = binding.empresaDataReport.obraSpecific
         val empresa = binding.empresaDataReport.empresaReport
+        val empresaEspecifica = binding.empresaDataReport.empresaSpecific
         val horometroInicial = binding.horometroDataReport.horometroInicial
         val horometroFinal = binding.horometroDataReport.horometroFinal
         val diferenciaHorometro = binding.horometroDataReport.diferenciaHorometro
@@ -77,8 +82,12 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
         }
 
         setTipoEquiposAdapter()
-        tipoEquipoSelectedListener(tipoEquipo, equipo, patente)
-        equipoSelectedListener(equipo, patente)
+        obrasListObserver()
+        empresasListObserver()
+        tipoEquipoSelectedListener(tipoEquipo, equipo, patente, aditamento)
+        equipoSelectedListener(tipoEquipo,equipo, patente, accesorio)
+        obrasSelectedListener(obra)
+        empresasSelectedListener(empresa)
 
         diferenciaHorometroWatcher(horometroFinal, horometroInicial, diferenciaHorometro)
         enabledHorometroWatcher(horometroFinal,horometroInicial,horometroFinalInput ,diferenciaHorometro)
@@ -144,20 +153,98 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
         (binding.vehiculoDataReport.patenteOption).setAdapter(adapter)
     }
 
-    private fun tipoEquipoSelectedListener(tipoEquipo: AutoCompleteTextView, equipo: AutoCompleteTextView, patente: AutoCompleteTextView) {
+    private fun setObrasAdapter(obrasList: MutableList<String>) {
+        val adapter = ArrayAdapter(requireContext(), R.layout.equipos_list_item, obrasList)
+        (binding.empresaDataReport.obraReport).setAdapter(adapter)
+    }
+
+    private fun setEmpresasAdapter(empresasList: MutableList<String>) {
+        val adapter = ArrayAdapter(requireContext(), R.layout.equipos_list_item, empresasList)
+        (binding.empresaDataReport.empresaReport).setAdapter(adapter)
+    }
+
+    private fun setAditamentosAdapter(aditamentosList: MutableList<String>) {
+        val adapter = ArrayAdapter(requireContext(), R.layout.equipos_list_item, aditamentosList)
+        (binding.vehiculoDataReport.aditamentoOption).setAdapter(adapter)
+    }
+
+    private fun setAccesoriosAdapter(accesoriosList: MutableList<String>) {
+        val adapter = ArrayAdapter(requireContext(), R.layout.equipos_list_item, accesoriosList)
+        (binding.vehiculoDataReport.accesorioOption).setAdapter(adapter)
+    }
+
+    private fun tipoEquipoSelectedListener(
+        tipoEquipo: AutoCompleteTextView,
+        equipo: AutoCompleteTextView,
+        patente: AutoCompleteTextView,
+        aditamento: AutoCompleteTextView
+    ) {
         tipoEquipo.setOnItemClickListener { parent, view, position, id ->
-            equiposListObserver(tipoEquipo.text.toString())
-            equipo.isEnabled = true
-            equipo.setText("")
+            if (tipoEquipo.text.toString() == "MAQUINA CON ADITAMENTOS") {
+                aditamentosListObserver()
+                binding.vehiculoDataReport.aditamentoInput.visibility = View.VISIBLE
+                equipo.setText("MINI CARGADOR")
+                patente.setText("SIN PATENTE")
+                equipo.isEnabled = false
+                patente.isEnabled = false
+            } else {
+                binding.vehiculoDataReport.aditamentoInput.visibility = View.GONE
+                equiposListObserver(tipoEquipo.text.toString())
+                aditamento.setText("")
+                equipo.isEnabled = true
+                equipo.setText("")
+                patente.setText("")
+            }
+
+            if (tipoEquipo.text.toString() == "VEHICULO LIVIANO" || tipoEquipo.text.toString() == "VEHICULO PESADO") {
+                binding.horometroDataReport.kilometrajeInicialInput.visibility = View.VISIBLE
+                binding.horometroDataReport.kilometrajeFinalInput.visibility = View.VISIBLE
+            } else {
+                binding.horometroDataReport.kilometrajeInicialInput.visibility = View.GONE
+                binding.horometroDataReport.kilometrajeFinalInput.visibility = View.GONE
+            }
+
+            binding.vehiculoDataReport.accesorioInput.visibility = View.GONE
+        }
+    }
+
+    private fun equipoSelectedListener(
+        tipoEquipo: AutoCompleteTextView,
+        equipo: AutoCompleteTextView,
+        patente: AutoCompleteTextView,
+        accesorio: AutoCompleteTextView
+    ) {
+        equipo.setOnItemClickListener { parent, view, position, id ->
+            if (equipo.text.toString() == "TRACTOCAMION" && tipoEquipo.text.toString() == "VEHICULO PESADO" ) {
+                accesoriosListObserver()
+                binding.vehiculoDataReport.accesorioInput.visibility = View.VISIBLE
+            } else {
+                binding.vehiculoDataReport.accesorioInput.visibility = View.GONE
+                accesorio.setText("")
+            }
+            patentesListObserver(equipo.text.toString())
+            patente.isEnabled = true
             patente.setText("")
         }
     }
 
-    private fun equipoSelectedListener(equipo: AutoCompleteTextView, patente: AutoCompleteTextView) {
-        equipo.setOnItemClickListener { parent, view, position, id ->
-            patentesListObserver(equipo.text.toString())
-            patente.isEnabled = true
-            patente.setText("")
+    private fun obrasSelectedListener(obras: AutoCompleteTextView) {
+        obras.setOnItemClickListener { parent, view, position, id ->
+            if (obras.text.toString() == "Otros (Especificar)") {
+                binding.empresaDataReport.obraSpecificInput.visibility = View.VISIBLE
+            } else {
+                binding.empresaDataReport.obraSpecificInput.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun empresasSelectedListener(empresas: AutoCompleteTextView) {
+        empresas.setOnItemClickListener { parent, view, position, id ->
+            if (empresas.text.toString() == "Otros (Especificar)") {
+                binding.empresaDataReport.empresaSpecificInput.visibility = View.VISIBLE
+            } else {
+                binding.empresaDataReport.empresaSpecificInput.visibility = View.GONE
+            }
         }
     }
 
@@ -182,6 +269,30 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
                 }
                 is Respuesta.Failure -> {}
             }
+        })
+    }
+
+    private fun obrasListObserver() {
+        binding.reportViewModel?.obtenerObras()?.observe(viewLifecycleOwner, androidx.lifecycle.Observer { obrasList ->
+            setObrasAdapter(obrasList)
+        })
+    }
+
+    private fun empresasListObserver() {
+        binding.reportViewModel?.obtenerEmpresas()?.observe(viewLifecycleOwner, androidx.lifecycle.Observer { empresasList ->
+            setEmpresasAdapter(empresasList)
+        })
+    }
+
+    private fun aditamentosListObserver() {
+        binding.reportViewModel?.obtenerAditamentos()?.observe(viewLifecycleOwner, androidx.lifecycle.Observer { aditamentosList ->
+            setAditamentosAdapter(aditamentosList)
+        })
+    }
+
+    private fun accesoriosListObserver() {
+        binding.reportViewModel?.obtenerAccesorios()?.observe(viewLifecycleOwner, androidx.lifecycle.Observer { accesoriosList ->
+            setAccesoriosAdapter(accesoriosList)
         })
     }
 

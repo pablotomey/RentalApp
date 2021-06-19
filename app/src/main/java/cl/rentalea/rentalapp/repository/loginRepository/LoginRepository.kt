@@ -1,4 +1,4 @@
-package cl.rentalea.rentalapp.data.network.loginRepository
+package cl.rentalea.rentalapp.repository.loginRepository
 
 import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.db.entity.*

@@ -17,4 +17,13 @@ interface ReportUseCase {
 
     suspend fun getPatentesList(equipo: String): Respuesta<MutableList<String>>
 
+    suspend fun getObrasList(): MutableList<String>
+
+    suspend fun getEmpresasList(): MutableList<String>
+
+    suspend fun getMaterialesList(): MutableList<String>
+
+    suspend fun getAditamentosList(): MutableList<String>
+
+    suspend fun getAccesoriosList(): MutableList<String>
 }

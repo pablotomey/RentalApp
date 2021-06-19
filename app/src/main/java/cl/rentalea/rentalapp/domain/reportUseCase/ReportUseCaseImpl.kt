@@ -1,7 +1,7 @@
 package cl.rentalea.rentalapp.domain.reportUseCase
 
 import cl.rentalea.rentalapp.base.Respuesta
-import cl.rentalea.rentalapp.data.network.reportRepository.ReportRepository
+import cl.rentalea.rentalapp.repository.reportRepository.ReportRepository
 import cl.rentalea.rentalapp.db.entity.Report
 
 class ReportUseCaseImpl(private val reportRepository: ReportRepository):
@@ -30,5 +30,25 @@ class ReportUseCaseImpl(private val reportRepository: ReportRepository):
 
     override suspend fun getPatentesList(equipo: String): Respuesta<MutableList<String>> {
         return reportRepository.getPatentesList(equipo)
+    }
+
+    override suspend fun getObrasList(): MutableList<String> {
+        return reportRepository.getObrasList()
+    }
+
+    override suspend fun getEmpresasList(): MutableList<String> {
+        return reportRepository.getEmpresasList()
+    }
+
+    override suspend fun getMaterialesList(): MutableList<String> {
+        return reportRepository.getMaterialesList()
+    }
+
+    override suspend fun getAditamentosList(): MutableList<String> {
+        return reportRepository.getAditamentosList()
+    }
+
+    override suspend fun getAccesoriosList(): MutableList<String> {
+        return reportRepository.getAccesoriosList()
     }
 }

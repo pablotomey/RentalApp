@@ -65,4 +65,24 @@ class DataSource(private val roomDataBase: AppDataBase) {
     suspend fun getPatentesList(equipo: String): Respuesta<MutableList<String>> {
         return Respuesta.Success(roomDataBase.vehiculoDao().getPatentesList(equipo))
     }
+
+    suspend fun getObrasList(): MutableList<String> {
+        return roomDataBase.obraDao().getObras()
+    }
+
+    suspend fun getEmpresasList(): MutableList<String> {
+        return roomDataBase.empresaDao().getEmpresas()
+    }
+
+    suspend fun getMaterialesList(): MutableList<String> {
+        return roomDataBase.materialDao().getMateriales()
+    }
+
+    suspend fun getAditamentosList(): MutableList<String> {
+        return roomDataBase.aditamentoDao().getAditamentos()
+    }
+
+    suspend fun getAccesoriosList(): MutableList<String> {
+        return roomDataBase.accesorioDao().getAccesorios()
+    }
 }

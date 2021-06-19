@@ -1,7 +1,7 @@
 package cl.rentalea.rentalapp.domain.loginUseCase
 
 import cl.rentalea.rentalapp.base.Respuesta
-import cl.rentalea.rentalapp.data.network.loginRepository.LoginRepository
+import cl.rentalea.rentalapp.repository.loginRepository.LoginRepository
 import cl.rentalea.rentalapp.db.entity.*
 
 class LoginUseCaseImpl(private val loginRepository: LoginRepository): LoginUseCase {

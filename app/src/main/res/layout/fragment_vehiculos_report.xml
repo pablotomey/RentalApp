@@ -72,6 +72,30 @@
                 android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- aditamento input-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/aditamento_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:hint="Aditamento"
+            android:labelFor="@+id/aditamento_option"
+            android:visibility="gone"
+            app:boxStrokeColor="@color/stroke_green"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/equipo_select">
+
+            <AutoCompleteTextView
+                android:id="@+id/aditamento_option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <!-- patente input-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/patente_input"
@@ -86,16 +110,39 @@
             app:boxStrokeWidthFocused="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/equipo_select">
+            app:layout_constraintTop_toBottomOf="@+id/aditamento_input">
 
             <AutoCompleteTextView
                 android:id="@+id/patente_option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:enabled="false"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- aditamento input-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/accesorio_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:hint="Equipo de arrastre"
+            android:labelFor="@+id/accesorio_option"
+            android:visibility="gone"
+            app:boxStrokeColor="@color/stroke_green"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/patente_input">
+
+            <AutoCompleteTextView
+                android:id="@+id/accesorio_option"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

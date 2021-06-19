@@ -5,12 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable
+            name="reportViewModel"
+            type="cl.rentalea.rentalapp.viewmodel.ReportViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/empresa_label"
@@ -26,11 +28,12 @@
         <!-- obra input-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/obra_input"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:hint="@string/obra"
+            android:labelFor="@+id/obra_report"
             app:boxStrokeColor="@color/stroke_green"
             app:boxStrokeWidth="2dp"
             app:boxStrokeWidthFocused="3dp"
@@ -38,8 +41,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/empresa_label">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <AutoCompleteTextView
                 android:id="@+id/obra_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/obra_specific_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:hint="@string/especificar_obra"
+            android:visibility="gone"
+            app:boxStrokeColor="@color/stroke_green"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/obra_input">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/obra_specific"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -48,7 +73,7 @@
         <!-- empresa input-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/empresa_input"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -58,10 +83,32 @@
             app:boxStrokeWidthFocused="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/obra_input">
+            app:layout_constraintTop_toBottomOf="@+id/obra_specific_input">
+
+            <AutoCompleteTextView
+                android:id="@+id/empresa_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/empresa_specific_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:hint="@string/especificar_empresa"
+            app:boxStrokeColor="@color/stroke_green"
+            app:boxStrokeWidth="2dp"
+            android:visibility="gone"
+            app:boxStrokeWidthFocused="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/empresa_input">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/empresa_report"
+                android:id="@+id/empresa_specific"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />

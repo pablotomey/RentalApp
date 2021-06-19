@@ -66,5 +66,8 @@
     <string name="tipo_de_equipo_send">Tipo de Equipo:</string>
     <string name="equipo">Equipo:</string>
     <string name="reporte_n">Reporte N°:</string>
+    <string name="especificar_obra">Especificar obra</string>
+    <string name="especificar_empresa">Especificar empresa</string>
+    <string name="aditamento_o_accesorio">Aditamento o accesorio</string>
 
 </resources>

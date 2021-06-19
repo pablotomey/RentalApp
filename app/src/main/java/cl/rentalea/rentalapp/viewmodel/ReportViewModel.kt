@@ -1,9 +1,6 @@
 package cl.rentalea.rentalapp.viewmodel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.db.entity.Report
 import cl.rentalea.rentalapp.domain.reportUseCase.ReportUseCase
@@ -64,5 +61,45 @@ class ReportViewModel(private val reportRepository: ReportUseCase): ViewModel() 
         } catch (e: Exception) {
             Respuesta.Failure(e.message!!)
         }
+    }
+
+    fun obtenerObras(): LiveData<MutableList<String>> {
+        val obrasList = MutableLiveData<MutableList<String>>()
+        viewModelScope.launch {
+            obrasList.postValue(reportRepository.getObrasList())
+        }
+        return obrasList
+    }
+
+    fun obtenerEmpresas(): LiveData<MutableList<String>> {
+        val empresasList = MutableLiveData<MutableList<String>>()
+        viewModelScope.launch {
+            empresasList.postValue(reportRepository.getEmpresasList())
+        }
+        return empresasList
+    }
+
+    fun obtenerMateriales(): LiveData<MutableList<String>> {
+        val materialesList = MutableLiveData<MutableList<String>>()
+        viewModelScope.launch {
+            materialesList.postValue(reportRepository.getMaterialesList())
+        }
+        return materialesList
+    }
+
+    fun obtenerAditamentos(): LiveData<MutableList<String>> {
+        val aditamentosList = MutableLiveData<MutableList<String>>()
+        viewModelScope.launch {
+            aditamentosList.postValue(reportRepository.getAditamentosList())
+        }
+        return aditamentosList
+    }
+
+    fun obtenerAccesorios(): LiveData<MutableList<String>> {
+        val accesoriosList = MutableLiveData<MutableList<String>>()
+        viewModelScope.launch {
+            accesoriosList.postValue(reportRepository.getAccesoriosList())
+        }
+        return accesoriosList
     }
 }

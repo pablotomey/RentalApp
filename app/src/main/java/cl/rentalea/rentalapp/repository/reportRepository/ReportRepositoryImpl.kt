@@ -1,4 +1,4 @@
-package cl.rentalea.rentalapp.data.network.reportRepository
+package cl.rentalea.rentalapp.repository.reportRepository
 
 import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.db.datasource.DataSource
@@ -28,6 +28,26 @@ class ReportRepositoryImpl(private val dataSource: DataSource): ReportRepository
 
     override suspend fun getPatentesList(equipo: String): Respuesta<MutableList<String>> {
         return dataSource.getPatentesList(equipo)
+    }
+
+    override suspend fun getObrasList(): MutableList<String> {
+        return dataSource.getObrasList()
+    }
+
+    override suspend fun getEmpresasList(): MutableList<String> {
+        return dataSource.getEmpresasList()
+    }
+
+    override suspend fun getMaterialesList(): MutableList<String> {
+        return dataSource.getMaterialesList()
+    }
+
+    override suspend fun getAditamentosList(): MutableList<String> {
+        return dataSource.getAditamentosList()
+    }
+
+    override suspend fun getAccesoriosList(): MutableList<String> {
+        return dataSource.getAccesoriosList()
     }
 
     override suspend fun saveReportInFirestore(report: Report): Respuesta<Boolean> {

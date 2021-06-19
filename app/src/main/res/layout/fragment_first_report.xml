@@ -38,7 +38,6 @@
                 <include
                     android:id="@+id/vehiculo_data_report"
                     layout="@layout/fragment_vehiculos_report"
-                    app:vm="@{reportViewModel}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"/>
