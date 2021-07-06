@@ -27,5 +27,9 @@ class DatePickerFragment : DialogFragment() {
         }
     }
 
+    fun getCurrentDayOfMonth() : Int {
+        val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+        return calendar.get(Calendar.DAY_OF_MONTH)
+    }
 
 }

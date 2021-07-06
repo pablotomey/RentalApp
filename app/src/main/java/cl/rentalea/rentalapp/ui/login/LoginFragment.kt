@@ -11,7 +11,7 @@ import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentLoginBinding
 import cl.rentalea.rentalapp.ui.MainActivity
 import cl.rentalea.rentalapp.utils.Constants.DLOADING
-import cl.rentalea.rentalapp.utils.Constants.OPERATOR
+import cl.rentalea.rentalapp.utils.Constants.USER
 import cl.rentalea.rentalapp.utils.DialogLoading
 import cl.rentalea.rentalapp.utils.validarRut
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -50,7 +50,7 @@ class LoginFragment : DataBindingFragment<FragmentLoginBinding>() {
                 is Respuesta.Success -> {
                     showProgressBar(false)
                     binding.loginVm?.guardarUsuario(response.data)
-                    OPERATOR = response.data
+                    USER = response.data
                     getVehiculosListObserve()
                     Timber.e("${response.data}")
                 }

@@ -6,13 +6,13 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import cl.rentalea.rentalapp.R
-import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentSendReportBinding
-import cl.rentalea.rentalapp.db.entity.Report
+import cl.rentalea.rentalapp.ui.adapter.ViajesAdapter
 import cl.rentalea.rentalapp.utils.Constants
-import cl.rentalea.rentalapp.utils.Constants.OPERATOR
 import cl.rentalea.rentalapp.utils.Constants.REPORT
+import cl.rentalea.rentalapp.utils.Constants.USER
+import cl.rentalea.rentalapp.utils.Constants.VIAJES
 import cl.rentalea.rentalapp.utils.DialogLoading
 import cl.rentalea.rentalapp.utils.alert
 import kotlinx.android.synthetic.main.toolbar_main.*
@@ -26,50 +26,42 @@ class SendReportFragment : DataBindingFragment<FragmentSendReportBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            sendReportViewModel = getViewModel()
+            reportViewModel = getViewModel()
             lifecycleOwner = this@SendReportFragment
         }
         Constants.DLOADING = DialogLoading(requireContext(), "Enviando reporte")
         Timber.e("$REPORT")
         binding.report = REPORT!!
-        binding.operator = OPERATOR!!
+        binding.user = USER!!
 
         binding.sendBtnLayout.editBtn.setOnClickListener {
             nav?.navigate(R.id.action_sendReportFragment_to_updateReportFragment)
         }
 
         binding.sendBtnLayout.sendBtn.setOnClickListener {
-            sendReportObserve(REPORT!!)
+            binding.reportViewModel?.sendReport(REPORT!!, VIAJES!!)
         }
+
+        getViajesListObserve(REPORT!!.report_number)
+        isCompleteObserve()
     }
 
-    private fun sendReportObserve(report: Report) {
-        binding.sendReportViewModel?.sendReport(report)?.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is Respuesta.Loading -> showProgressBar(true)
-                is Respuesta.Success -> {
-                    if (it.data) {
-                        showProgressBar(false)
-                        binding.sendReportViewModel?.deleteReport(REPORT!!)
-                        showSuccessDialog()
-                    } else {
-                        showProgressBar(false)
-                        showInfoDialog("Hubo problemas al enviar el reporte, intente nuevamente")
-                    }
-                }
-                is Respuesta.Failure -> {
-                    showInfoDialog("Hubo problemas al enviar el reporte, intente nuevamente")
-                }
+    private fun isCompleteObserve() {
+        binding.reportViewModel?.isComplete?.observe(viewLifecycleOwner, Observer { isComplete ->
+            if (isComplete == 1) {
+                binding.reportViewModel?.deleteReport(REPORT!!)
+                binding.reportViewModel?.deleteViaje(REPORT!!.report_number)
+                showSuccessDialog()
             }
         })
     }
 
-    private fun showProgressBar(value: Boolean) {
-        binding.sendReportViewModel?.isLoading?.postValue(value)
-    }
-
-    private fun showInfoDialog(msg: String) {
-        binding.sendReportViewModel?.hasError?.postValue(msg)
+    private fun getViajesListObserve(reportNumber: Int) {
+        binding.reportViewModel?.obtenerViajes(reportNumber)?.observe(viewLifecycleOwner, Observer { viajesList ->
+            VIAJES = viajesList
+            binding.viajesLayout.viajesAdapter = ViajesAdapter(requireContext(), viajesList)
+            binding.viajesLayout.viajesAdapter!!.notifyDataSetChanged()
+        })
     }
 
     private fun showSuccessDialog() {

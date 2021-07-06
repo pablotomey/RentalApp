@@ -6,8 +6,10 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cl.rentalea.rentalapp.base.BaseViewHolder
 import cl.rentalea.rentalapp.ui.MainActivity
 import cl.rentalea.rentalapp.ui.adapter.ReportListAdapter
+import cl.rentalea.rentalapp.ui.adapter.ViajesAdapter
 import cl.rentalea.rentalapp.utils.Constants.DLOADING
 import cl.rentalea.rentalapp.utils.alert
 
@@ -47,6 +49,7 @@ fun RecyclerView.bindAdapter(adaptador: RecyclerView.Adapter<*>?) {
         setHasFixedSize(true)
         layoutManager = when (adaptador) {
             is ReportListAdapter -> LinearLayoutManager(context)
+            is ViajesAdapter -> LinearLayoutManager(context)
             else -> null
         }
 

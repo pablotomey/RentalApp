@@ -3,6 +3,7 @@ package cl.rentalea.rentalapp.viewmodel
 import androidx.lifecycle.*
 import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.db.entity.Report
+import cl.rentalea.rentalapp.db.entity.Viaje
 import cl.rentalea.rentalapp.domain.reportUseCase.ReportUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -11,6 +12,7 @@ class ReportViewModel(private val reportRepository: ReportUseCase): ViewModel() 
 
     val isLoading = MutableLiveData(false)
     val hasError = MutableLiveData<String>()
+    val isComplete = MutableLiveData(-1)
 
     val isReportVisible = MutableLiveData<Boolean>(false)
     val isIconVisible = MutableLiveData<Boolean>(false)
@@ -30,12 +32,20 @@ class ReportViewModel(private val reportRepository: ReportUseCase): ViewModel() 
         }
     }
 
-    fun sendReport(report: Report) = liveData(Dispatchers.IO) {
-        emit(Respuesta.Loading())
-        try {
-            emit(reportRepository.sendReport(report))
-        } catch (e: Exception) {
-            Respuesta.Failure(e.message!!)
+    fun sendReport(report: Report, viajes: MutableList<Viaje>) {
+        viewModelScope.launch {
+            when (val firestorePost = reportRepository.sendReport(report, viajes)) {
+                is Respuesta.Loading -> isLoading.postValue(true)
+                is Respuesta.Success -> {
+                    if (firestorePost.data) {
+                        isLoading.postValue(false)
+                        isComplete.postValue(1)
+                    } else {
+                        hasError.postValue("Hubo problemas al enviar el reporte, intente nuevamente")
+                    }
+                }
+                is Respuesta.Failure -> hasError.postValue(firestorePost.exception)
+            }
         }
     }
 
@@ -101,5 +111,21 @@ class ReportViewModel(private val reportRepository: ReportUseCase): ViewModel() 
             accesoriosList.postValue(reportRepository.getAccesoriosList())
         }
         return accesoriosList
+    }
+
+    fun addViaje(viaje: Viaje) {
+        viewModelScope.launch {
+            reportRepository.insertViajeData(viaje)
+        }
+    }
+
+    fun obtenerViajes(reportNumber: Int) = liveData(Dispatchers.IO) {
+        emit(reportRepository.getViajesList(reportNumber))
+    }
+
+    fun deleteViaje(reportNumber: Int) {
+        viewModelScope.launch {
+            reportRepository.deleteViaje(reportNumber)
+        }
     }
 }

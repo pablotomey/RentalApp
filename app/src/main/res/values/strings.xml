@@ -69,5 +69,14 @@
     <string name="especificar_obra">Especificar obra</string>
     <string name="especificar_empresa">Especificar empresa</string>
     <string name="aditamento_o_accesorio">Aditamento o accesorio</string>
+    <string name="traslado_de_materiales">Traslado de materiales:</string>
+    <string name="agregar_viaje">Agregar viaje</string>
+    <string name="ingresar_datos_del_viaje">Ingresar datos del viaje</string>
+    <string name="tipo_de_material">Tipo de material</string>
+    <string name="cantidad_de_viajes">Cantidad de viajes</string>
+    <string name="datos_del_reporte">Datos del reporte:</string>
+    <string name="viajes_a_ridos">Viajes a áridos:</string>
+    <string name="sin_viajes_aridos">Sin viajes a áridos</string>
+    <string name="equipo_arrrastre">Equipo Arrrastre:</string>
 
 </resources>

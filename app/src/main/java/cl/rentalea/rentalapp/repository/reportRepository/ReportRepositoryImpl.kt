@@ -3,6 +3,7 @@ package cl.rentalea.rentalapp.repository.reportRepository
 import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.db.datasource.DataSource
 import cl.rentalea.rentalapp.db.entity.Report
+import cl.rentalea.rentalapp.db.entity.Viaje
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
@@ -50,7 +51,19 @@ class ReportRepositoryImpl(private val dataSource: DataSource): ReportRepository
         return dataSource.getAccesoriosList()
     }
 
-    override suspend fun saveReportInFirestore(report: Report): Respuesta<Boolean> {
+    override suspend fun insertViajeData(viaje: Viaje) {
+        dataSource.insertViajeData(viaje)
+    }
+
+    override suspend fun getViajesList(reportNumber: Int): MutableList<Viaje> {
+        return dataSource.getViajesList(reportNumber)
+    }
+
+    override suspend fun deleteViaje(reportNumber: Int) {
+        dataSource.deleteViaje(reportNumber)
+    }
+
+    override suspend fun saveReportInFirestore(report: Report, viajes: MutableList<Viaje>): Respuesta<Boolean> {
         val reportMap = hashMapOf(
             "operador" to report.operador,
             "fecha" to report.date,
@@ -65,20 +78,30 @@ class ReportRepositoryImpl(private val dataSource: DataSource): ReportRepository
             "diferencia_horometro" to report.diferencia_horometro,
             "kilometraje_inicial" to report.kilometraje_inicial,
             "kilometraje_final" to report.kilometraje_final,
-            "viajes_aridos" to report.viajes_aridos,
-            "metros_cubicos_viaje" to report.metros_cubicos_viaje,
-            "metros_cubicos_totales" to report.metros_cubicos_totales,
             "litros_combustible" to report.litros_combustible,
             "horometro_combustible" to report.horometro_combustible,
-            "inicio_jornada" to report.inicioJornada,
-            "fin_jornada" to report.finJornada,
+            "inicio_jornada" to report.inicio_jornada,
+            "fin_jornada" to report.fin_jornada,
             "observaciones" to report.observaciones,
             "firma_supervisor" to report.firma_supervisor,
             "firma_operador" to report.firma_operador
         )
 
         return try {
-            firestore.collection("reports").document(report.report_number).set(reportMap).await()
+            val reportRef = firestore.collection("reports").document(report.report_number.toString())
+            val viajeRef = firestore.collection("reports").document(report.report_number.toString())
+                .collection("viajes").document()
+            firestore.runBatch { batch ->
+                batch.set(reportRef, report)
+
+                if (viajes.isNotEmpty()) {
+                    for (viaje in viajes) {
+                        batch.set(viajeRef, viaje)
+                    }
+                }
+
+
+            }.await()
             Respuesta.Success(true)
         } catch (e: Exception) {
             Respuesta.Success(false)

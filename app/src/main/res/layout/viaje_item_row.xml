@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:layout_margin="8dp"
+        android:layout_margin="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,45 +25,41 @@
             android:layout_margin="10dp">
 
             <TextView
-                android:id="@+id/n_report"
+                android:id="@+id/tipo_material"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                tools:text="N° Report: 0145" />
+                tools:text="Tipo de material: Arena" />
 
             <TextView
-                android:id="@+id/date_report"
+                android:id="@+id/cantidad_viajes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:textStyle="italic"
-                app:layout_constraintStart_toStartOf="@+id/n_report"
-                app:layout_constraintTop_toBottomOf="@+id/n_report"
-                tools:text="Fecha: 12/02/2021" />
+                app:layout_constraintStart_toStartOf="@+id/tipo_material"
+                app:layout_constraintTop_toBottomOf="@+id/tipo_material"
+                tools:text="Cantidad de viajes: 5" />
 
             <TextView
-                android:id="@+id/patente_report"
+                android:id="@+id/mt_cubicos_viaje"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textStyle="italic"
-                app:layout_constraintStart_toStartOf="@+id/date_report"
-                app:layout_constraintTop_toBottomOf="@+id/date_report"
-                tools:text="Patente vehicular: DFDG25" />
+                app:layout_constraintStart_toStartOf="@+id/cantidad_viajes"
+                app:layout_constraintTop_toBottomOf="@+id/cantidad_viajes"
+                tools:text="Mt cúbicos por viaje: 8" />
 
-            <ImageView
-                android:id="@+id/img_report_list"
+            <TextView
+                android:id="@+id/mt_cubicos_totales"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:contentDescription="@string/report_icon"
-                android:src="@drawable/ic_send_report"
-                app:layout_constraintBottom_toBottomOf="@+id/patente_report"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/n_report" />
+                app:layout_constraintStart_toStartOf="@+id/mt_cubicos_viaje"
+                app:layout_constraintTop_toBottomOf="@+id/mt_cubicos_viaje"
+                tools:text="Mt cúbicos totales: 40" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

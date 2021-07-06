@@ -10,7 +10,7 @@
             type="cl.rentalea.rentalapp.db.entity.Report" />
 
         <variable
-            name="operator"
+            name="user"
             type="cl.rentalea.rentalapp.db.entity.User" />
 
         <variable
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:textSize="16sp"
-                android:text="@{operator.nombre}"
+                android:text="@{user.nombre}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/operator_label"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -356,7 +356,6 @@
                     android:id="@+id/viajes_aridos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{report.viajes_aridos}"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -379,7 +378,6 @@
                     android:id="@+id/metros_cubicos_viaje"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{report.metros_cubicos_viaje}"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -402,7 +400,6 @@
                     android:id="@+id/metros_cubicos_totales"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{report.metros_cubicos_totales}"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -472,7 +469,7 @@
                     android:id="@+id/inicio_jornada"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{report.inicioJornada}"
+                    android:text="@{report.inicio_jornada}"
                     android:clickable="true"
                     android:focusable="false"
                     android:inputType="time" />
@@ -499,7 +496,7 @@
                     android:id="@+id/fin_jornada"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{report.finJornada}"
+                    android:text="@{report.fin_jornada}"
                     android:clickable="true"
                     android:focusable="false"
                     android:inputType="time" />
@@ -575,7 +572,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="@{operator.rut}"
+                android:text="@{user.rut}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/firma_chofer_label" />

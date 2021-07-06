@@ -22,6 +22,6 @@ class UpdateReportFragment : DataBindingFragment<FragmentUpdateReportBinding>() 
             lifecycleOwner = this@UpdateReportFragment
         }
         binding.report = Constants.REPORT!!
-        binding.operator = Constants.OPERATOR!!
+        binding.user = Constants.USER!!
     }
 }

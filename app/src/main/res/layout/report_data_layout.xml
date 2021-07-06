@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="report"
+            type="cl.rentalea.rentalapp.db.entity.Report" />
+        <variable
+            name="user"
+            type="cl.rentalea.rentalapp.db.entity.User" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/report_data_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/datos_del_reporte"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_margin="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
+            app:cardElevation="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/report_data_lbl">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/num_report_lbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/reporte_n"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/num_report_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{Integer.toString(report.report_number)}"
+                        android:textSize="16sp"
+                        tools:text="01254" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/date_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@{report.date}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                    tools:text="29/05/2021" />
+
+                <TextView
+                    android:id="@+id/op_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@{report.operador}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/date_value"
+                    tools:text="Pablo Andres Tomey Paylamilla" />
+
+                <!-- demas -->
+
+                <TextView
+                    android:id="@+id/equipo_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/equipo"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/op_value" />
+
+                <TextView
+                    android:id="@+id/equipo_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{report.equipo}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/equipo_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/equipo_lbl"
+                    tools:text="Mini cargador zanjador" />
+
+                <TextView
+                    android:id="@+id/equipo_arrastre_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/equipo_arrrastre"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/equipo_lbl" />
+
+                <TextView
+                    android:id="@+id/equipo_arrastre"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{report.equipo_arrastre}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/equipo_arrastre_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/equipo_arrastre_lbl"
+                    tools:text="Rampla DFDF45" />
+
+                <TextView
+                    android:id="@+id/tipo_equipo_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/tipo_de_equipo_send"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/equipo_arrastre_lbl" />
+
+                <TextView
+                    android:id="@+id/tipo_equipo_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{report.tipo_equipo}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tipo_equipo_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/tipo_equipo_lbl"
+                    tools:text="Máquina" />
+
+                <TextView
+                    android:id="@+id/patente_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/patente_send"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tipo_equipo_lbl" />
+
+                <TextView
+                    android:id="@+id/patente_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{report.patente}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/patente_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/patente_lbl"
+                    tools:text="DFDF56" />
+
+                <TextView
+                    android:id="@+id/aditamento_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Aditamento:"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/patente_lbl" />
+
+                <TextView
+                    android:id="@+id/aditamento_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{report.aditamento}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/aditamento_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/aditamento_lbl"
+                    tools:text="Horquilla saguer" />
+
+                <TextView
+                    android:id="@+id/obra_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/obra_send"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/aditamento_value" />
+
+                <TextView
+                    android:id="@+id/obra_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{report.obra}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/obra_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/obra_lbl"
+                    tools:text="DF-Obra Manantiales" />
+
+                <TextView
+                    android:id="@+id/empresa_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/empresa"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/obra_lbl" />
+
+                <TextView
+                    android:id="@+id/empresa_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{report.empresa}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/empresa_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/empresa_lbl"
+                    tools:text="Salfa" />
+
+                <TextView
+                    android:id="@+id/hor_inicial_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/hor_inicial"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/empresa_lbl" />
+
+                <TextView
+                    android:id="@+id/hor_inicial_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{report.horometro_inicial}"
+                    app:layout_constraintStart_toEndOf="@+id/hor_inicial_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/hor_inicial_lbl"
+                    tools:text="345" />
+
+                <TextView
+                    android:id="@+id/hor_final_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/hor_final"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/hor_inicial_value"
+                    app:layout_constraintTop_toTopOf="@+id/hor_inicial_value" />
+
+                <TextView
+                    android:id="@+id/hor_final_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@{report.horometro_final}"
+                    app:layout_constraintStart_toEndOf="@+id/hor_final_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/hor_final_lbl"
+                    tools:text="400" />
+
+                <TextView
+                    android:id="@+id/dif_hor_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/dif_hor"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/hor_final_value"
+                    app:layout_constraintTop_toTopOf="@+id/hor_final_value" />
+
+                <TextView
+                    android:id="@+id/dif_hor_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{report.diferencia_horometro}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dif_hor_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/dif_hor_lbl"
+                    tools:text="55" />
+
+                <TextView
+                    android:id="@+id/kil_inicial_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/kilometraje_inicial_send"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/hor_inicial_lbl" />
+
+                <TextView
+                    android:id="@+id/kil_inicial_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{report.kilometraje_inicial}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/kil_inicial_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/kil_inicial_lbl"
+                    tools:text="124.789" />
+
+                <TextView
+                    android:id="@+id/kil_final_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/kilometraje_final_send"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/kil_inicial_lbl" />
+
+                <TextView
+                    android:id="@+id/kil_final_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{report.kilometraje_final}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/kil_final_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/kil_final_lbl"
+                    tools:text="156.789" />
+
+                <TextView
+                    android:id="@+id/cantidad_combustible_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/cantidad_lts_combustible"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/kil_final_lbl" />
+
+                <TextView
+                    android:id="@+id/cantidad_combustible_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{report.litros_combustible}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cantidad_combustible_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/cantidad_combustible_lbl"
+                    tools:text="120" />
+
+                <TextView
+                    android:id="@+id/horometro_combustible_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/horometro_carga_de_combustible"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cantidad_combustible_lbl" />
+
+                <TextView
+                    android:id="@+id/horometro_combustible_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{report.horometro_combustible}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/horometro_combustible_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/horometro_combustible_lbl"
+                    tools:text="12.078" />
+
+                <TextView
+                    android:id="@+id/inicio_jornada_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Inicio de jornada:"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/horometro_combustible_lbl" />
+
+                <TextView
+                    android:id="@+id/inicio_jornada_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{report.inicio_jornada}"
+                    app:layout_constraintStart_toEndOf="@+id/inicio_jornada_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/inicio_jornada_lbl"
+                    tools:text="08:30" />
+
+                <TextView
+                    android:id="@+id/fin_jornada_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="Fin de jornada:"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/inicio_jornada_value"
+                    app:layout_constraintTop_toTopOf="@+id/inicio_jornada_value" />
+
+                <TextView
+                    android:id="@+id/fin_jornada_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{report.fin_jornada}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/fin_jornada_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/fin_jornada_lbl"
+                    tools:text="18:30" />
+
+                <TextView
+                    android:id="@+id/observaciones_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/observaciones"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/inicio_jornada_lbl" />
+
+                <TextView
+                    android:id="@+id/observaciones_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{report.observaciones}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/observaciones_lbl" />
+
+                <TextView
+                    android:id="@+id/firma_super_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/firma_de_supervisor_de_faena"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/observaciones_value" />
+
+                <TextView
+                    android:id="@+id/firma_super_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{report.firma_supervisor}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/firma_super_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/firma_super_lbl"
+                    tools:text="Si" />
+
+                <TextView
+                    android:id="@+id/firma_chofer_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/firma_chofer_u_operador"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/firma_super_lbl" />
+
+                <TextView
+                    android:id="@+id/firma_chofer_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{user.rut}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/firma_chofer_lbl"
+                    app:layout_constraintTop_toTopOf="@+id/firma_chofer_lbl"
+                    tools:text="12.456.789-7" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

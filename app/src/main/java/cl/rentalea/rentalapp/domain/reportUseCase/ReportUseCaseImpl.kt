@@ -3,6 +3,7 @@ package cl.rentalea.rentalapp.domain.reportUseCase
 import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.repository.reportRepository.ReportRepository
 import cl.rentalea.rentalapp.db.entity.Report
+import cl.rentalea.rentalapp.db.entity.Viaje
 
 class ReportUseCaseImpl(private val reportRepository: ReportRepository):
     ReportUseCase {
@@ -16,9 +17,10 @@ class ReportUseCaseImpl(private val reportRepository: ReportRepository):
     }
 
     // Send report to Firestore
-    override suspend fun sendReport(report: Report): Respuesta<Boolean> {
-        return reportRepository.saveReportInFirestore(report)
+    override suspend fun sendReport(report: Report, viajes: MutableList<Viaje>): Respuesta<Boolean> {
+        return reportRepository.saveReportInFirestore(report, viajes)
     }
+
     // Delete report in Room
     override suspend fun deleteReport(report: Report) {
         reportRepository.deleteReport(report)
@@ -50,5 +52,17 @@ class ReportUseCaseImpl(private val reportRepository: ReportRepository):
 
     override suspend fun getAccesoriosList(): MutableList<String> {
         return reportRepository.getAccesoriosList()
+    }
+
+    override suspend fun insertViajeData(viaje: Viaje) {
+        reportRepository.insertViajeData(viaje)
+    }
+
+    override suspend fun getViajesList(reportNumber: Int): MutableList<Viaje> {
+        return reportRepository.getViajesList(reportNumber)
+    }
+
+    override suspend fun deleteViaje(reportNumber: Int) {
+        reportRepository.deleteViaje(reportNumber)
     }
 }

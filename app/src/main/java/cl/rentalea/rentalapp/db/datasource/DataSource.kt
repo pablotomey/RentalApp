@@ -85,4 +85,16 @@ class DataSource(private val roomDataBase: AppDataBase) {
     suspend fun getAccesoriosList(): MutableList<String> {
         return roomDataBase.accesorioDao().getAccesorios()
     }
+
+    suspend fun insertViajeData(viaje: Viaje) {
+        roomDataBase.viajeDao().insertViaje(viaje)
+    }
+
+    suspend fun getViajesList(reportNumber: Int): MutableList<Viaje> {
+        return roomDataBase.viajeDao().getViajesList(reportNumber)
+    }
+
+    suspend fun deleteViaje(reportNumber: Int) {
+        roomDataBase.viajeDao().deleteViaje(reportNumber)
+    }
 }

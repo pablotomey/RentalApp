@@ -2,6 +2,7 @@ package cl.rentalea.rentalapp.domain.reportUseCase
 
 import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.db.entity.Report
+import cl.rentalea.rentalapp.db.entity.Viaje
 
 interface ReportUseCase {
 
@@ -9,7 +10,7 @@ interface ReportUseCase {
 
     suspend fun getReports(): Respuesta<MutableList<Report>>
 
-    suspend fun sendReport(report: Report): Respuesta<Boolean>
+    suspend fun sendReport(report: Report, viajes: MutableList<Viaje>): Respuesta<Boolean>
 
     suspend fun deleteReport(report: Report)
 
@@ -26,4 +27,10 @@ interface ReportUseCase {
     suspend fun getAditamentosList(): MutableList<String>
 
     suspend fun getAccesoriosList(): MutableList<String>
+
+    suspend fun insertViajeData(viaje: Viaje)
+
+    suspend fun getViajesList(reportNumber: Int): MutableList<Viaje>
+
+    suspend fun deleteViaje(reportNumber: Int)
 }

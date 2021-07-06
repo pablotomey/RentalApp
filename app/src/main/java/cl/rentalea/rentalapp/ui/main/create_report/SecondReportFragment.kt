@@ -1,21 +1,28 @@
 package cl.rentalea.rentalapp.ui.main.create_report
 
+import android.app.Dialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
+import androidx.core.text.isDigitsOnly
+import androidx.lifecycle.Observer
 import cl.rentalea.rentalapp.R
 import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentSecondReportBinding
 import cl.rentalea.rentalapp.db.entity.Report
-import cl.rentalea.rentalapp.utils.Constants
-import cl.rentalea.rentalapp.utils.Constants.OPERATOR
-import cl.rentalea.rentalapp.utils.TimePickerFragment
-import cl.rentalea.rentalapp.utils.alert
-import cl.rentalea.rentalapp.utils.backToMain
+import cl.rentalea.rentalapp.db.entity.Viaje
+import cl.rentalea.rentalapp.ui.adapter.ViajesAdapter
+import cl.rentalea.rentalapp.utils.*
+import cl.rentalea.rentalapp.utils.Constants.MATERIALES
+import cl.rentalea.rentalapp.utils.Constants.USER
 import kotlinx.android.synthetic.main.toolbar_main.*
+import kotlinx.android.synthetic.main.viajes_dialog_layout.*
 import org.koin.android.viewmodel.ext.android.getViewModel
+import timber.log.Timber
 
 class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() {
 
@@ -25,8 +32,10 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
     private lateinit var date: String
     private lateinit var numeroReport: String
     private lateinit var equipo: String
+    private lateinit var equipoArrastre: String
     private lateinit var tipoEquipo: String
     private lateinit var patente: String
+    private lateinit var aditamento: String
     private lateinit var obra: String
     private lateinit var empresa: String
     private lateinit var horometroInicial: String
@@ -42,8 +51,10 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
             date = it.getString(FirstReportFragment.FECHA_REPORTE)!!
             numeroReport = it.getString(FirstReportFragment.NUMERO_REPORTE)!!
             equipo = it.getString(FirstReportFragment.EQUIPO)!!
+            equipoArrastre = it.getString(FirstReportFragment.EQUIPO_ARRASTRE)!!
             tipoEquipo = it.getString(FirstReportFragment.TIPO_EQUIPO)!!
             patente = it.getString(FirstReportFragment.PATENTE)!!
+            aditamento = it.getString(FirstReportFragment.ADITAMENTO)!!
             obra = it.getString(FirstReportFragment.NOMBRE_OBRA)!!
             empresa = it.getString(FirstReportFragment.NOMBRE_EMPRESA)!!
             horometroInicial = it.getString(FirstReportFragment.HOROMETRO_INICIAL)!!
@@ -61,11 +72,10 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
             lifecycleOwner = this@SecondReportFragment
         }
 
-        binding.op = OPERATOR
+        binding.op = USER
 
-        val viajesAridos = binding.viajesDataReport.viajesAridos
-        val metrosCubicosViaje = binding.viajesDataReport.metrosCubicosViaje
-        val metrosCubicosTotales = binding.viajesDataReport.metrosCubicosTotales
+        getTipoMaterialesListObserve()
+
         val cantidadCombustible = binding.combustibleDataReport.cantidadCombustible
         val horometroCombustible = binding.combustibleDataReport.horometroCombustible
         val inicioJornada = binding.jornadaDataReport.inicioJornada
@@ -73,6 +83,61 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
         val observaciones = binding.jornadaDataReport.observaciones
         val firmaOperador = binding.firmaDataReport.firmaChofer
         val firmaSupervisorSi = binding.firmaDataReport.firmaSi
+
+        binding.viajesDataReport.agregarViajeBtn.setOnClickListener {
+            if (MATERIALES!!.isNotEmpty()) {
+                val dialog = requireContext().addViaje(MATERIALES!!).show()
+                dialog.mt_cubicos.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    }
+
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    }
+
+                    override fun afterTextChanged(s: Editable?) {
+                        val mt3Totales: Int
+                        var viajes = dialog.cantidad_viajes.text.toString()
+                        var mt3PorViaje = dialog.mt_cubicos.text.toString()
+
+                        if (dialog.cantidad_viajes.text.isNullOrEmpty()) viajes = "0"
+                        if (dialog.mt_cubicos.text.isNullOrEmpty()) mt3PorViaje = "0"
+
+                        if (dialog.cantidad_viajes.text!!.isDigitsOnly() && dialog.mt_cubicos.text!!.isDigitsOnly()) {
+                            mt3Totales = viajes.toInt() * mt3PorViaje.toInt()
+                            dialog.mt_cubicos_totales.setText(mt3Totales.toString())
+                        }
+                    }
+
+                })
+                dialog.getButton(Dialog.BUTTON_POSITIVE).setOnClickListener {
+                    val error =
+                        when {
+                            dialog.tipo_material_option.text.isNullOrEmpty() -> "Debe seleccionar un tipo de material."
+                            dialog.cantidad_viajes.text.isNullOrEmpty() -> "Debe ingresar la cantidad de viajes."
+                            dialog.mt_cubicos.text.isNullOrEmpty() -> "Debe ingresar los metros cúbicos de material por viaje."
+                            else -> null
+                        }
+
+                    if (!error.isNullOrEmpty()) {
+                        dialog.error_msg.text = error
+                        dialog.error_msg.visibility = View.VISIBLE
+                    } else {
+                        binding.reportViewModel?.addViaje(
+                            Viaje(
+                                0,
+                                dialog.tipo_material_option.text.toString(),
+                                dialog.cantidad_viajes.text.toString().toInt(),
+                                dialog.mt_cubicos.text.toString().toInt(),
+                                dialog.mt_cubicos_totales.text.toString().toInt(),
+                                numeroReport.toInt()
+                            )
+                        )
+                        getViajesListObserve(numeroReport.toInt())
+                        dialog.dismiss()
+                    }
+                }
+            }
+        }
 
         binding.jornadaDataReport.inicioJornada.setOnClickListener {
             showTimePickerDialog(0)
@@ -91,13 +156,14 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
 
                     binding.reportViewModel?.addReport(
                         Report(
-                            0,
+                            numeroReport.toInt(),
                             operador,
                             date,
-                            numeroReport,
                             equipo,
+                            equipoArrastre,
                             tipoEquipo,
                             patente,
+                            aditamento,
                             obra,
                             empresa,
                             horometroInicial,
@@ -105,9 +171,6 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
                             diferenciaHorometro,
                             kilometrajeInicial,
                             kilometrajeFinal,
-                            viajesAridos.text.toString(),
-                            metrosCubicosViaje.text.toString(),
-                            metrosCubicosTotales.text.toString(),
                             cantidadCombustible.text.toString(),
                             horometroCombustible.text.toString(),
                             inicioJornada.text.toString(),
@@ -125,7 +188,7 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
     }
 
     private fun showTimePickerDialog(op: Int) {
-        val timePickerFragment = TimePickerFragment.newInstance(TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+        val timePickerFragment = TimePickerFragment.newInstance(TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
             val hour = if (hourOfDay < 10) "0$hourOfDay" else "$hourOfDay"
             val min = if (minute < 10) "0$minute" else "$minute"
             val time = "$hour:$min"
@@ -135,12 +198,26 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
         timePickerFragment.show(this.childFragmentManager, "timePicker")
     }
 
+    private fun getTipoMaterialesListObserve() {
+        binding.reportViewModel?.obtenerMateriales()?.observe(viewLifecycleOwner, Observer { materialesList ->
+            MATERIALES = materialesList
+        })
+    }
+
+    private fun getViajesListObserve(reportNumber: Int) {
+        binding.reportViewModel?.obtenerViajes(reportNumber)?.observe(viewLifecycleOwner, Observer { viajesList ->
+            Timber.e("$viajesList")
+            binding.viajesDataReport.viajesAdapter = ViajesAdapter(requireContext(), viajesList)
+            binding.viajesDataReport.viajesAdapter!!.notifyDataSetChanged()
+        })
+    }
+
     private fun showSaveReportDialog() {
         val alertDialog = AlertDialog.Builder(requireContext())
         alertDialog.setTitle("Report Guardado")
         alertDialog.setIcon(R.drawable.ic_check)
         alertDialog.setMessage("Se ha guardado exitosamente el report.")
-        alertDialog.setPositiveButton("Aceptar") { dialog, which ->
+        alertDialog.setPositiveButton("Aceptar") { dialog, _ ->
             nav?.navigate(R.id.action_secondReportFragment_to_mainFragment)
             arguments?.clear()
             dialog.dismiss()
@@ -155,6 +232,7 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
             nav?.navigate(R.id.action_secondReportFragment_to_mainFragment)
             arguments?.clear()
+            binding.reportViewModel?.deleteViaje(numeroReport.toInt())
             dialog.dismiss()
         }
     }
@@ -171,6 +249,4 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
             backDialog()
         }
     }
-
-
 }

@@ -2,8 +2,12 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.main.create_report.SecondReportFragment">
     <data>
+        <variable
+            name="adapter"
+            type="cl.rentalea.rentalapp.ui.adapter.ViajesAdapter" />
         <variable
             name="reportViewModel"
             type="cl.rentalea.rentalapp.viewmodel.ReportViewModel" />
@@ -15,8 +19,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.main.create_report.SecondReportFragment">
+        android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -31,7 +34,8 @@
                     android:id="@+id/viajes_data_report"
                     layout="@layout/fragment_viajes_report"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    app:viajesAdapter="@{adapter}"
                     android:layout_marginTop="8dp"/>
 
                 <include

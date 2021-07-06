@@ -9,12 +9,11 @@ import android.widget.*
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.text.isDigitsOnly
-import androidx.lifecycle.observe
 import cl.rentalea.rentalapp.R
 import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentFirstReportBinding
-import cl.rentalea.rentalapp.utils.Constants.OPERATOR
+import cl.rentalea.rentalapp.utils.Constants.USER
 import cl.rentalea.rentalapp.utils.DatePickerFragment
 import cl.rentalea.rentalapp.utils.alert
 import cl.rentalea.rentalapp.utils.backToMain
@@ -23,22 +22,24 @@ import kotlinx.android.synthetic.main.equipos_list_item.*
 import kotlinx.android.synthetic.main.fragment_first_report.*
 import kotlinx.android.synthetic.main.fragment_vehiculos_report.*
 import kotlinx.android.synthetic.main.toolbar_main.*
-import org.koin.android.ext.android.bind
 import org.koin.android.viewmodel.ext.android.getViewModel
-import timber.log.Timber
 import java.util.*
 
 class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
 
     override fun getLayoutRestId(): Int = R.layout.fragment_first_report
 
+    private var datePickerFragment = DatePickerFragment()
+
     companion object {
         const val OPERADOR = "operador"
         const val FECHA_REPORTE = "date_report"
         const val NUMERO_REPORTE = "numero_report"
         const val EQUIPO = "equipo_report"
+        const val EQUIPO_ARRASTRE = "equipo_arrastre"
         const val TIPO_EQUIPO = "tipo_equipo"
         const val PATENTE = "patente_report"
+        const val ADITAMENTO = "aditamento"
         const val NOMBRE_OBRA = "obra_report"
         const val NOMBRE_EMPRESA = "empresa_report"
         const val HOROMETRO_INICIAL = "horometro_inicial"
@@ -55,7 +56,7 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
             lifecycleOwner = this@FirstReportFragment
         }
 
-        binding.op = OPERATOR
+        binding.op = USER
 
         val operador = binding.initDataReport.operatorName
         val date = binding.initDataReport.dateInput
@@ -64,7 +65,7 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
         val tipoEquipo = binding.vehiculoDataReport.tipoEquipoOption
         val aditamento = binding.vehiculoDataReport.aditamentoOption
         val patente = binding.vehiculoDataReport.patenteOption
-        val accesorio = binding.vehiculoDataReport.accesorioOption
+        val equipoArrastre = binding.vehiculoDataReport.equipoArrastreOption
         val obra = binding.empresaDataReport.obraReport
         val obraEspecifica = binding.empresaDataReport.obraSpecific
         val empresa = binding.empresaDataReport.empresaReport
@@ -85,7 +86,7 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
         obrasListObserver()
         empresasListObserver()
         tipoEquipoSelectedListener(tipoEquipo, equipo, patente, aditamento)
-        equipoSelectedListener(tipoEquipo,equipo, patente, accesorio)
+        equipoSelectedListener(tipoEquipo,equipo, patente, equipoArrastre)
         obrasSelectedListener(obra)
         empresasSelectedListener(empresa)
 
@@ -100,8 +101,12 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
                 numeroReport.text.isNullOrEmpty() -> requireContext().alert(0, "Debe ingresar un numero de report.").show()
                 patente.text.isNullOrEmpty() -> requireContext().alert(0, "Debe ingresar la patente del vehiculo.").show()
                 horometroInicial.text.isNullOrEmpty() -> requireContext().alert(0, "Debe ingresar el horometro inicial.").show()
-                kilometrajeInicial.text.isNullOrEmpty() -> requireContext().alert(0, "Debe ingresar el kilometraje inicial.").show()
-                kilometrajeFinal.text.isNullOrEmpty() -> requireContext().alert(0, "Debe ingresar el kilometraje final.").show()
+                horometroFinal.text.isNullOrEmpty() -> requireContext().alert(0, "Debe ingresar el horometro final.").show()
+                (tipoEquipo.text.toString() == "VEHICULO PESADO" || tipoEquipo.text.toString() == "VEHICULO LIVIANO") && (kilometrajeInicial.text.isNullOrEmpty() || kilometrajeFinal.text.isNullOrEmpty()) -> {
+
+                    requireContext().alert(0, "Debe ingresar datos del kilometraje.").show()
+
+                }
 
                 else -> {
                     if (horometroInicial.text.toString().toInt() > horometroFinal.text.toString().toInt()) {
@@ -112,14 +117,16 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
                         bundle.putString(NUMERO_REPORTE, numeroReport.text.toString())
                         bundle.putString(EQUIPO, equipo.text.toString())
                         bundle.putString(TIPO_EQUIPO, tipoEquipo.text.toString())
+                        bundle.putString(EQUIPO_ARRASTRE, if (equipoArrastre.text.isNullOrEmpty()) "Sin equipo de arrastre" else equipoArrastre.toString() )
                         bundle.putString(PATENTE, patente.text.toString())
-                        bundle.putString(NOMBRE_OBRA, obra.text.toString())
-                        bundle.putString(NOMBRE_EMPRESA, empresa.text.toString())
+                        bundle.putString(ADITAMENTO, if (aditamento.text.isNullOrEmpty()) "Sin aditamento" else aditamento.text.toString())
+                        bundle.putString(NOMBRE_OBRA, if (obra.text.toString() == "Otra (especificar)") obraEspecifica.text.toString() else obra.text.toString())
+                        bundle.putString(NOMBRE_EMPRESA, if (empresa.text.toString() == "Otra (especificar)") empresaEspecifica.text.toString() else empresa.text.toString())
                         bundle.putString(HOROMETRO_INICIAL, horometroInicial.text.toString())
                         bundle.putString(HOROMETRO_FINAL, horometroFinal.text.toString())
                         bundle.putString(DIFERENCIA_HOROMETRO, diferenciaHorometro.text.toString())
-                        bundle.putString(KILOMETRAJE_INICIAL, kilometrajeInicial.text.toString())
-                        bundle.putString(KILOMETRAJE_FINAL, kilometrajeFinal.text.toString())
+                        bundle.putString(KILOMETRAJE_INICIAL, if (kilometrajeInicial.text.isNullOrEmpty()) "0" else kilometrajeInicial.text.toString())
+                        bundle.putString(KILOMETRAJE_FINAL, if (kilometrajeFinal.text.isNullOrEmpty()) "0" else kilometrajeFinal.text.toString())
 
                         nav!!.navigate(R.id.action_firstReportFragment_to_secondReportFragment, bundle)
                     }
@@ -129,11 +136,14 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
     }
 
     private fun showDatePickerDialog() {
-        val datePickerFragment = DatePickerFragment.newInstance(DatePickerDialog.OnDateSetListener { _, year, month, day ->
-            val date = "$day/${month+1}/$year"
-            binding.initDataReport.dateInput.setText(date)
+        datePickerFragment = DatePickerFragment.newInstance(DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            if (datePickerFragment.getCurrentDayOfMonth() < day) {
+                requireContext().alert(0, "No puede elgir una fecha posterior a la actual.").show()
+            } else {
+                val date = "$day/${month+1}/$year"
+                binding.initDataReport.dateInput.setText(date)
+            }
         })
-
         datePickerFragment.show(this.childFragmentManager, "datePicker")
     }
 
@@ -170,7 +180,7 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
 
     private fun setAccesoriosAdapter(accesoriosList: MutableList<String>) {
         val adapter = ArrayAdapter(requireContext(), R.layout.equipos_list_item, accesoriosList)
-        (binding.vehiculoDataReport.accesorioOption).setAdapter(adapter)
+        (binding.vehiculoDataReport.equipoArrastreOption).setAdapter(adapter)
     }
 
     private fun tipoEquipoSelectedListener(
@@ -204,7 +214,7 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
                 binding.horometroDataReport.kilometrajeFinalInput.visibility = View.GONE
             }
 
-            binding.vehiculoDataReport.accesorioInput.visibility = View.GONE
+            binding.vehiculoDataReport.equipoArrastreInput.visibility = View.GONE
         }
     }
 
@@ -217,9 +227,9 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
         equipo.setOnItemClickListener { parent, view, position, id ->
             if (equipo.text.toString() == "TRACTOCAMION" && tipoEquipo.text.toString() == "VEHICULO PESADO" ) {
                 accesoriosListObserver()
-                binding.vehiculoDataReport.accesorioInput.visibility = View.VISIBLE
+                binding.vehiculoDataReport.equipoArrastreInput.visibility = View.VISIBLE
             } else {
-                binding.vehiculoDataReport.accesorioInput.visibility = View.GONE
+                binding.vehiculoDataReport.equipoArrastreInput.visibility = View.GONE
                 accesorio.setText("")
             }
             patentesListObserver(equipo.text.toString())
