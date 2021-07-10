@@ -64,28 +64,7 @@ class ReportRepositoryImpl(private val dataSource: DataSource): ReportRepository
     }
 
     override suspend fun saveReportInFirestore(report: Report, viajes: MutableList<Viaje>): Respuesta<Boolean> {
-        val reportMap = hashMapOf(
-            "operador" to report.operador,
-            "fecha" to report.date,
-            "numero_report" to report.report_number,
-            "equipo" to report.equipo,
-            "tipo_equipo" to report.tipo_equipo,
-            "patente" to report.patente,
-            "obra" to report.obra,
-            "empresa" to report.empresa,
-            "horometro_inicial" to report.horometro_inicial,
-            "horometro_final" to report.horometro_final,
-            "diferencia_horometro" to report.diferencia_horometro,
-            "kilometraje_inicial" to report.kilometraje_inicial,
-            "kilometraje_final" to report.kilometraje_final,
-            "litros_combustible" to report.litros_combustible,
-            "horometro_combustible" to report.horometro_combustible,
-            "inicio_jornada" to report.inicio_jornada,
-            "fin_jornada" to report.fin_jornada,
-            "observaciones" to report.observaciones,
-            "firma_supervisor" to report.firma_supervisor,
-            "firma_operador" to report.firma_operador
-        )
+        val viajesMap = hashMapOf( "viajes" to viajes)
 
         return try {
             val reportRef = firestore.collection("reports").document(report.report_number.toString())
@@ -93,12 +72,7 @@ class ReportRepositoryImpl(private val dataSource: DataSource): ReportRepository
                 .collection("viajes").document()
             firestore.runBatch { batch ->
                 batch.set(reportRef, report)
-
-                if (viajes.isNotEmpty()) {
-                    for (viaje in viajes) {
-                        batch.set(viajeRef, viaje)
-                    }
-                }
+                batch.set(viajeRef, viajesMap)
 
 
             }.await()
