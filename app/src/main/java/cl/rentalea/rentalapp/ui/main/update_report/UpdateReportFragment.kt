@@ -23,5 +23,9 @@ class UpdateReportFragment : DataBindingFragment<FragmentUpdateReportBinding>() 
         }
         binding.report = Constants.REPORT!!
         binding.user = Constants.USER!!
+
+        binding.cancelOrSaveLayout.editViajesBtn.setOnClickListener {
+            // TODO: 12-07-2021 go to edit viajes fragment
+        }
     }
 }

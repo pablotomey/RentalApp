@@ -240,7 +240,7 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
 
     private fun obrasSelectedListener(obras: AutoCompleteTextView) {
         obras.setOnItemClickListener { parent, view, position, id ->
-            if (obras.text.toString() == "Otros (Especificar)") {
+            if (obras.text.toString() == "Otra (especificar)") {
                 binding.empresaDataReport.obraSpecificInput.visibility = View.VISIBLE
             } else {
                 binding.empresaDataReport.obraSpecificInput.visibility = View.GONE
@@ -250,7 +250,7 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
 
     private fun empresasSelectedListener(empresas: AutoCompleteTextView) {
         empresas.setOnItemClickListener { parent, view, position, id ->
-            if (empresas.text.toString() == "Otros (Especificar)") {
+            if (empresas.text.toString() == "Otra (especificar)") {
                 binding.empresaDataReport.empresaSpecificInput.visibility = View.VISIBLE
             } else {
                 binding.empresaDataReport.empresaSpecificInput.visibility = View.GONE

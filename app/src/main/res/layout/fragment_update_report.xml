@@ -96,7 +96,7 @@
                     android:id="@+id/report_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{report.report_number}"
+                    android:text="@{Integer.toString(report.report_number)}"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -149,6 +149,31 @@
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- aditamento input-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/aditamento_input"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="Aditamento"
+                android:labelFor="@+id/aditamento_option"
+                android:visibility="visible"
+                app:boxStrokeColor="@color/stroke_green"
+                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidthFocused="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/equipo_select">
+
+                <AutoCompleteTextView
+                    android:id="@+id/aditamento_option"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{report.aditamento}"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <!-- patente input-->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/patente_input"
@@ -163,7 +188,7 @@
                 app:boxStrokeWidthFocused="3dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/equipo_select">
+                app:layout_constraintTop_toBottomOf="@+id/aditamento_input">
 
                 <AutoCompleteTextView
                     android:id="@+id/patente_option"
@@ -174,14 +199,16 @@
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- obra input-->
+            <!-- equipo arrastre input-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/obra_input"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/equipo_arrastre_input"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
-                android:layout_height="58dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:hint="@string/obra"
+                android:hint="Equipo de arrastre"
+                android:labelFor="@+id/equipo_arrastre_option"
+                android:visibility="visible"
                 app:boxStrokeColor="@color/stroke_green"
                 app:boxStrokeWidth="2dp"
                 app:boxStrokeWidthFocused="3dp"
@@ -189,22 +216,46 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/patente_input">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <AutoCompleteTextView
+                    android:id="@+id/equipo_arrastre_option"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{report.equipo_arrastre}"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- obra input-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/obra_input"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_margin="8dp"
+                android:hint="@string/obra"
+                android:labelFor="@+id/obra_report"
+                app:boxStrokeColor="@color/stroke_green"
+                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidthFocused="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/equipo_arrastre_input">
+
+                <AutoCompleteTextView
                     android:id="@+id/obra_report"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{report.obra}"
-                    android:inputType="text" />
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- empresa input-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/empresa_input"
+                android:id="@+id/obra_specific_input"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="58dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:hint="@string/empresa_mandante"
+                android:hint="@string/especificar_obra"
+                android:visibility="visible"
                 app:boxStrokeColor="@color/stroke_green"
                 app:boxStrokeWidth="2dp"
                 app:boxStrokeWidthFocused="3dp"
@@ -213,12 +264,59 @@
                 app:layout_constraintTop_toBottomOf="@+id/obra_input">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/obra_specific"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- empresa input-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/empresa_input"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_margin="8dp"
+                android:hint="@string/empresa_mandante"
+                android:labelFor="@+id/empresa_report"
+                app:boxStrokeColor="@color/stroke_green"
+                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidthFocused="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/obra_specific_input">
+
+                <AutoCompleteTextView
                     android:id="@+id/empresa_report"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{report.empresa}"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/empresa_specific_input"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="@string/especificar_empresa"
+                app:boxStrokeColor="@color/stroke_green"
+                app:boxStrokeWidth="2dp"
+                android:visibility="visible"
+                app:boxStrokeWidthFocused="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/empresa_input">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/empresa_specific"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- viajes recycler -->
 
             <!-- horómetro inicial input-->
             <com.google.android.material.textfield.TextInputLayout
@@ -233,7 +331,7 @@
                 app:boxStrokeWidthFocused="3dp"
                 app:layout_constraintEnd_toStartOf="@id/horometro_final_input"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/empresa_input">
+                app:layout_constraintTop_toBottomOf="@+id/empresa_specific_input">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/horometro_inicial"
@@ -257,7 +355,7 @@
                 app:boxStrokeWidthFocused="3dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/horometro_inicial_input"
-                app:layout_constraintTop_toBottomOf="@+id/empresa_input">
+                app:layout_constraintTop_toBottomOf="@+id/empresa_specific_input">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/horometro_final"
@@ -337,71 +435,7 @@
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- viajes input-->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/viajes_input"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:layout_margin="8dp"
-                android:hint="@string/viajes_aridos"
-                app:boxStrokeColor="@color/stroke_green"
-                app:boxStrokeWidth="2dp"
-                app:boxStrokeWidthFocused="3dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/kilometraje_inicial_input">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/viajes_aridos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- metros cúbicos input-->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/metros_cubicos_input"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:layout_margin="8dp"
-                android:hint="@string/metros_cubicos_por_viaje"
-                app:boxStrokeColor="@color/stroke_green"
-                app:boxStrokeWidth="2dp"
-                app:boxStrokeWidthFocused="3dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viajes_input">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/metros_cubicos_viaje"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- metros totales input-->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/metros_totales_input"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:layout_margin="8dp"
-                android:hint="@string/metros_cubicos_totales"
-                app:boxStrokeColor="@color/stroke_green"
-                app:boxStrokeWidth="2dp"
-                app:boxStrokeWidthFocused="3dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/metros_cubicos_input">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/metros_cubicos_totales"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- cantidad combustible input-->
             <com.google.android.material.textfield.TextInputLayout
@@ -416,7 +450,7 @@
                 app:boxStrokeWidthFocused="3dp"
                 app:layout_constraintEnd_toStartOf="@id/horometro_combustible_input"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/metros_totales_input">
+                app:layout_constraintTop_toBottomOf="@+id/kilometraje_final_input">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/cantidad_combustible"
@@ -439,7 +473,7 @@
                 app:boxStrokeWidthFocused="3dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cantidad_combustible_input"
-                app:layout_constraintTop_toBottomOf="@+id/metros_totales_input">
+                app:layout_constraintTop_toBottomOf="@+id/kilometraje_final_input">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/horometro_combustible"

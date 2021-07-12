@@ -120,7 +120,7 @@
                 android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- aditamento input-->
+        <!-- equipo arrastre input-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/equipo_arrastre_input"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"

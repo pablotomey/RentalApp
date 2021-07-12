@@ -78,5 +78,8 @@
     <string name="viajes_a_ridos">Viajes a áridos:</string>
     <string name="sin_viajes_aridos">Sin viajes a áridos</string>
     <string name="equipo_arrrastre">Equipo Arrrastre:</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="guardar">Guardar</string>
+    <string name="editar_viajes_a_aridos">Editar viajes a áridos</string>
 
 </resources>
