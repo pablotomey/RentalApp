@@ -58,12 +58,12 @@ class DataSource(private val roomDataBase: AppDataBase) {
         roomDataBase.reportDao().deleteReport(report)
     }
 
-    suspend fun getEquiposList(tipoEquipo: String): Respuesta<MutableList<String>> {
-        return Respuesta.Success(roomDataBase.equipoDao().getEquiposList(tipoEquipo))
+    suspend fun getEquiposList(tipoEquipo: String): MutableList<String> {
+        return roomDataBase.equipoDao().getEquiposList(tipoEquipo)
     }
 
-    suspend fun getPatentesList(equipo: String): Respuesta<MutableList<String>> {
-        return Respuesta.Success(roomDataBase.vehiculoDao().getPatentesList(equipo))
+    suspend fun getPatentesList(equipo: String): MutableList<String> {
+        return roomDataBase.vehiculoDao().getPatentesList(equipo)
     }
 
     suspend fun getObrasList(): MutableList<String> {
@@ -96,5 +96,13 @@ class DataSource(private val roomDataBase: AppDataBase) {
 
     suspend fun deleteViaje(reportNumber: Int) {
         roomDataBase.viajeDao().deleteViaje(reportNumber)
+    }
+
+    suspend fun updateReport(report: Report) {
+        roomDataBase.reportDao().updateReport(report)
+    }
+
+    suspend fun getReport(numReport: Int): Report {
+        return roomDataBase.reportDao().getReport(numReport)
     }
 }

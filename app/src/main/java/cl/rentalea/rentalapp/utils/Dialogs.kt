@@ -19,6 +19,17 @@ fun Context.alert(op: Int, msg: String): AlertDialog {
             .create()
 }
 
+fun Context.infoDialog(msg: String): AlertDialog {
+    val icon = R.drawable.ic_check
+    return AlertDialog.Builder(this)
+        .setTitle("Información")
+        .setIcon(icon)
+        .setMessage(msg)
+        .setPositiveButton("Aceptar", null)
+        .setCancelable(false)
+        .create()
+}
+
 fun Context.backToMain(msg: String): AlertDialog {
     val icon = R.drawable.ic_info
     return AlertDialog.Builder(this)

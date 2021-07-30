@@ -12,6 +12,12 @@ interface ReportDao {
     @Query("SELECT * FROM Report")
     suspend fun getAllReports(): MutableList<Report>
 
+    @Query("SELECT * FROM REPORT WHERE report_number =:num_report")
+    suspend fun getReport(num_report: Int): Report
+
+    @Update
+    suspend fun updateReport(report: Report)
+
     @Delete
     suspend fun deleteReport(report: Report)
 }

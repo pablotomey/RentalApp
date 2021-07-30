@@ -11,4 +11,6 @@ object Constants {
     var USER: User? = null
     var MATERIALES: MutableList<String>? = null
     var VIAJES: MutableList<Viaje>? = null
+    var EQUIPOS: MutableList<String>? = null
+    var ADITAMENTOS: MutableList<String>? = null
 }

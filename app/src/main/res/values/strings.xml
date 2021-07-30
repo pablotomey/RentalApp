@@ -41,7 +41,6 @@
     <string name="si">Si</string>
     <string name="no">No</string>
     <string name="firma_chofer_u_operador">Firma chofer u operador:</string>
-    <string name="guardar">Guardar</string>
     <string name="cantidad_de_litros_de_combustible">Cantidad de litros de combustible</string>
     <string name="horometro_carga_comustible">Horómetro carga comustible</string>
     <string name="no_se_han_creado_reportes">No se han creado reportes.</string>

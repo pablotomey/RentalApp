@@ -13,6 +13,7 @@ import cl.rentalea.rentalapp.R
 import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentFirstReportBinding
+import cl.rentalea.rentalapp.utils.Constants.EQUIPOS
 import cl.rentalea.rentalapp.utils.Constants.USER
 import cl.rentalea.rentalapp.utils.DatePickerFragment
 import cl.rentalea.rentalapp.utils.alert
@@ -117,7 +118,7 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
                         bundle.putString(NUMERO_REPORTE, numeroReport.text.toString())
                         bundle.putString(EQUIPO, equipo.text.toString())
                         bundle.putString(TIPO_EQUIPO, tipoEquipo.text.toString())
-                        bundle.putString(EQUIPO_ARRASTRE, if (equipoArrastre.text.isNullOrEmpty()) "Sin equipo de arrastre" else equipoArrastre.toString() )
+                        bundle.putString(EQUIPO_ARRASTRE, if (equipoArrastre.text.isNullOrEmpty()) "Sin equipo de arrastre" else equipoArrastre.text.toString() )
                         bundle.putString(PATENTE, patente.text.toString())
                         bundle.putString(ADITAMENTO, if (aditamento.text.isNullOrEmpty()) "Sin aditamento" else aditamento.text.toString())
                         bundle.putString(NOMBRE_OBRA, if (obra.text.toString() == "Otra (especificar)") obraEspecifica.text.toString() else obra.text.toString())
@@ -259,26 +260,15 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
     }
 
     private fun equiposListObserver(tipoEquipo: String) {
-        binding.reportViewModel?.obtenerEquipos(tipoEquipo)?.observe(viewLifecycleOwner, androidx.lifecycle.Observer { response ->
-            when (response) {
-                is Respuesta.Loading -> {}
-                is Respuesta.Success -> {
-                    setEquiposAdapter(response.data)
-                }
-                is Respuesta.Failure -> {}
-            }
+        binding.reportViewModel?.obtenerEquipos(tipoEquipo)?.observe(viewLifecycleOwner, androidx.lifecycle.Observer { equiposList ->
+            setEquiposAdapter(equiposList)
         })
     }
 
     private fun patentesListObserver(equipo: String) {
-        binding.reportViewModel?.obtenerPatentes(equipo)?.observe(viewLifecycleOwner, androidx.lifecycle.Observer { response ->
-            when (response) {
-                is Respuesta.Loading -> {}
-                is Respuesta.Success -> {
-                    setPatentesAdapter(response.data)
-                }
-                is Respuesta.Failure -> {}
-            }
+        binding.reportViewModel?.obtenerPatentes(equipo)?.observe(viewLifecycleOwner, androidx.lifecycle.Observer { patentesList ->
+            setPatentesAdapter(patentesList)
+
         })
     }
 

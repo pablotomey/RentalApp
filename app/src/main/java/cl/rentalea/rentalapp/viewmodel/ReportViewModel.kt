@@ -23,6 +23,14 @@ class ReportViewModel(private val reportRepository: ReportUseCase): ViewModel() 
         }
     }
 
+    fun getReport(numReport: Int): LiveData<Report> {
+        val report = MutableLiveData<Report>()
+        viewModelScope.launch {
+            report.postValue(reportRepository.getReport(numReport))
+        }
+        return report
+    }
+
     fun getReports() = liveData(Dispatchers.IO) {
         emit(Respuesta.Loading())
         try {
@@ -55,22 +63,18 @@ class ReportViewModel(private val reportRepository: ReportUseCase): ViewModel() 
         }
     }
 
-    fun obtenerEquipos(tipoEquipo: String) = liveData(Dispatchers.IO) {
-        emit(Respuesta.Loading())
-        try {
-            emit(reportRepository.getEquiposList(tipoEquipo))
-        } catch (e: Exception) {
-            Respuesta.Failure(e.message!!)
+    fun updateReport(report: Report) {
+        viewModelScope.launch {
+            reportRepository.updateReport(report)
         }
     }
 
+    fun obtenerEquipos(tipoEquipo: String) = liveData(Dispatchers.IO) {
+        emit(reportRepository.getEquiposList(tipoEquipo))
+    }
+
     fun obtenerPatentes(equipo: String) = liveData(Dispatchers.IO) {
-        emit(Respuesta.Loading())
-        try {
-            emit(reportRepository.getPatentesList(equipo))
-        } catch (e: Exception) {
-            Respuesta.Failure(e.message!!)
-        }
+        emit(reportRepository.getPatentesList(equipo))
     }
 
     fun obtenerObras(): LiveData<MutableList<String>> {

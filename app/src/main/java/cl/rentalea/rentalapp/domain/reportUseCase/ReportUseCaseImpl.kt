@@ -12,6 +12,10 @@ class ReportUseCaseImpl(private val reportRepository: ReportRepository):
         reportRepository.insertReport(report)
     }
 
+    override suspend fun getReport(numReport: Int): Report {
+        return reportRepository.getReport(numReport)
+    }
+
     override suspend fun getReports(): Respuesta<MutableList<Report>> {
         return reportRepository.getReports()
     }
@@ -26,11 +30,15 @@ class ReportUseCaseImpl(private val reportRepository: ReportRepository):
         reportRepository.deleteReport(report)
     }
 
-    override suspend fun getEquiposList(tipoEquipo: String): Respuesta<MutableList<String>> {
+    override suspend fun updateReport(report: Report) {
+        reportRepository.updateReport(report)
+    }
+
+    override suspend fun getEquiposList(tipoEquipo: String): MutableList<String> {
         return reportRepository.getEquiposList(tipoEquipo)
     }
 
-    override suspend fun getPatentesList(equipo: String): Respuesta<MutableList<String>> {
+    override suspend fun getPatentesList(equipo: String): MutableList<String> {
         return reportRepository.getPatentesList(equipo)
     }
 

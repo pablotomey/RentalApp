@@ -15,6 +15,10 @@ class ReportRepositoryImpl(private val dataSource: DataSource): ReportRepository
         dataSource.insertReport(report)
     }
 
+    override suspend fun getReport(numReport: Int): Report {
+        return dataSource.getReport(numReport)
+    }
+
     override suspend fun getReports(): Respuesta<MutableList<Report>> {
         return dataSource.getReports()
     }
@@ -23,11 +27,15 @@ class ReportRepositoryImpl(private val dataSource: DataSource): ReportRepository
         dataSource.deleteReport(report)
     }
 
-    override suspend fun getEquiposList(tipoEquipo: String): Respuesta<MutableList<String>> {
+    override suspend fun updateReport(report: Report) {
+        dataSource.updateReport(report)
+    }
+
+    override suspend fun getEquiposList(tipoEquipo: String): MutableList<String> {
         return dataSource.getEquiposList(tipoEquipo)
     }
 
-    override suspend fun getPatentesList(equipo: String): Respuesta<MutableList<String>> {
+    override suspend fun getPatentesList(equipo: String): MutableList<String> {
         return dataSource.getPatentesList(equipo)
     }
 

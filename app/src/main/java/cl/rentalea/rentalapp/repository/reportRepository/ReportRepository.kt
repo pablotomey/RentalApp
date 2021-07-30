@@ -8,15 +8,19 @@ interface ReportRepository {
 
     suspend fun insertReport(report: Report)
 
+    suspend fun getReport(numReport: Int): Report
+
+    suspend fun deleteReport(report: Report)
+
+    suspend fun updateReport(report: Report)
+
     suspend fun getReports(): Respuesta<MutableList<Report>>
 
     suspend fun saveReportInFirestore(report: Report, viajes: MutableList<Viaje>): Respuesta<Boolean>
 
-    suspend fun deleteReport(report: Report)
+    suspend fun getEquiposList(tipoEquipo: String): MutableList<String>
 
-    suspend fun getEquiposList(tipoEquipo: String): Respuesta<MutableList<String>>
-
-    suspend fun getPatentesList(equipo: String): Respuesta<MutableList<String>>
+    suspend fun getPatentesList(equipo: String): MutableList<String>
 
     suspend fun getObrasList(): MutableList<String>
 

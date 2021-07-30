@@ -75,6 +75,7 @@ class SendReportFragment : DataBindingFragment<FragmentSendReportBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        requireActivity().toolbar_title.text = ("Enviar o editar Reporte")
         requireActivity().btn_back.setOnClickListener {
             nav!!.navigate(R.id.action_sendReportFragment_to_reportListFragment)
         }

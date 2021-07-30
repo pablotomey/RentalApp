@@ -63,6 +63,7 @@
                 app:boxStrokeWidthFocused="3dp"
                 app:endIconDrawable="@drawable/ic_calendar"
                 app:endIconMode="custom"
+                android:enabled="false"
                 app:layout_constraintEnd_toStartOf="@id/report_number_input"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/operator_label">
@@ -88,6 +89,7 @@
                 app:boxStrokeColor="@color/stroke_green"
                 app:boxStrokeWidth="2dp"
                 app:boxStrokeWidthFocused="3dp"
+                android:enabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/date_layout"
                 app:layout_constraintTop_toBottomOf="@+id/operator_label">
@@ -120,18 +122,18 @@
                     android:id="@+id/tipo_equipo_option"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{report.tipo_equipo}"
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- tipo equipo menu-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/equipo_select"
+                android:id="@+id/equipo_input"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
                 android:layout_margin="8dp"
                 android:hint="@string/equipo_o_maquina"
+                android:enabled="true"
                 android:labelFor="@id/equipo_option"
                 app:boxStrokeColor="@color/stroke_green"
                 app:boxStrokeWidth="2dp"
@@ -142,7 +144,6 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/equipo_option"
-                    android:enabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{report.equipo}"
@@ -164,7 +165,7 @@
                 app:boxStrokeWidthFocused="3dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/equipo_select">
+                app:layout_constraintTop_toBottomOf="@+id/equipo_input">
 
                 <AutoCompleteTextView
                     android:id="@+id/aditamento_option"
@@ -192,10 +193,8 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/patente_option"
-                    android:enabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{report.patente}"
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -232,7 +231,7 @@
                 android:layout_height="58dp"
                 android:layout_margin="8dp"
                 android:hint="@string/obra"
-                android:labelFor="@+id/obra_report"
+                android:labelFor="@+id/obra_option"
                 app:boxStrokeColor="@color/stroke_green"
                 app:boxStrokeWidth="2dp"
                 app:boxStrokeWidthFocused="3dp"
@@ -241,7 +240,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/equipo_arrastre_input">
 
                 <AutoCompleteTextView
-                    android:id="@+id/obra_report"
+                    android:id="@+id/obra_option"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{report.obra}"
@@ -256,6 +255,7 @@
                 android:layout_margin="8dp"
                 android:hint="@string/especificar_obra"
                 android:visibility="visible"
+                android:enabled="false"
                 app:boxStrokeColor="@color/stroke_green"
                 app:boxStrokeWidth="2dp"
                 app:boxStrokeWidthFocused="3dp"
@@ -278,7 +278,7 @@
                 android:layout_height="58dp"
                 android:layout_margin="8dp"
                 android:hint="@string/empresa_mandante"
-                android:labelFor="@+id/empresa_report"
+                android:labelFor="@+id/empresa_option"
                 app:boxStrokeColor="@color/stroke_green"
                 app:boxStrokeWidth="2dp"
                 app:boxStrokeWidthFocused="3dp"
@@ -287,7 +287,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/obra_specific_input">
 
                 <AutoCompleteTextView
-                    android:id="@+id/empresa_report"
+                    android:id="@+id/empresa_option"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{report.empresa}"
@@ -301,6 +301,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:hint="@string/especificar_empresa"
+                android:enabled="false"
                 app:boxStrokeColor="@color/stroke_green"
                 app:boxStrokeWidth="2dp"
                 android:visibility="visible"
