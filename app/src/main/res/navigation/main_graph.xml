@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainFragment_to_reportListFragment"
             app:destination="@id/reportListFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_checkListFragment"
+            app:destination="@id/checkListFragment" />
     </fragment>
     <fragment
         android:id="@+id/firstReportFragment"
@@ -71,9 +74,20 @@
     <fragment
         android:id="@+id/updateReportFragment"
         android:name="cl.rentalea.rentalapp.ui.main.update_report.UpdateReportFragment"
-        android:label="UpdateReportFragment" >
+        android:label="UpdateReportFragment"
+        tools:layout="@layout/fragment_update_report">
+
         <action
             android:id="@+id/action_updateReportFragment_to_sendReportFragment"
             app:destination="@id/sendReportFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkListFragment"
+        android:name="cl.rentalea.rentalapp.ui.main.create_report.CheckListFragment"
+        android:label="fragment_check_list"
+        tools:layout="@layout/fragment_check_list" >
+        <action
+            android:id="@+id/action_checkListFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
 </navigation>

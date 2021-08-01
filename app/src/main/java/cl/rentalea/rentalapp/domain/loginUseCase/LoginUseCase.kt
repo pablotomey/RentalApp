@@ -26,6 +26,8 @@ interface LoginUseCase {
 
     suspend fun getAditamentosFromFirestore(): Respuesta<MutableList<Aditamento>>
 
+    suspend fun getCheckListItemsFromFirestore(): Respuesta<MutableList<CheckListItem>>
+
     suspend fun insertVehiculos(vehiculo: Vehiculo)
 
     suspend fun cleanVehiculos()
@@ -41,6 +43,8 @@ interface LoginUseCase {
     suspend fun insertAccesorio(accesorio: Accesorio)
 
     suspend fun insertAditamento(aditamento: Aditamento)
+
+    suspend fun insertCheckListItem(checkListItem: CheckListItem)
 
     suspend fun cleanEquipos()
 }

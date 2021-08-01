@@ -46,6 +46,10 @@ class LoginRepositoryImpl(private val dataSource: DataSource): LoginRepository {
         dataSource.insertAditamento(aditamento)
     }
 
+    override suspend fun insertCheckListItem(checkListItem: CheckListItem) {
+        dataSource.insertCheckListItem(checkListItem)
+    }
+
     override suspend fun cleanEquipos() {
         dataSource.cleanEquipos()
     }
@@ -171,5 +175,21 @@ class LoginRepositoryImpl(private val dataSource: DataSource): LoginRepository {
             )
         }
         return Respuesta.Success(aditamentolList)
+    }
+
+    override suspend fun getCheckListItemsFromFirestore(): Respuesta<MutableList<CheckListItem>> {
+        val itemList: MutableList<CheckListItem> = mutableListOf()
+        val resultData = firestore.collection("check_list_items").get().await()
+
+        for (item in resultData) {
+            itemList.add(
+                CheckListItem(
+                    item.id.toInt(),
+                    item.getString("item_name")!!,
+                    item.get("status")!!.toString().toInt()
+                )
+            )
+        }
+        return Respuesta.Success(itemList)
     }
 }

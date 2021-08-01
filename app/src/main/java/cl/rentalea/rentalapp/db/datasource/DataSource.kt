@@ -86,6 +86,10 @@ class DataSource(private val roomDataBase: AppDataBase) {
         return roomDataBase.accesorioDao().getAccesorios()
     }
 
+    suspend fun insertCheckListItem(checkListItem: CheckListItem) {
+        return roomDataBase.checkListItemDao().insertCheckListItems(checkListItem)
+    }
+
     suspend fun insertViajeData(viaje: Viaje) {
         roomDataBase.viajeDao().insertViaje(viaje)
     }
@@ -104,5 +108,9 @@ class DataSource(private val roomDataBase: AppDataBase) {
 
     suspend fun getReport(numReport: Int): Report {
         return roomDataBase.reportDao().getReport(numReport)
+    }
+
+    suspend fun getCheckItemsList(): MutableList<CheckListItem> {
+        return roomDataBase.checkListItemDao().getCheckListItems()
     }
 }

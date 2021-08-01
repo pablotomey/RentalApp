@@ -21,6 +21,10 @@ class MainFragment : DataBindingFragment<FragmentMainBinding>() {
             nav!!.navigate(R.id.action_mainFragment_to_firstReportFragment)
         }
 
+        binding.modules.checkListModule.setOnClickListener {
+            nav!!.navigate(R.id.action_mainFragment_to_checkListFragment)
+        }
+
         binding.modules.sendReportModule.setOnClickListener {
             nav!!.navigate(R.id.action_mainFragment_to_reportListFragment)
         }

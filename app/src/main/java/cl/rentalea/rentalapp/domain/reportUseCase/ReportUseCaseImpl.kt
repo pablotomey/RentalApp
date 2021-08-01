@@ -1,6 +1,7 @@
 package cl.rentalea.rentalapp.domain.reportUseCase
 
 import cl.rentalea.rentalapp.base.Respuesta
+import cl.rentalea.rentalapp.db.entity.CheckListItem
 import cl.rentalea.rentalapp.repository.reportRepository.ReportRepository
 import cl.rentalea.rentalapp.db.entity.Report
 import cl.rentalea.rentalapp.db.entity.Viaje
@@ -60,6 +61,10 @@ class ReportUseCaseImpl(private val reportRepository: ReportRepository):
 
     override suspend fun getAccesoriosList(): MutableList<String> {
         return reportRepository.getAccesoriosList()
+    }
+
+    override suspend fun getCheckItemsList(): MutableList<CheckListItem> {
+        return reportRepository.getCheckItemsList()
     }
 
     override suspend fun insertViajeData(viaje: Viaje) {

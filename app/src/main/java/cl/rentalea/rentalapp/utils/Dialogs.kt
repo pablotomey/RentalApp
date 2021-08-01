@@ -50,3 +50,9 @@ fun Context.addViaje(viajesList: MutableList<String>): MaterialAlertDialogBuilde
         .setCancelable(true)
         .setPositiveButton("Agregar", null)
 }
+
+fun Context.itemStatusDialog(): MaterialAlertDialogBuilder {
+    val layout = LayoutInflater.from(this).inflate(R.layout.item_status_dialog_layout, null, false)
+    return MaterialAlertDialogBuilder(this).setView(layout)
+        .setCancelable(true)
+}

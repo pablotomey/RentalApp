@@ -19,7 +19,8 @@ import cl.rentalea.rentalapp.db.entity.*
         Material::class,
         Aditamento::class,
         Accesorio::class,
-        Viaje::class
+        Viaje::class,
+        CheckListItem::class
     ], version = DB_VERSION, exportSchema = false )
 abstract class AppDataBase : RoomDatabase() {
     abstract fun userDao(): UserDao
@@ -32,6 +33,7 @@ abstract class AppDataBase : RoomDatabase() {
     abstract fun aditamentoDao(): AditamientoDao
     abstract fun accesorioDao(): AccesorioDao
     abstract fun viajeDao(): ViajeDao
+    abstract fun checkListItemDao(): CheckListItemDao
 
     companion object {
         const val DB_VERSION = 1

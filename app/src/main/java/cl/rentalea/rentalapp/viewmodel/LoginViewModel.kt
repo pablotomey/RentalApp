@@ -78,6 +78,12 @@ class LoginViewModel(private val loginRepository: LoginUseCase): ViewModel() {
         }
     }
 
+    fun guardarCheckListItem(checkListItem: CheckListItem) {
+        viewModelScope.launch {
+            loginRepository.insertCheckListItem(checkListItem)
+        }
+    }
+
     fun eliminarEquipos() {
         viewModelScope.launch {
             loginRepository.cleanEquipos()
@@ -142,6 +148,15 @@ class LoginViewModel(private val loginRepository: LoginUseCase): ViewModel() {
         emit(Respuesta.Loading())
         try {
             emit(loginRepository.getAccesoriosFromFirestore())
+        } catch (e: Exception) {
+            emit(Respuesta.Failure(e.message!!))
+        }
+    }
+
+    fun obtenerCheckListItems() = liveData(Dispatchers.IO) {
+        emit(Respuesta.Loading())
+        try {
+            emit(loginRepository.getCheckListItemsFromFirestore())
         } catch (e: Exception) {
             emit(Respuesta.Failure(e.message!!))
         }

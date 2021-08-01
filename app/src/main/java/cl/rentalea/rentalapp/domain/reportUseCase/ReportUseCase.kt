@@ -1,6 +1,7 @@
 package cl.rentalea.rentalapp.domain.reportUseCase
 
 import cl.rentalea.rentalapp.base.Respuesta
+import cl.rentalea.rentalapp.db.entity.CheckListItem
 import cl.rentalea.rentalapp.db.entity.Report
 import cl.rentalea.rentalapp.db.entity.Viaje
 
@@ -31,6 +32,8 @@ interface ReportUseCase {
     suspend fun getAditamentosList(): MutableList<String>
 
     suspend fun getAccesoriosList(): MutableList<String>
+
+    suspend fun getCheckItemsList(): MutableList<CheckListItem>
 
     suspend fun insertViajeData(viaje: Viaje)
 

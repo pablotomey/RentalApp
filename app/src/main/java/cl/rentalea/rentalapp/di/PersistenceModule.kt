@@ -16,4 +16,5 @@ val persistenceModule = module {
     single { get<AppDataBase>().aditamentoDao() }
     single { get<AppDataBase>().accesorioDao() }
     single { get<AppDataBase>().viajeDao() }
+    single { get<AppDataBase>().checkListItemDao() }
 }

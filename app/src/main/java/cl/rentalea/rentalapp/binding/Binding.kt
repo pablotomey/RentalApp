@@ -1,13 +1,16 @@
 package cl.rentalea.rentalapp.binding
 
 import android.content.Intent
+import android.icu.lang.UCharacter
 import android.view.View
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cl.rentalea.rentalapp.base.BaseViewHolder
 import cl.rentalea.rentalapp.ui.MainActivity
+import cl.rentalea.rentalapp.ui.adapter.CheckListadapter
 import cl.rentalea.rentalapp.ui.adapter.ReportListAdapter
 import cl.rentalea.rentalapp.ui.adapter.ViajesAdapter
 import cl.rentalea.rentalapp.utils.Constants.DLOADING
@@ -50,6 +53,7 @@ fun RecyclerView.bindAdapter(adaptador: RecyclerView.Adapter<*>?) {
         layoutManager = when (adaptador) {
             is ReportListAdapter -> LinearLayoutManager(context)
             is ViajesAdapter -> LinearLayoutManager(context)
+            is CheckListadapter -> LinearLayoutManager(context)
             else -> null
         }
 

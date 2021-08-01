@@ -42,6 +42,10 @@ class LoginUseCaseImpl(private val loginRepository: LoginRepository): LoginUseCa
         return loginRepository.getAditamentosFromFirestore()
     }
 
+    override suspend fun getCheckListItemsFromFirestore(): Respuesta<MutableList<CheckListItem>> {
+        return loginRepository.getCheckListItemsFromFirestore()
+    }
+
     override suspend fun insertVehiculos(vehiculo: Vehiculo) {
         loginRepository.insertVehiculos(vehiculo)
     }
@@ -72,6 +76,10 @@ class LoginUseCaseImpl(private val loginRepository: LoginRepository): LoginUseCa
 
     override suspend fun insertAditamento(aditamento: Aditamento) {
         loginRepository.insertAditamento(aditamento)
+    }
+
+    override suspend fun insertCheckListItem(checkListItem: CheckListItem) {
+        loginRepository.insertCheckListItem(checkListItem)
     }
 
     override suspend fun cleanEquipos() {

@@ -21,6 +21,8 @@ interface LoginRepository {
 
     suspend fun insertAditamento(aditamento: Aditamento)
 
+    suspend fun insertCheckListItem(checkListItem: CheckListItem)
+
     suspend fun cleanVehiculos()
 
     suspend fun cleanEquipos()
@@ -41,6 +43,6 @@ interface LoginRepository {
 
     suspend fun getAditamentosFromFirestore(): Respuesta<MutableList<Aditamento>>
 
-
+    suspend fun getCheckListItemsFromFirestore(): Respuesta<MutableList<CheckListItem>>
 
 }

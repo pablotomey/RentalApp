@@ -201,7 +201,7 @@ class LoginFragment : DataBindingFragment<FragmentLoginBinding>() {
                     for (accesorio in response.data) {
                         binding.loginVm?.guardarAccesorio(accesorio)
                     }
-                    goToMainActivity()
+                    getCheckListItemsObserve()
                     Timber.e("${response.data}")
                 }
                 is Respuesta.Failure -> {
@@ -213,6 +213,26 @@ class LoginFragment : DataBindingFragment<FragmentLoginBinding>() {
         })
     }
 
+    private fun getCheckListItemsObserve() {
+        binding.loginVm?.obtenerCheckListItems()?.observe(viewLifecycleOwner, Observer { response ->
+            when (response) {
+                is Respuesta.Loading -> showProgressBar(true)
+                is Respuesta.Success -> {
+                    showProgressBar(false)
+                    for (checkListItem in response.data) {
+                        binding.loginVm?.guardarCheckListItem(checkListItem)
+                    }
+                    goToMainActivity()
+                    Timber.e("${response.data}")
+                }
+                is Respuesta.Failure -> {
+                    showProgressBar(false)
+                    showInfoDialog(response.exception)
+                    Timber.e("ERROR -> ${response.exception}")
+                }
+            }
+        })
+    }
 
     private fun goToMainActivity() {
         val intent = Intent(requireContext(), MainActivity::class.java)

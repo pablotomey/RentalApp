@@ -2,6 +2,7 @@ package cl.rentalea.rentalapp.repository.reportRepository
 
 import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.db.datasource.DataSource
+import cl.rentalea.rentalapp.db.entity.CheckListItem
 import cl.rentalea.rentalapp.db.entity.Report
 import cl.rentalea.rentalapp.db.entity.Viaje
 import com.google.firebase.firestore.FirebaseFirestore
@@ -57,6 +58,10 @@ class ReportRepositoryImpl(private val dataSource: DataSource): ReportRepository
 
     override suspend fun getAccesoriosList(): MutableList<String> {
         return dataSource.getAccesoriosList()
+    }
+
+    override suspend fun getCheckItemsList(): MutableList<CheckListItem> {
+        return dataSource.getCheckItemsList()
     }
 
     override suspend fun insertViajeData(viaje: Viaje) {

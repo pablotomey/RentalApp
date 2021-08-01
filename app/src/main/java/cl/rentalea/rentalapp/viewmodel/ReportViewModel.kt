@@ -2,6 +2,7 @@ package cl.rentalea.rentalapp.viewmodel
 
 import androidx.lifecycle.*
 import cl.rentalea.rentalapp.base.Respuesta
+import cl.rentalea.rentalapp.db.entity.CheckListItem
 import cl.rentalea.rentalapp.db.entity.Report
 import cl.rentalea.rentalapp.db.entity.Viaje
 import cl.rentalea.rentalapp.domain.reportUseCase.ReportUseCase
@@ -115,6 +116,14 @@ class ReportViewModel(private val reportRepository: ReportUseCase): ViewModel() 
             accesoriosList.postValue(reportRepository.getAccesoriosList())
         }
         return accesoriosList
+    }
+
+    fun obtenerCheckItemsList(): LiveData<MutableList<CheckListItem>> {
+        val checkItemsList = MutableLiveData<MutableList<CheckListItem>>()
+        viewModelScope.launch {
+            checkItemsList.postValue(reportRepository.getCheckItemsList())
+        }
+        return checkItemsList
     }
 
     fun addViaje(viaje: Viaje) {
