@@ -1,5 +1,6 @@
 package cl.rentalea.rentalapp.utils
 
+import cl.rentalea.rentalapp.db.entity.CheckListItem
 import cl.rentalea.rentalapp.db.entity.Report
 import cl.rentalea.rentalapp.db.entity.User
 import cl.rentalea.rentalapp.db.entity.Viaje
@@ -11,6 +12,5 @@ object Constants {
     var USER: User? = null
     var MATERIALES: MutableList<String>? = null
     var VIAJES: MutableList<Viaje>? = null
-    var EQUIPOS: MutableList<String>? = null
-    var ADITAMENTOS: MutableList<String>? = null
+    var CHECKLIST_ITEM: CheckListItem? = null
 }

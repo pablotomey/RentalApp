@@ -126,6 +126,12 @@ class ReportViewModel(private val reportRepository: ReportUseCase): ViewModel() 
         return checkItemsList
     }
 
+    fun actualizarCheckListItem(checkListItem: CheckListItem) {
+        viewModelScope.launch {
+            reportRepository.updateCheckListItem(checkListItem)
+        }
+    }
+
     fun addViaje(viaje: Viaje) {
         viewModelScope.launch {
             reportRepository.insertViajeData(viaje)

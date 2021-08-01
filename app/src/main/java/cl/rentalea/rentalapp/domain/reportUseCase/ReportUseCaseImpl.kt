@@ -67,6 +67,10 @@ class ReportUseCaseImpl(private val reportRepository: ReportRepository):
         return reportRepository.getCheckItemsList()
     }
 
+    override suspend fun updateCheckListItem(checkListItem: CheckListItem) {
+        reportRepository.updateCheckListItem(checkListItem)
+    }
+
     override suspend fun insertViajeData(viaje: Viaje) {
         reportRepository.insertViajeData(viaje)
     }

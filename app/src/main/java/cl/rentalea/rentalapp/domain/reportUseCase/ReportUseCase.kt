@@ -35,6 +35,8 @@ interface ReportUseCase {
 
     suspend fun getCheckItemsList(): MutableList<CheckListItem>
 
+    suspend fun updateCheckListItem(checkListItem: CheckListItem)
+
     suspend fun insertViajeData(viaje: Viaje)
 
     suspend fun getViajesList(reportNumber: Int): MutableList<Viaje>

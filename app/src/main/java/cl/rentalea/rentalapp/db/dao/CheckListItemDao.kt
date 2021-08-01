@@ -1,9 +1,6 @@
 package cl.rentalea.rentalapp.db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import cl.rentalea.rentalapp.db.entity.CheckListItem
 
 @Dao
@@ -14,4 +11,7 @@ interface CheckListItemDao {
 
     @Query("SELECT * FROM CheckListItem")
     suspend fun getCheckListItems(): MutableList<CheckListItem>
+
+    @Update
+    suspend fun updateCheckListItem(checkListItem: CheckListItem)
 }

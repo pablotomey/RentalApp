@@ -1,9 +1,11 @@
 package cl.rentalea.rentalapp.ui.adapter
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import cl.rentalea.rentalapp.R
 import cl.rentalea.rentalapp.base.BaseViewHolder
@@ -35,22 +37,19 @@ class CheckListadapter(val context: Context, private val itemList: MutableList<C
 
             itemView.item_name.text = item.item_name
             itemView.item_state.text = when (item.status) {
-                0 -> {
-                    "Sin revisar"
-                }
-                1 -> {
-                    "Bueno"
-                }
-                2 -> {
-                    "Regular"
-                }
-                3 -> {
-                    "Malo"
-                }
-                else -> {
-                    "No aplica"
-                }
+                0 -> "Sin revisar"
+                1 -> "Bueno"
+                2 -> "Regular"
+                3 -> "Malo"
+                else -> "No aplica"
             }
+            itemView.item_state.setTextColor( when(item.status) {
+                1 -> ContextCompat.getColor(context, R.color.stroke_green)
+                2 -> ContextCompat.getColor(context, R.color.stroke_orange)
+                3 -> ContextCompat.getColor(context, R.color.btn_red)
+                4 -> ContextCompat.getColor(context, R.color.blue_light)
+                else -> ContextCompat.getColor(context, R.color.dark_status)
+            })
             itemView.item_img.setImageResource(if (item.status == 0) R.drawable.ic_alert else R.drawable.ic_check_ok)
 
             itemView.item_row.setOnClickListener {

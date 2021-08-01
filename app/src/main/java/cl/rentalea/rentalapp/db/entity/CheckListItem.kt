@@ -10,5 +10,5 @@ import kotlinx.android.parcel.Parcelize
 data class CheckListItem(
     @PrimaryKey val id: Int,
     val item_name: String,
-    val status: Int
+    var status: Int
 ): Parcelable

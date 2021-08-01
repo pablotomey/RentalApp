@@ -113,4 +113,8 @@ class DataSource(private val roomDataBase: AppDataBase) {
     suspend fun getCheckItemsList(): MutableList<CheckListItem> {
         return roomDataBase.checkListItemDao().getCheckListItems()
     }
+
+    suspend fun updateCheckListItem(checkListItem: CheckListItem) {
+        roomDataBase.checkListItemDao().updateCheckListItem(checkListItem)
+    }
 }

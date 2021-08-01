@@ -64,6 +64,10 @@ class ReportRepositoryImpl(private val dataSource: DataSource): ReportRepository
         return dataSource.getCheckItemsList()
     }
 
+    override suspend fun updateCheckListItem(checkListItem: CheckListItem) {
+        dataSource.updateCheckListItem(checkListItem)
+    }
+
     override suspend fun insertViajeData(viaje: Viaje) {
         dataSource.insertViajeData(viaje)
     }

@@ -10,10 +10,8 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.text.isDigitsOnly
 import cl.rentalea.rentalapp.R
-import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentFirstReportBinding
-import cl.rentalea.rentalapp.utils.Constants.EQUIPOS
 import cl.rentalea.rentalapp.utils.Constants.USER
 import cl.rentalea.rentalapp.utils.DatePickerFragment
 import cl.rentalea.rentalapp.utils.alert
