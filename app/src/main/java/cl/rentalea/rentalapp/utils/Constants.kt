@@ -13,4 +13,5 @@ object Constants {
     var MATERIALES: MutableList<String>? = null
     var VIAJES: MutableList<Viaje>? = null
     var CHECKLIST_ITEM: CheckListItem? = null
+    var CHECK_ITEMS_LIST: MutableList<CheckListItem>? = null
 }

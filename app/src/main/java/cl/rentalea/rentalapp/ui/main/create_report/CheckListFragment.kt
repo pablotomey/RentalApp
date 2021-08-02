@@ -1,11 +1,9 @@
 package cl.rentalea.rentalapp.ui.main.create_report
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import cl.rentalea.rentalapp.R
@@ -13,14 +11,14 @@ import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentCheckListBinding
 import cl.rentalea.rentalapp.db.entity.CheckListItem
 import cl.rentalea.rentalapp.ui.adapter.CheckListadapter
-import cl.rentalea.rentalapp.ui.adapter.ReportListAdapter
 import cl.rentalea.rentalapp.utils.Constants.CHECKLIST_ITEM
+import cl.rentalea.rentalapp.utils.Constants.CHECK_ITEMS_LIST
+import cl.rentalea.rentalapp.utils.backToMain
 import cl.rentalea.rentalapp.utils.itemStatusDialog
 import kotlinx.android.synthetic.main.fragment_check_list.*
 import kotlinx.android.synthetic.main.item_status_dialog_layout.*
 import kotlinx.android.synthetic.main.toolbar_main.*
 import org.koin.android.viewmodel.ext.android.getViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class CheckListFragment : DataBindingFragment<FragmentCheckListBinding>() , CheckListadapter.OnItemClickListener {
@@ -36,10 +34,15 @@ class CheckListFragment : DataBindingFragment<FragmentCheckListBinding>() , Chec
 
         binding.reportViewModel?.obtenerCheckItemsList()?.observe(viewLifecycleOwner, Observer { checkItemsList ->
             if (checkItemsList != null) {
+                CHECK_ITEMS_LIST = checkItemsList
                 binding.checkListAdapter = CheckListadapter(requireContext(), checkItemsList, this)
                 itemListRecycler.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
             }
         })
+
+        binding.confirmLayout.cancelBtn.setOnClickListener {
+            backDialog()
+        }
     }
 
     override fun onItemClick(item: CheckListItem, position: Int) {
@@ -78,6 +81,23 @@ class CheckListFragment : DataBindingFragment<FragmentCheckListBinding>() , Chec
         binding.checkListAdapter?.notifyDataSetChanged()
     }
 
+    private fun resetCheckListItemsStatus() {
+        for (item in CHECK_ITEMS_LIST!!) {
+            item.status = 0
+            binding.reportViewModel?.actualizarCheckListItem(item)
+        }
+    }
+
+    private fun backDialog() {
+        val dialog = requireContext().backToMain("Al salir perderá los cambios realizados, ¿desea continuar?")
+        dialog.show()
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+            resetCheckListItemsStatus()
+            nav?.navigate(R.id.action_checkListFragment_to_mainFragment)
+            dialog.dismiss()
+        }
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         requireActivity().toolbar_title.visibility = View.VISIBLE
@@ -86,11 +106,11 @@ class CheckListFragment : DataBindingFragment<FragmentCheckListBinding>() , Chec
         requireActivity().btn_back.visibility = View.VISIBLE
 
         requireActivity().btn_back.setOnClickListener {
-            nav!!.navigate(R.id.action_checkListFragment_to_mainFragment)
+            backDialog()
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            nav!!.navigate(R.id.action_checkListFragment_to_mainFragment)
+            backDialog()
         }
     }
 }
