@@ -2,6 +2,7 @@ package cl.rentalea.rentalapp.ui.main.create_report
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
@@ -13,8 +14,12 @@ import cl.rentalea.rentalapp.db.entity.CheckListItem
 import cl.rentalea.rentalapp.ui.adapter.CheckListadapter
 import cl.rentalea.rentalapp.utils.Constants.CHECKLIST_ITEM
 import cl.rentalea.rentalapp.utils.Constants.CHECK_ITEMS_LIST
+import cl.rentalea.rentalapp.utils.Mailer
 import cl.rentalea.rentalapp.utils.backToMain
+import cl.rentalea.rentalapp.utils.infoDialog
 import cl.rentalea.rentalapp.utils.itemStatusDialog
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_check_list.*
 import kotlinx.android.synthetic.main.item_status_dialog_layout.*
 import kotlinx.android.synthetic.main.toolbar_main.*
@@ -42,6 +47,16 @@ class CheckListFragment : DataBindingFragment<FragmentCheckListBinding>() , Chec
 
         binding.confirmLayout.cancelBtn.setOnClickListener {
             backDialog()
+        }
+
+        binding.confirmLayout.confirmBtn.setOnClickListener {
+            val dialog = requireContext().infoDialog("Se ha confirmado el Check list")
+            dialog.show()
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                resetCheckListItemsStatus()
+                nav?.navigate(R.id.action_checkListFragment_to_mainFragment)
+                dialog.dismiss()
+            }
         }
     }
 
@@ -96,6 +111,16 @@ class CheckListFragment : DataBindingFragment<FragmentCheckListBinding>() , Chec
             nav?.navigate(R.id.action_checkListFragment_to_mainFragment)
             dialog.dismiss()
         }
+    }
+
+    private fun mailer() {
+        Mailer.sendEmail("mail@mail.com", "Correo de prueba", "Este mensaje es para un correo de prueba")
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { Toast.makeText(requireContext(), "Mail send check e-mail", Toast.LENGTH_SHORT).show()},
+                {Timber.e(it)}
+            )
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

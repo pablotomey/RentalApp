@@ -7,6 +7,9 @@ import cl.rentalea.rentalapp.db.entity.Viaje
 
 object Constants {
 
+    val EMAIL = "mail@gmail.com"
+    val PASSWORD = "123456"
+
     var DLOADING: DialogLoading? = null
     var REPORT: Report? = null
     var USER: User? = null
