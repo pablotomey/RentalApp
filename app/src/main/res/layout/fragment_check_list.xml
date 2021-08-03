@@ -7,6 +7,10 @@
 
     <data>
         <variable
+            name="report"
+            type="cl.rentalea.rentalapp.db.entity.Report" />
+
+        <variable
             name="checkListAdapter"
             type="cl.rentalea.rentalapp.ui.adapter.CheckListadapter" />
         <variable
@@ -18,6 +22,13 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/resume_report_layout"
+            layout="@layout/resume_report_data_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:report="@{report}"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemListRecycler"

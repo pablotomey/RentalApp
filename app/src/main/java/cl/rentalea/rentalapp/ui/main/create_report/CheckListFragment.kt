@@ -12,12 +12,9 @@ import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentCheckListBinding
 import cl.rentalea.rentalapp.db.entity.CheckListItem
 import cl.rentalea.rentalapp.ui.adapter.CheckListadapter
+import cl.rentalea.rentalapp.utils.*
 import cl.rentalea.rentalapp.utils.Constants.CHECKLIST_ITEM
 import cl.rentalea.rentalapp.utils.Constants.CHECK_ITEMS_LIST
-import cl.rentalea.rentalapp.utils.Mailer
-import cl.rentalea.rentalapp.utils.backToMain
-import cl.rentalea.rentalapp.utils.infoDialog
-import cl.rentalea.rentalapp.utils.itemStatusDialog
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_check_list.*
@@ -36,6 +33,8 @@ class CheckListFragment : DataBindingFragment<FragmentCheckListBinding>() , Chec
             reportViewModel = getViewModel()
             lifecycleOwner = this@CheckListFragment
         }
+
+        binding.report = Constants.REPORT!!
 
         binding.reportViewModel?.obtenerCheckItemsList()?.observe(viewLifecycleOwner, Observer { checkItemsList ->
             if (checkItemsList != null) {

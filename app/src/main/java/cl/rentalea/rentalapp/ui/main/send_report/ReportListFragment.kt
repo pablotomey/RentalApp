@@ -12,6 +12,7 @@ import cl.rentalea.rentalapp.db.entity.Report
 import cl.rentalea.rentalapp.ui.adapter.ReportListAdapter
 import cl.rentalea.rentalapp.utils.Constants
 import cl.rentalea.rentalapp.utils.Constants.DLOADING
+import cl.rentalea.rentalapp.utils.Constants.FOR_CHECKLIST_OR_SEND_REPORT
 import cl.rentalea.rentalapp.utils.DialogLoading
 import kotlinx.android.synthetic.main.toolbar_main.*
 import org.koin.android.viewmodel.ext.android.getViewModel
@@ -53,7 +54,10 @@ class ReportListFragment : DataBindingFragment<FragmentReportListBinding>(), Rep
 
     override fun onReportClick(report: Report, position: Int) {
         Constants.REPORT = report
-        nav?.navigate(R.id.action_reportListFragment_to_sendReportFragment)
+        when(FOR_CHECKLIST_OR_SEND_REPORT) {
+            1 -> nav?.navigate(R.id.action_reportListFragment_to_checkListFragment)
+            2 -> nav?.navigate(R.id.action_reportListFragment_to_sendReportFragment)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

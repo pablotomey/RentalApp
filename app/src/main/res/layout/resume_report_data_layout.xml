@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="report"
+            type="cl.rentalea.rentalapp.db.entity.Report" />
+        <variable
+            name="user"
+            type="cl.rentalea.rentalapp.db.entity.User" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/n_report_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reporte_n"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_margin="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/n_report"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="20dp"
+            android:text="@{Integer.toString(report.report_number)}"
+            app:layout_constraintBottom_toBottomOf="@+id/n_report_lbl"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/n_report_lbl"
+            app:layout_constraintTop_toTopOf="@+id/n_report_lbl"
+            tools:text="567" />
+
+        <TextView
+            android:id="@+id/equipo_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/equipo"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/n_report_lbl" />
+
+        <TextView
+            android:id="@+id/equipo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="@{report.equipo}"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/equipo_lbl"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/equipo_lbl"
+            app:layout_constraintTop_toTopOf="@+id/equipo_lbl"
+            tools:text="CAMION PLUMA" />
+
+        <TextView
+            android:id="@+id/patente_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/patente"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/equipo_lbl" />
+
+        <TextView
+            android:id="@+id/patente"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="@{report.patente}"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/patente_lbl"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/patente_lbl"
+            app:layout_constraintTop_toTopOf="@+id/patente_lbl"
+            tools:text="DFGH45" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

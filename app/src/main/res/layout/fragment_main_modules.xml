@@ -4,20 +4,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable
+            name="user"
+            type="cl.rentalea.rentalapp.db.entity.User" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/report_module"
+            style="@style/card_material"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/card_material"
-            android:layout_margin="8dp">
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/check_list_module"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -27,16 +32,16 @@
                     android:id="@+id/title_module1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="28dp"
                     android:text="@string/ingreso_de_reports"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginBottom="28dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintEnd_toStartOf="@id/ic_report"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/ic_report"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,7 +57,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.91"
                     app:layout_constraintStart_toEndOf="@+id/title_module1"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -60,10 +65,13 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/check_list_module"
+            style="@style/card_material"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/card_material"
-            android:layout_margin="8dp">
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/report_module">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -73,16 +81,16 @@
                     android:id="@+id/title_module2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="28dp"
                     android:text="@string/check_list"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginBottom="28dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintEnd_toStartOf="@id/ic_check_list"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/ic_check_list"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,12 +101,12 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="20dp"
                     android:contentDescription="@string/report_icon"
-                    android:src="@drawable/ic_check_list"
+                    android:src="@drawable/ic_checklist"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.91"
                     app:layout_constraintStart_toEndOf="@+id/title_module2"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -106,10 +114,13 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/send_report_module"
+            style="@style/card_material"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/card_material"
-            android:layout_margin="8dp">
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/check_list_module">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -119,16 +130,16 @@
                     android:id="@+id/title_module3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="28dp"
                     android:text="@string/envio_de_reports"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginBottom="28dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintEnd_toStartOf="@id/ic_send_report"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/ic_send_report"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -144,11 +155,20 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.91"
                     app:layout_constraintStart_toEndOf="@+id/title_module3"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </com.google.android.material.card.MaterialCardView>
 
-    </LinearLayout>
+        <include
+            android:id="@+id/user_data"
+            layout="@layout/user_data_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:user="@{user}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
