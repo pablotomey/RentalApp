@@ -13,8 +13,8 @@
             type="cl.rentalea.rentalapp.viewmodel.ReportViewModel" />
 
         <variable
-            name="op"
-            type="cl.rentalea.rentalapp.db.entity.User" />
+            name="dataManager"
+            type="cl.rentalea.rentalapp.preferences.DataManager" />
     </data>
 
     <FrameLayout
@@ -59,7 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    app:operator="@{op}"/>
+                    app:dataManager="@{dataManager}"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_guardar"

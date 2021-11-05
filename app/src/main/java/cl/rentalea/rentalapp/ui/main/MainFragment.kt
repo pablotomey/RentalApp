@@ -1,18 +1,21 @@
 package cl.rentalea.rentalapp.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import cl.rentalea.rentalapp.R
 import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentMainBinding
-import cl.rentalea.rentalapp.utils.Constants
+import cl.rentalea.rentalapp.preferences.DataManager
+import cl.rentalea.rentalapp.ui.LoginActivity
 import cl.rentalea.rentalapp.utils.Constants.FOR_CHECKLIST_OR_SEND_REPORT
-import cl.rentalea.rentalapp.utils.Constants.USER
 import kotlinx.android.synthetic.main.toolbar_main.*
 
 class MainFragment : DataBindingFragment<FragmentMainBinding>() {
 
     override fun getLayoutRestId(): Int = R.layout.fragment_main
+
+    private val dataManager by lazy { DataManager.getInstance(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -20,7 +23,7 @@ class MainFragment : DataBindingFragment<FragmentMainBinding>() {
             lifecycleOwner = this@MainFragment
         }
 
-        binding.user = USER
+        binding.dataManager = DataManager.getInstance(requireContext())
 
         binding.modules.reportModule.setOnClickListener {
             nav!!.navigate(R.id.action_mainFragment_to_firstReportFragment)
@@ -35,6 +38,19 @@ class MainFragment : DataBindingFragment<FragmentMainBinding>() {
             FOR_CHECKLIST_OR_SEND_REPORT = 2
             nav!!.navigate(R.id.action_mainFragment_to_reportListFragment)
         }
+
+        binding.modules.userData.closeSessionBtn.setOnClickListener {
+            dataManager.logout()
+            goToLoginActivity()
+        }
+    }
+
+    private fun goToLoginActivity() {
+        val intent = Intent(requireContext(), LoginActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

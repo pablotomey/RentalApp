@@ -9,9 +9,9 @@ import cl.rentalea.rentalapp.R
 import cl.rentalea.rentalapp.base.Respuesta
 import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentLoginBinding
+import cl.rentalea.rentalapp.preferences.DataManager
 import cl.rentalea.rentalapp.ui.MainActivity
 import cl.rentalea.rentalapp.utils.Constants.DLOADING
-import cl.rentalea.rentalapp.utils.Constants.USER
 import cl.rentalea.rentalapp.utils.DialogLoading
 import cl.rentalea.rentalapp.utils.validarRut
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -22,6 +22,8 @@ import timber.log.Timber
 class LoginFragment : DataBindingFragment<FragmentLoginBinding>() {
 
     override fun getLayoutRestId(): Int = R.layout.fragment_login
+
+    val dataManager by lazy { DataManager.getInstance(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,7 +52,7 @@ class LoginFragment : DataBindingFragment<FragmentLoginBinding>() {
                 is Respuesta.Success -> {
                     showProgressBar(false)
                     binding.loginVm?.guardarUsuario(response.data)
-                    USER = response.data
+                    dataManager.createUserSession(response.data.nombre, response.data.rut)
                     getVehiculosListObserve()
                     Timber.e("${response.data}")
                 }

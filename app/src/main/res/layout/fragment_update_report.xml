@@ -10,8 +10,8 @@
             type="cl.rentalea.rentalapp.db.entity.Report" />
 
         <variable
-            name="user"
-            type="cl.rentalea.rentalapp.db.entity.User" />
+            name="dataManager"
+            type="cl.rentalea.rentalapp.preferences.DataManager" />
 
         <variable
             name="reportViewModel"
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:textSize="16sp"
-                android:text="@{user.nombre}"
+                android:text="@{dataManager.userData.get(dataManager.USER_NAME)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/operator_label"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -607,7 +607,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="@{user.rut}"
+                android:text="@{dataManager.userData.get(dataManager.USER_DNI)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/firma_chofer_label" />

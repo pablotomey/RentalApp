@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="user"
-            type="cl.rentalea.rentalapp.db.entity.User" />
+            name="dataManager"
+            type="cl.rentalea.rentalapp.preferences.DataManager" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -165,7 +165,7 @@
             layout="@layout/user_data_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:user="@{user}"
+            app:dataManager="@{dataManager}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

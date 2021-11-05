@@ -8,10 +8,11 @@ import androidx.lifecycle.Observer
 import cl.rentalea.rentalapp.R
 import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentSendReportBinding
+import cl.rentalea.rentalapp.preferences.DataManager
 import cl.rentalea.rentalapp.ui.adapter.ViajesAdapter
 import cl.rentalea.rentalapp.utils.Constants
+import cl.rentalea.rentalapp.utils.Constants.DLOADING
 import cl.rentalea.rentalapp.utils.Constants.REPORT
-import cl.rentalea.rentalapp.utils.Constants.USER
 import cl.rentalea.rentalapp.utils.Constants.VIAJES
 import cl.rentalea.rentalapp.utils.DialogLoading
 import cl.rentalea.rentalapp.utils.alert
@@ -29,10 +30,11 @@ class SendReportFragment : DataBindingFragment<FragmentSendReportBinding>() {
             reportViewModel = getViewModel()
             lifecycleOwner = this@SendReportFragment
         }
-        Constants.DLOADING = DialogLoading(requireContext(), "Enviando reporte")
+        DLOADING = DialogLoading(requireContext(), "Enviando reporte")
+
         Timber.e("$REPORT")
         binding.report = REPORT!!
-        binding.user = USER!!
+        binding.dataManager = DataManager.getInstance(requireContext())
 
         binding.sendBtnLayout.editBtn.setOnClickListener {
             nav?.navigate(R.id.action_sendReportFragment_to_updateReportFragment)
@@ -82,6 +84,11 @@ class SendReportFragment : DataBindingFragment<FragmentSendReportBinding>() {
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             nav!!.navigate(R.id.action_sendReportFragment_to_reportListFragment)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
     }
 
 }

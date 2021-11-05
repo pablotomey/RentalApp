@@ -8,6 +8,7 @@ import cl.rentalea.rentalapp.db.entity.Viaje
 import cl.rentalea.rentalapp.domain.reportUseCase.ReportUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class ReportViewModel(private val reportRepository: ReportUseCase): ViewModel() {
 
@@ -42,9 +43,9 @@ class ReportViewModel(private val reportRepository: ReportUseCase): ViewModel() 
     }
 
     fun sendReport(report: Report, viajes: MutableList<Viaje>) {
+        isLoading.postValue(true)
         viewModelScope.launch {
             when (val firestorePost = reportRepository.sendReport(report, viajes)) {
-                is Respuesta.Loading -> isLoading.postValue(true)
                 is Respuesta.Success -> {
                     if (firestorePost.data) {
                         isLoading.postValue(false)
@@ -53,7 +54,10 @@ class ReportViewModel(private val reportRepository: ReportUseCase): ViewModel() 
                         hasError.postValue("Hubo problemas al enviar el reporte, intente nuevamente")
                     }
                 }
-                is Respuesta.Failure -> hasError.postValue(firestorePost.exception)
+                is Respuesta.Failure -> {
+                    isLoading.postValue(false)
+                    hasError.postValue(firestorePost.exception)
+                }
             }
         }
     }

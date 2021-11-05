@@ -28,10 +28,10 @@ class ReportListFragment : DataBindingFragment<FragmentReportListBinding>(), Rep
             lifecycleOwner = this@ReportListFragment
         }
 
-        DLOADING = DialogLoading(requireContext(), "Cargando reportes")
+        //DLOADING = DialogLoading(requireContext(), "Cargando reportes")
 
         binding.reportViewModel?.getReports()?.observe(this, Observer { reportsResponse ->
-            binding.reportViewModel?.isLoading?.value = true
+            //binding.reportViewModel?.isLoading?.value = true
             when (reportsResponse) {
                 is Respuesta.Success -> {
                     binding.reportViewModel?.isLoading?.value = false

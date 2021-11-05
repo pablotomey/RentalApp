@@ -15,10 +15,11 @@ import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentSecondReportBinding
 import cl.rentalea.rentalapp.db.entity.Report
 import cl.rentalea.rentalapp.db.entity.Viaje
+import cl.rentalea.rentalapp.preferences.DataManager
 import cl.rentalea.rentalapp.ui.adapter.ViajesAdapter
 import cl.rentalea.rentalapp.utils.*
 import cl.rentalea.rentalapp.utils.Constants.MATERIALES
-import cl.rentalea.rentalapp.utils.Constants.USER
+import cl.rentalea.rentalapp.utils.Constants.VIAJES
 import kotlinx.android.synthetic.main.toolbar_main.*
 import kotlinx.android.synthetic.main.viajes_dialog_layout.*
 import org.koin.android.viewmodel.ext.android.getViewModel
@@ -27,6 +28,8 @@ import timber.log.Timber
 class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() {
 
     override fun getLayoutRestId(): Int = R.layout.fragment_second_report
+
+    private val viajesList: MutableList<Viaje> = mutableListOf()
 
     private lateinit var operador: String
     private lateinit var date: String
@@ -72,7 +75,7 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
             lifecycleOwner = this@SecondReportFragment
         }
 
-        binding.op = USER
+        binding.dataManager = DataManager.getInstance(requireContext())
 
         getTipoMaterialesListObserve()
 
@@ -122,17 +125,20 @@ class SecondReportFragment : DataBindingFragment<FragmentSecondReportBinding>() 
                         dialog.error_msg.text = error
                         dialog.error_msg.visibility = View.VISIBLE
                     } else {
-                        binding.reportViewModel?.addViaje(
-                            Viaje(
-                                0,
-                                dialog.tipo_material_option.text.toString(),
-                                dialog.cantidad_viajes.text.toString().toInt(),
-                                dialog.mt_cubicos.text.toString().toInt(),
-                                dialog.mt_cubicos_totales.text.toString().toInt(),
-                                numeroReport.toInt()
-                            )
+                        val viaje = Viaje(
+                            0,
+                            dialog.tipo_material_option.text.toString(),
+                            dialog.cantidad_viajes.text.toString().toInt(),
+                            dialog.mt_cubicos.text.toString().toInt(),
+                            dialog.mt_cubicos_totales.text.toString().toInt(),
+                            numeroReport.toInt()
                         )
-                        getViajesListObserve(numeroReport.toInt())
+
+                        viajesList.add(viaje)
+                        binding.reportViewModel?.addViaje(viaje)
+                        Timber.e("VIAJES LIST $viajesList")
+                        binding.viajesDataReport.viajesAdapter = ViajesAdapter(requireContext(), viajesList)
+                        binding.viajesDataReport.viajesAdapter!!.notifyDataSetChanged()
                         dialog.dismiss()
                     }
                 }

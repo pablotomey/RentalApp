@@ -12,7 +12,7 @@ import androidx.core.text.isDigitsOnly
 import cl.rentalea.rentalapp.R
 import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentFirstReportBinding
-import cl.rentalea.rentalapp.utils.Constants.USER
+import cl.rentalea.rentalapp.preferences.DataManager
 import cl.rentalea.rentalapp.utils.DatePickerFragment
 import cl.rentalea.rentalapp.utils.alert
 import cl.rentalea.rentalapp.utils.backToMain
@@ -55,7 +55,7 @@ class FirstReportFragment : DataBindingFragment<FragmentFirstReportBinding>() {
             lifecycleOwner = this@FirstReportFragment
         }
 
-        binding.op = USER
+        binding.dataManager = DataManager.getInstance(requireContext())
 
         val operador = binding.initDataReport.operatorName
         val date = binding.initDataReport.dateInput

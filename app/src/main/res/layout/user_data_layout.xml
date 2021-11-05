@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="user"
-            type="cl.rentalea.rentalapp.db.entity.User" />
+            name="dataManager"
+            type="cl.rentalea.rentalapp.preferences.DataManager" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,7 +33,7 @@
             android:textSize="18sp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:text="@{user.nombre}"
+            android:text="@{dataManager.userData.get(dataManager.USER_NAME)}"
             app:layout_constraintBottom_toBottomOf="@+id/n_report_lbl"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/n_report_lbl"
@@ -57,7 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="@{user.rut}"
+            android:text="@{dataManager.userData.get(dataManager.USER_DNI)}"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/equipo_lbl"

@@ -11,8 +11,8 @@
             type="cl.rentalea.rentalapp.db.entity.Report" />
 
         <variable
-            name="user"
-            type="cl.rentalea.rentalapp.db.entity.User" />
+            name="dataManager"
+            type="cl.rentalea.rentalapp.preferences.DataManager" />
 
         <variable
             name="reportViewModel"
@@ -42,7 +42,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:report="@{report}"
-                app:user="@{user}" />
+                app:dataManager="@{dataManager}" />
 
             <include
                 android:id="@+id/viajes_layout"

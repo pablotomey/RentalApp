@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="user"
-            type="cl.rentalea.rentalapp.db.entity.User" />
+            name="dataManager"
+            type="cl.rentalea.rentalapp.preferences.DataManager" />
     </data>
 
     <FrameLayout
@@ -18,7 +18,7 @@
         <include
             android:id="@+id/modules"
             layout="@layout/fragment_main_modules"
-            app:user="@{user}"/>
+            app:dataManager="@{dataManager}"/>
 
 
     </FrameLayout>

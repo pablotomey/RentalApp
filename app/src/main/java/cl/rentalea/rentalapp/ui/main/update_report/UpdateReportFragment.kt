@@ -5,22 +5,18 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.AutoCompleteTextView
-import android.widget.EditText
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.text.isDigitsOnly
-import androidx.lifecycle.Observer
 import cl.rentalea.rentalapp.R
 import cl.rentalea.rentalapp.binding.DataBindingFragment
 import cl.rentalea.rentalapp.databinding.FragmentUpdateReportBinding
 import cl.rentalea.rentalapp.db.entity.Report
+import cl.rentalea.rentalapp.preferences.DataManager
 import cl.rentalea.rentalapp.utils.*
 import cl.rentalea.rentalapp.utils.Constants.REPORT
-import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.toolbar_main.*
 import org.koin.android.viewmodel.ext.android.getViewModel
-import timber.log.Timber
 
 class UpdateReportFragment : DataBindingFragment<FragmentUpdateReportBinding>() {
 
@@ -33,7 +29,7 @@ class UpdateReportFragment : DataBindingFragment<FragmentUpdateReportBinding>() 
             lifecycleOwner = this@UpdateReportFragment
         }
         binding.report = REPORT!!
-        binding.user = Constants.USER!!
+        binding.dataManager = DataManager.getInstance(requireContext())
         binding.equipoOption.setText(REPORT!!.equipo, false)
         binding.aditamentoOption.setText(REPORT!!.aditamento, false)
         binding.patenteOption.setText(REPORT!!.patente, false)
